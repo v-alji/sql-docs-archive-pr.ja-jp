@@ -1,0 +1,82 @@
+{
+  "docsets_to_publish": [
+    {
+      "docset_name": "sql-archive-docset-a",
+      "build_source_folder": "docs-archive-a",
+      "build_output_subfolder": "sql-archive-docset-a",
+      "locale": "ja-jp",
+      "monikers": [],
+      "moniker_ranges": [],
+      "xref_query_tags": [
+        "/sql",
+        "/uwp/api",
+        "/dotnet"
+      ],
+      "open_to_public_contributors": false,
+      "type_mapping": {
+        "Conceptual": "Content"
+      },
+      "build_entry_point": "docs",
+      "template_folder": "_themes"
+    }
+  ],
+  "notification_subscribers": [],
+  "sync_notification_subscribers": [],
+  "branches_to_filter": [
+    "live-sxs",
+    "master-sxs"
+  ],
+  "continue_with_document_error": true,
+  "skip_source_output_uploading": false,
+  "need_preview_pull_request": true,
+  "contribution_branch_mappings": {},
+  "dependent_repositories": [
+    {
+      "path_to_root": "_themes",
+      "url": "https://github.com/Microsoft/templates.docs.msft.ja-jp",
+      "branch": "master",
+      "branch_mapping": {}
+    },
+    {
+      "path_to_root": "samples",
+      "url": "https://github.com/dotnet/samples",
+      "branch": "master",
+      "branch_mapping": {
+        "live": "live"
+      }
+    },
+    {
+      "path_to_root": "sqlclient",
+      "url": "https://github.com/dotnet/sqlclient",
+      "branch": "master",
+      "branch_mapping": {}
+    },
+    {
+      "path_to_root": "_themes.pdf",
+      "url": "https://github.com/Microsoft/templates.docs.msft.pdf",
+      "branch": "master",
+      "branch_mapping": {}
+    },
+    {
+      "path_to_root": "sql-server-samples",
+      "url": "https://github.com/Microsoft/sql-server-samples",
+      "branch": "master",
+      "branch_mapping": {}
+    },
+    {
+      "path_to_root": "_repo.en-us",
+      "url": "https://github.com/MicrosoftDocs/sql-docs-archive-pr",
+      "branch": "live",
+      "branch_mapping": {
+        "live": "live",
+        "master": "master"
+      }
+    }
+  ],
+  "branch_target_mapping": {},
+  "need_generate_pdf_url_template": false,
+  "targets": {},
+  "docs_build_engine": {
+    "name": "docfx_v3"
+  }
+}

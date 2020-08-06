@@ -1,0 +1,52 @@
+---
+title: ワークロードのチューニング |Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: database-engine
+ms.topic: conceptual
+helpviewer_keywords:
+- workloads [SQL Server], tuning
+ms.assetid: 6229bf3f-1182-4bc6-8451-cedc37f4b62e
+author: stevestein
+ms.author: sstein
+ms.openlocfilehash: f95aab55d402ac72228dcc4326ad00ea15e7471f
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87719226"
+---
+# <a name="tuning-a-workload"></a><span data-ttu-id="8c6a2-102">ワークロードのチューニング</span><span class="sxs-lookup"><span data-stu-id="8c6a2-102">Tuning a Workload</span></span>
+  <span data-ttu-id="8c6a2-103">データベース エンジン チューニング アドバイザーでは、チューニング用に選択したデータベースおよびテーブルについて、最適なクエリ パフォーマンスが得られる物理データベース設計を見つけることができます。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-103">The Database Engine Tuning Advisor can be used to find the best physical database design for query performance on the databases and tables that you select for tuning.</span></span>  
+  
+ <span data-ttu-id="8c6a2-104">このタスクでは [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] サンプル データベースを使用します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-104">This task uses the [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] sample database.</span></span> <span data-ttu-id="8c6a2-105">セキュリティ強化のため、既定ではサンプル データベースがインストールされません。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-105">To enhance security, the sample databases are not installed by default.</span></span> <span data-ttu-id="8c6a2-106">サンプル データベースをインストールするには、「 [SQL Server のサンプルとサンプル データベースのインストール](http://sqlserversamples.codeplex.com)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-106">To install the sample databases, see [Installing SQL Server Samples and Sample Databases](http://sqlserversamples.codeplex.com).</span></span>  
+  
+### <a name="tune-a-workload-transact-sql-script-file"></a><span data-ttu-id="8c6a2-107">ワークロード Transact-SQL スクリプト ファイルのチューニング</span><span class="sxs-lookup"><span data-stu-id="8c6a2-107">Tune a workload Transact-SQL script file</span></span>  
+  
+1.  <span data-ttu-id="8c6a2-108">「 」の</span><span class="sxs-lookup"><span data-stu-id="8c6a2-108">Copy a sample SELECT statement or statements from "A.</span></span> <span data-ttu-id="8c6a2-109">「[SELECT の例 (Transact-SQL)](/sql/t-sql/queries/select-examples-transact-sql)」の「A. SELECT を使用して行および列を取得する」からサンプルの SELECT ステートメントをコピーし、[!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)] のクエリ エディターに貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-109">Using SELECT to retrieve rows and columns" in [SELECT Examples &#40;Transact-SQL&#41;](/sql/t-sql/queries/select-examples-transact-sql) and paste the statements into the Query Editor of [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)].</span></span> <span data-ttu-id="8c6a2-110">このファイルを、探しやすいディレクトリに **MyScript.sql** という名前で保存します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-110">Save the file as **MyScript.sql** in a directory where you can easily find it.</span></span>  
+  
+2.  <span data-ttu-id="8c6a2-111">データベース エンジン チューニング アドバイザーを起動します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-111">Start Database Engine Tuning Advisor.</span></span> <span data-ttu-id="8c6a2-112">「 [データベース エンジン チューニング アドバイザーの起動](../../relational-databases/performance/database-engine-tuning-advisor.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-112">See [Launching Database Engine Tuning Advisor](../../relational-databases/performance/database-engine-tuning-advisor.md).</span></span>  
+  
+3.  <span data-ttu-id="8c6a2-113">データベース エンジン チューニング アドバイザー GUI の右側ペインで、 **[セッション名]** に「 **MySession**」と入力します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-113">In the right pane of the Database Engine Tuning Advisor GUI, type **MySession** in **Session name**.</span></span>  
+  
+4.  <span data-ttu-id="8c6a2-114">**[ワークロード]** で **[ファイル]** を選択し、 **[ワークロード ファイルを参照します。]** ボタンをクリックして、手順 1. で保存した **MyScript.sql** ファイルを指定します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-114">Select **File** for your **Workload**, and click the **Browse for a workload file** button to locate the **MyScript.sql** file that you saved in Step 1.</span></span>  
+  
+5.  <span data-ttu-id="8c6a2-115">[!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] [ワークロード分析用のデータベース] **ボックスの一覧で** を選択し、 [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] [チューニングするデータベースとテーブルの選択] **グリッドで** を選択します。 **[チューニング ログを保存する]** はオンのままにしておきます。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-115">Select [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] in the **Database for workload analysis** list, select [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] in the **Select databases and tables to tune** grid, and leave **Save tuning log** selected.</span></span> <span data-ttu-id="8c6a2-116">**[ワークロード分析用のデータベース]** では、データベース エンジン チューニング アドバイザーがワークロードのチューニング時に最初に接続するデータベースを指定します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-116">**Database for workload analysis** specifies the first database to which Database Engine Tuning Advisor connects when tuning a workload.</span></span> <span data-ttu-id="8c6a2-117">チューニングの開始後に、データベース チューニング アドバイザーは、ワークロードに含まれる `USE DATABASE` ステートメントで指定されたデータベースに接続します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-117">After tuning begins, Database Engine Tuning Advisor connects to the databases specified by the `USE DATABASE` statements contained in the workload.</span></span>  
+  
+6.  <span data-ttu-id="8c6a2-118">[**チューニングオプション**] タブをクリックします。この実習ではチューニングオプションを設定しませんが、既定のチューニングオプションを確認してください。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-118">Click the **Tuning Options** tab. You will not set any tuning options for this practice, but take a moment to review the default tuning options.</span></span> <span data-ttu-id="8c6a2-119">このタブ ページのヘルプを表示するには、F1 キーを押します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-119">Press F1 to view the Help for this tabbed page.</span></span> <span data-ttu-id="8c6a2-120">詳細なチューニング オプションを表示するには、 **[詳細設定オプション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-120">Click **Advanced Options** to view additional tuning options.</span></span> <span data-ttu-id="8c6a2-121">**[チューニング オプションの詳細設定]** ダイアログ ボックスに表示されているチューニング オプションの情報を表示するには、このダイアログ ボックスの **[ヘルプ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-121">Click **Help** in the **Advanced Tuning Options** dialog box for information about the tuning options that are displayed there.</span></span> <span data-ttu-id="8c6a2-122">既定のオプションを選択したまま **[キャンセル]** をクリックし、 **[チューニング オプションの詳細設定]** ダイアログ ボックスを閉じます。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-122">Click **Cancel** to close the **Advanced Tuning Options** dialog box, leaving the default options selected.</span></span>  
+  
+7.  <span data-ttu-id="8c6a2-123">ツール バーの **[分析の開始]** ボタンをクリックします。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-123">Click the **Start Analysis** button on the toolbar.</span></span> <span data-ttu-id="8c6a2-124">ワークロードを分析している間に、[**進行状況**] タブで状態を監視することができデータベースエンジンチューニングアドバイザーます。チューニングが完了すると、[**推奨**設定] タブが表示されます。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-124">While Database Engine Tuning Advisor is analyzing the workload, you can monitor the status on the **Progress** tab. When tuning is complete, the **Recommendations** tab is displayed.</span></span>  
+  
+     <span data-ttu-id="8c6a2-125">チューニングの停止日時に関するエラーが発生した場合**は、[** **チューニングオプション**] タブの [停止時刻] をオンにします。 [**停止**日時] の値が現在の日付と時刻よりも後であることを確認し、必要に応じて変更します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-125">If you receive an error about the tuning stop date and time, check the **Stop at** time on the main **Tuning Options** tab. Make sure the **Stop at** date and time are greater than the current date and time, and if necessary, change them.</span></span>  
+  
+8.  <span data-ttu-id="8c6a2-126">分析が完了したら、 [!INCLUDE[tsql](../../includes/tsql-md.md)] [アクション] **メニューの** [推奨設定の保存] **をクリックし、推奨設定を** スクリプトとして保存します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-126">After the analysis completes, save your recommendation as a [!INCLUDE[tsql](../../includes/tsql-md.md)] script by clicking **Save Recommendations** on the **Actions** menu.</span></span> <span data-ttu-id="8c6a2-127">**[名前を付けて保存]** ダイアログ ボックスで推奨設定スクリプトを保存するディレクトリに移動し、ファイル名として「 **MyRecommendations**」と入力します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-127">In the **Save As** dialog box, navigate to the directory where you want to save the recommendations script, and type the file name **MyRecommendations**.</span></span>  
+  
+## <a name="summary"></a><span data-ttu-id="8c6a2-128">まとめ</span><span class="sxs-lookup"><span data-stu-id="8c6a2-128">Summary</span></span>  
+ <span data-ttu-id="8c6a2-129">[!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] データベースで、簡単な SELECT ステートメントのワークロードをチューニングしました。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-129">You have completed tuning a simple SELECT statement workload on the [!INCLUDE[ssSampleDBobject](../../includes/sssampledbobject-md.md)] database.</span></span> <span data-ttu-id="8c6a2-130">データベース エンジン チューニング アドバイザーでは、 [!INCLUDE[ssSqlProfiler](../../includes/sssqlprofiler-md.md)] のトレース ファイルとテーブルをチューニング ワークロードとして取り込むこともできます。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-130">The Database Engine Tuning Advisor can also take [!INCLUDE[ssSqlProfiler](../../includes/sssqlprofiler-md.md)] trace files and tables as tuning workloads.</span></span> <span data-ttu-id="8c6a2-131">次の作業では、チューニングの実習で取得したチューニング推奨設定を表示し、解釈する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="8c6a2-131">The next task shows you how to view and interpret the tuning recommendations that you received as a result of the practice tuning.</span></span>  
+  
+## <a name="next-task-in-lesson"></a><span data-ttu-id="8c6a2-132">このレッスンの次の作業</span><span class="sxs-lookup"><span data-stu-id="8c6a2-132">Next Task in Lesson</span></span>  
+ [<span data-ttu-id="8c6a2-133">チューニング推奨設定の表示</span><span class="sxs-lookup"><span data-stu-id="8c6a2-133">Viewing Tuning Recommendations</span></span>](lesson-1-2-viewing-tuning-recommendations.md)  
+  
+  

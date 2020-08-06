@@ -1,0 +1,63 @@
+---
+title: データソースオブジェクトに対する権限の許可 (Analysis Services) |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+f1_keywords:
+- sql12.asvs.roledesignerdialog.datasources.f1
+helpviewer_keywords:
+- read/write permissions
+- user access rights [Analysis Services], data sources
+- security [Analysis Services], data sources
+- connection strings [Analysis Services]
+- data sources [Analysis Services], security
+ms.assetid: b4e302d3-c93b-4383-aa4a-37d15c129830
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: d0a7de676f5863187c2c137e056392a605af474f
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87718806"
+---
+# <a name="grant-permissions-on-a-data-source-object-analysis-services"></a><span data-ttu-id="013b4-102">データ ソース オブジェクトに対する権限の付与 (Analysis Services)</span><span class="sxs-lookup"><span data-stu-id="013b4-102">Grant permissions on a data source object (Analysis Services)</span></span>
+  <span data-ttu-id="013b4-103">通常、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] のユーザーは、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] プロジェクトの基になるデータ ソースへのアクセスを必要とすることはほとんどありません。</span><span class="sxs-lookup"><span data-stu-id="013b4-103">Typically, most users of [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] do not require access to the data sources that underlie an [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] project.</span></span> <span data-ttu-id="013b4-104">ユーザーは通常、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] データベース内部のデータを要求するクエリを発行するだけです。</span><span class="sxs-lookup"><span data-stu-id="013b4-104">Users ordinarily just query the data within an [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] database.</span></span> <span data-ttu-id="013b4-105">ただし、データ マイニングのコンテキストでは、マイニング モデルに基づいた予測の実行など、マイニング モデルの登録済みデータをユーザーが入力したデータに結合しなければならない場合があります。</span><span class="sxs-lookup"><span data-stu-id="013b4-105">However, in the context of data mining, such as performing predictions based on a mining model, a user has to join the learned data of a mining model with user-provided data.</span></span> <span data-ttu-id="013b4-106">ユーザーが入力したデータが含まれているデータ ソースに接続するには、[OPENQUERY &#40;DMX&#41;](/sql/dmx/source-data-query-openquery) 句または [OPENROWSET &#40;DMX&#41;](/sql/dmx/source-data-query-openrowset) 句を含んでいるデータ マイニング拡張機能 (DMX) クエリを使用します。</span><span class="sxs-lookup"><span data-stu-id="013b4-106">To connect to the data source that contains the user-provided data, the user uses a Data Mining Extensions (DMX) query that contains either the [OPENQUERY &#40;DMX&#41;](/sql/dmx/source-data-query-openquery) and [OPENROWSET &#40;DMX&#41;](/sql/dmx/source-data-query-openrowset) clause.</span></span>  
+  
+ <span data-ttu-id="013b4-107">データ ソースに接続する DMX クエリを実行するには、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] データベース内のデータ ソース オブジェクトに対するアクセス権が必要です。</span><span class="sxs-lookup"><span data-stu-id="013b4-107">To execute a DMX query that connects to a data source, the user must have access to the data source object within the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] database.</span></span> <span data-ttu-id="013b4-108">既定では、サーバー管理者またはデータベース管理者のみが、データ ソース オブジェクトにアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="013b4-108">By default, only Server Administrators or Database Administrators have access to data source objects.</span></span> <span data-ttu-id="013b4-109">つまり、ユーザーは管理者から権限を付与されている場合を除いてデータ ソース オブジェクトにアクセスできません。</span><span class="sxs-lookup"><span data-stu-id="013b4-109">This means that a user cannot access a data source object unless an administrator grants permissions.</span></span>  
+  
+> [!IMPORTANT]  
+>  <span data-ttu-id="013b4-110">セキュリティ上の理由から、OPENROWSET 句内の開いている接続文字列を使用して DMX クエリを送信することはできないようになっています。</span><span class="sxs-lookup"><span data-stu-id="013b4-110">For security reasons, the submission of DMX queries by using an open connection string in the OPENROWSET clause is disabled.</span></span>  
+  
+## <a name="set-read-permissions-to-a-data-source"></a><span data-ttu-id="013b4-111">データ ソースに対する読み取り権限の設定</span><span class="sxs-lookup"><span data-stu-id="013b4-111">Set Read permissions to a data source</span></span>  
+ <span data-ttu-id="013b4-112">データベース ロールには、データ ソース オブジェクトへのアクセス権をまったく与えないか、または読み取り権限を与えることができます。</span><span class="sxs-lookup"><span data-stu-id="013b4-112">A database role can be granted either no access permissions on a data source object or read permissions.</span></span>  
+  
+1.  <span data-ttu-id="013b4-113">[!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)]で、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)]のインスタンスに接続し、オブジェクト エクスプローラーで適切なデータベースの **[ロール]** を展開し、データベース ロールをクリックするか、新しいデータベース ロールを作成します。</span><span class="sxs-lookup"><span data-stu-id="013b4-113">In [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)], connect to the instance of [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)], expand **Roles** for the appropriate database in Object explorer, and then click a database role (or create a new database role).</span></span>  
+  
+2.  <span data-ttu-id="013b4-114">**[データ ソース アクセス]** ペインで、 **[データ ソース]** ボックスの一覧からデータ ソース オブジェクトを探し、データ ソースの **[アクセス]** ボックスの一覧で **[読み取り]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="013b4-114">In the **Data Source Access** pane, locate the data source object in the **Data Source** list, and then select the **Read** in the **Access** list for the data source.</span></span> <span data-ttu-id="013b4-115">このオプションを使用できない場合は、 **[全般]** ペインでフル コントロールが選択されているかどうかを確認してください。</span><span class="sxs-lookup"><span data-stu-id="013b4-115">If this option is unavailable, check the **General** pane to see if Full Control is selected.</span></span> <span data-ttu-id="013b4-116">フル コントロールによって権限が既に提供されているため、データ ソースに対する権限をオーバーライドすることはできません。</span><span class="sxs-lookup"><span data-stu-id="013b4-116">Full Control is already providing permission, you cannot override permissions on the data source.</span></span>  
+  
+## <a name="working-with-the-connection-string-used-by-a-data-source-object"></a><span data-ttu-id="013b4-117">データ ソース オブジェクトが使用する接続文字列の操作</span><span class="sxs-lookup"><span data-stu-id="013b4-117">Working With the Connection String Used by a Data Source Object</span></span>  
+ <span data-ttu-id="013b4-118">データ ソース オブジェクトには、基になるデータ ソースに接続するための接続文字列が含まれています。</span><span class="sxs-lookup"><span data-stu-id="013b4-118">The data source object contains the connection string that is used to connect to the underlying data source.</span></span> <span data-ttu-id="013b4-119">この接続文字列を使用すると、次のいずれかを指定できます。</span><span class="sxs-lookup"><span data-stu-id="013b4-119">This connection string can specify one of the following:</span></span>  
+  
+-   <span data-ttu-id="013b4-120">**ユーザー名とパスワードを指定する**</span><span class="sxs-lookup"><span data-stu-id="013b4-120">**Specify a user name and password**</span></span>  
+  
+     <span data-ttu-id="013b4-121">データ ソース オブジェクトで使用される接続文字列によってユーザー名とパスワードを指定すると、それぞれ異なるユーザー アカウントが設定された複数のデータ ソース オブジェクトを作成できます。</span><span class="sxs-lookup"><span data-stu-id="013b4-121">If the connection string that a data source object uses specifies a user name and password, you may want to create multiple data source objects, each with different user accounts.</span></span> <span data-ttu-id="013b4-122">複数のデータ ソース オブジェクトを作成すると、ユーザーが特定のデータ ソース オブジェクトにだけアクセスし、その他のデータ ソース オブジェクトにアクセスできないようにすることができます。</span><span class="sxs-lookup"><span data-stu-id="013b4-122">Creating multiple data source objects lets users access certain data source objects and prevents those users from accessing other data source objects.</span></span> <span data-ttu-id="013b4-123">このようなその他のデータ ソース オブジェクトは、キューブやマイニング モデルなどのオブジェクトを処理するために [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] 自体によって使用されます。</span><span class="sxs-lookup"><span data-stu-id="013b4-123">These other data source objects can be used by [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] itself for processing objects, such as cubes and mining models.</span></span>  
+  
+-   <span data-ttu-id="013b4-124">**Windows 認証を指定する**</span><span class="sxs-lookup"><span data-stu-id="013b4-124">**Specify Windows Authentication**</span></span>  
+  
+     <span data-ttu-id="013b4-125">データ ソース オブジェクトで使用される接続文字列によって Windows 認証を指定すると、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] は、クライアントの権限を借用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="013b4-125">If the connection string that a data source object uses specifies Windows Authentication, [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] must be able to impersonate the client.</span></span> <span data-ttu-id="013b4-126">データ ソースがリモート コンピューターにある場合、そのリモート コンピューターと Analysis Services のコンピューターの両方に、Kerberos 認証を使用して、権限借用のための認証を設定する必要があります。設定しないとクエリは失敗します。</span><span class="sxs-lookup"><span data-stu-id="013b4-126">If the data source is on a remote computer, the two computers must be trusted for impersonation by using Kerberos authentication, or the query will typically fail.</span></span> <span data-ttu-id="013b4-127">詳細については、「 [Kerberos の制約付き委任のための Analysis Services の構成](../instances/configure-analysis-services-for-kerberos-constrained-delegation.md) 」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="013b4-127">See [Configure Analysis Services for Kerberos constrained delegation](../instances/configure-analysis-services-for-kerberos-constrained-delegation.md) for more information.</span></span>  
+  
+     <span data-ttu-id="013b4-128">OLE DB またはその他のクライアント コンポーネントの権限借用レベル プロパティを通じての権限借用をクライアントが許可していない場合、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] は、基になるデータ ソースに匿名接続しようとします。</span><span class="sxs-lookup"><span data-stu-id="013b4-128">If the client does not allow for impersonation (through the Impersonation Level property in OLE DB and other client components), [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] will try to make an anonymous connection to the underlying data source.</span></span> <span data-ttu-id="013b4-129">リモート データ ソースへの匿名接続が成功することはほとんどありません。これは、大部分のデータ ソースで匿名アクセスが許可されないためです。</span><span class="sxs-lookup"><span data-stu-id="013b4-129">Anonymous connections to remote data sources rarely succeed, as most data sources do not accept anonymous connections).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="013b4-130">参照</span><span class="sxs-lookup"><span data-stu-id="013b4-130">See Also</span></span>  
+ <span data-ttu-id="013b4-131">[多次元モデルのデータソース](data-sources-in-multidimensional-models.md) </span><span class="sxs-lookup"><span data-stu-id="013b4-131">[Data Sources in Multidimensional Models](data-sources-in-multidimensional-models.md) </span></span>  
+ <span data-ttu-id="013b4-132">[接続文字列のプロパティ &#40;Analysis Services&#41;](../instances/connection-string-properties-analysis-services.md) </span><span class="sxs-lookup"><span data-stu-id="013b4-132">[Connection String Properties &#40;Analysis Services&#41;](../instances/connection-string-properties-analysis-services.md) </span></span>  
+ <span data-ttu-id="013b4-133">[Analysis Services によってサポートされる認証方法](../instances/authentication-methodologies-supported-by-analysis-services.md) </span><span class="sxs-lookup"><span data-stu-id="013b4-133">[Authentication methodologies supported by Analysis Services](../instances/authentication-methodologies-supported-by-analysis-services.md) </span></span>  
+ <span data-ttu-id="013b4-134">[ディメンションデータへのカスタムアクセス権の付与 &#40;Analysis Services&#41;](grant-custom-access-to-dimension-data-analysis-services.md) </span><span class="sxs-lookup"><span data-stu-id="013b4-134">[Grant custom access to dimension data &#40;Analysis Services&#41;](grant-custom-access-to-dimension-data-analysis-services.md) </span></span>  
+ <span data-ttu-id="013b4-135">[キューブまたはモデルの権限を &#40;Analysis Services に付与する&#41;](grant-cube-or-model-permissions-analysis-services.md) </span><span class="sxs-lookup"><span data-stu-id="013b4-135">[Grant cube or model permissions &#40;Analysis Services&#41;](grant-cube-or-model-permissions-analysis-services.md) </span></span>  
+ [<span data-ttu-id="013b4-136">セル データへのカスタム アクセス権の付与 &#40;Analysis Services&#41;</span><span class="sxs-lookup"><span data-stu-id="013b4-136">Grant custom access to cell data &#40;Analysis Services&#41;</span></span>](grant-custom-access-to-cell-data-analysis-services.md)  
+  
+  

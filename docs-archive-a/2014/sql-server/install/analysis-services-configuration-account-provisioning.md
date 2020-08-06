@@ -1,0 +1,39 @@
+---
+title: Analysis Services の構成-アカウントの準備 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: database-engine
+ms.topic: conceptual
+helpviewer_keywords:
+- Analysis Services configuration
+- account provisioning
+ms.assetid: 169b1af2-6fe2-467f-8ca4-919f24c620ce
+author: heidisteen
+ms.author: heidist
+ms.openlocfilehash: 109b5d9ddddf2b78c0bb8947cfa876d233f804ea
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87640499"
+---
+# <a name="analysis-services-configuration---account-provisioning"></a><span data-ttu-id="72f01-102">Analysis Services の構成 - アカウントの準備</span><span class="sxs-lookup"><span data-stu-id="72f01-102">Analysis Services Configuration - Account Provisioning</span></span>
+  <span data-ttu-id="72f01-103">このページを使用すると、サーバー モードを設定し、[!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] への無制限アクセスを必要とするユーザーまたはサービスに管理権限を付与することができます。</span><span class="sxs-lookup"><span data-stu-id="72f01-103">Use this page to set the server mode, and to grant administrative permissions to users or services requiring unrestricted access to [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)].</span></span> <span data-ttu-id="72f01-104">セットアップでは、ローカル Windows グループ BUILTIN\Administrators が、インストールするインスタンスの [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] サーバー管理者ロールに自動的に追加されません。</span><span class="sxs-lookup"><span data-stu-id="72f01-104">Setup does not automatically add the local Windows Group BUILTIN\Administrators to the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] server administrator role of the instance you are installing.</span></span> <span data-ttu-id="72f01-105">サーバー管理者ロールにローカルの Administrators グループを追加する場合は、そのグループを明示的に指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="72f01-105">If you want to add the local Administrators group to the server administrator role, you must explicitly specify that group.</span></span>  
+  
+ <span data-ttu-id="72f01-106">[!INCLUDE[ssGeminiShort](../../includes/ssgeminishort-md.md)] をインストールする場合は、[!INCLUDE[ssGemini](../../includes/ssgemini-md.md)] ファームでの [!INCLUDE[SPS2010](../../includes/sps2010-md.md)] サーバーの配置に責任を負う SharePoint ファーム管理者またはサービス管理者に管理権限を付与してください。</span><span class="sxs-lookup"><span data-stu-id="72f01-106">If you are installing [!INCLUDE[ssGeminiShort](../../includes/ssgeminishort-md.md)], be sure to grant administrative permissions to SharePoint farm administrators or service administrators who are responsible for a [!INCLUDE[ssGemini](../../includes/ssgemini-md.md)] server deployment in a [!INCLUDE[SPS2010](../../includes/sps2010-md.md)] farm.</span></span> <span data-ttu-id="72f01-107">[!INCLUDE[ssGeminiMTS](../../includes/ssgeminimts-md.md)]インストールおよびサービスアカウントの要件の詳細については、「 [SharePoint &#40;PowerPivot と Reporting Services&#41;を使用した SQL Server BI 機能のインストール](../../../2014/sql-server/install/install-sql-server-bi-features-sharepoint-powerpivot-reporting-services.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="72f01-107">For more information about [!INCLUDE[ssGeminiMTS](../../includes/ssgeminimts-md.md)] installation and service account requirements, see [Install SQL Server BI Features with SharePoint &#40;PowerPivot and Reporting Services&#41;](../../../2014/sql-server/install/install-sql-server-bi-features-sharepoint-powerpivot-reporting-services.md).</span></span>  
+  
+## <a name="options"></a><span data-ttu-id="72f01-108">Options</span><span class="sxs-lookup"><span data-stu-id="72f01-108">Options</span></span>  
+ <span data-ttu-id="72f01-109">**[サーバー モード]** - サーバー モードでは、サーバーに配置できる Analysis Services データベースの種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="72f01-109">**Server Mode** - The server mode specifies the type of Analysis Services databases that can be deployed to the server.</span></span> <span data-ttu-id="72f01-110">セットアップ中に指定したサーバー モードを後で変更することはできません。</span><span class="sxs-lookup"><span data-stu-id="72f01-110">Server modes are determined during Setup and cannot be modified later.</span></span> <span data-ttu-id="72f01-111">各モードは互いに排他的です。そのため、従来の OLAP ソリューションとテーブル モデル ソリューションの両方をサポートする場合は、それぞれ異なるモードで構成した 2 つの Analysis Services のインスタンスが必要になります。</span><span class="sxs-lookup"><span data-stu-id="72f01-111">Each mode is mutually exclusive, which means that you will need two instances of Analysis Services, each configured for a different mode, to support both classic OLAP and tabular model solutions.</span></span>  
+  
+ <span data-ttu-id="72f01-112">**[管理者の指定]** - [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスのサーバー管理者を少なくとも 1 人指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="72f01-112">**Specify Administrators** - You must specify at least one server administrator for the instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="72f01-113">指定したユーザーまたはグループは、インストールする [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] インスタンスのサーバー管理者ロールのメンバーになります。</span><span class="sxs-lookup"><span data-stu-id="72f01-113">The users or groups that you specify will become members of the server administrator role of the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] instance you are installing.</span></span> <span data-ttu-id="72f01-114">これらは、ソフトウェアをインストールするコンピューターと同じドメインの Windows ドメイン ユーザー アカウントである必要があります。</span><span class="sxs-lookup"><span data-stu-id="72f01-114">These must be Windows domain user accounts in the same domain as the computer on which you are installing the software.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="72f01-115">ユーザー アカウント制御 (UAC) は Windows セキュリティ機能であり、管理操作または管理アプリケーションの承認を管理者が実行前に明示的に行う必要があります。</span><span class="sxs-lookup"><span data-stu-id="72f01-115">User Account Control (UAC) is a Windows security feature that requires an administrator to specifically approve administrative actions or applications before they are allowed to run.</span></span> <span data-ttu-id="72f01-116">UAC は既定でオンになっているため、高度な特権を必要とする特定の操作について許可するよう求めるメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="72f01-116">Because UAC is on by default, you will be prompted to allow specific operations that require elevated privileges.</span></span> <span data-ttu-id="72f01-117">UAC を構成して既定の動作を変更することも、特定のプログラム用に UAC をカスタマイズすることもできます。</span><span class="sxs-lookup"><span data-stu-id="72f01-117">You can configure UAC to change the default behavior or customize UAC for specific programs.</span></span> <span data-ttu-id="72f01-118">UAC と UAC の構成の詳細については、「[ユーザーアカウント制御のステップバイステップガイド](https://go.microsoft.com/fwlink/?linkid=196350)」および「[ユーザーアカウント制御 (Wikipedia)](https://go.microsoft.com/fwlink/?linkid=196351)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="72f01-118">For more information about UAC and UAC configuration, see [User Account Control Step by Step Guide](https://go.microsoft.com/fwlink/?linkid=196350) and [User Account Control (Wikipedia)](https://go.microsoft.com/fwlink/?linkid=196351).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="72f01-119">参照</span><span class="sxs-lookup"><span data-stu-id="72f01-119">See Also</span></span>  
+ <span data-ttu-id="72f01-120">[サービスアカウント &#40;Analysis Services&#41;を構成する](../../../2014/analysis-services/instances/configure-service-accounts-analysis-services.md) </span><span class="sxs-lookup"><span data-stu-id="72f01-120">[Configure Service Accounts &#40;Analysis Services&#41;](../../../2014/analysis-services/instances/configure-service-accounts-analysis-services.md) </span></span>  
+ [<span data-ttu-id="72f01-121">Windows サービス アカウントと権限の構成</span><span class="sxs-lookup"><span data-stu-id="72f01-121">Configure Windows Service Accounts and Permissions</span></span>](../../database-engine/configure-windows/configure-windows-service-accounts-and-permissions.md)  
+  
+  

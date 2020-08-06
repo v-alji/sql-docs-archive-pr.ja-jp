@@ -1,0 +1,50 @@
+---
+title: Analysis Services の構成-データディレクトリ |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: database-engine
+ms.topic: conceptual
+ms.assetid: ef732855-b7af-4f40-a619-5573c1c354bb
+author: heidisteen
+ms.author: heidist
+ms.openlocfilehash: e0711c6998e8f931e7d561bb388a0d7809733a44
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87640497"
+---
+# <a name="analysis-services-configuration---data-directories"></a><span data-ttu-id="db794-102">Analysis Services の構成 - データ ディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-102">Analysis Services Configuration - Data Directories</span></span>
+  <span data-ttu-id="db794-103">次の表にある既定のディレクトリは、[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のセットアップ中にユーザーが構成できます。</span><span class="sxs-lookup"><span data-stu-id="db794-103">The default directories in the following table are user-configurable during [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Setup.</span></span> <span data-ttu-id="db794-104">これらのファイルにアクセスするためのアクセス許可は、ローカルの管理者と、セットアップ中に作成およびプロビジョニングされる SQLServerMSASUser $ セキュリティグループのメンバーに付与され \<instance> ます。</span><span class="sxs-lookup"><span data-stu-id="db794-104">Permission to access these files is granted to local administrators and to members of the SQLServerMSASUser$\<instance> security group that is created and provisioned during Setup.</span></span>  
+  
+## <a name="ui-element-list"></a><span data-ttu-id="db794-105">UI 要素の一覧</span><span class="sxs-lookup"><span data-stu-id="db794-105">UI element list</span></span>  
+  
+|<span data-ttu-id="db794-106">説明</span><span class="sxs-lookup"><span data-stu-id="db794-106">Description</span></span>|<span data-ttu-id="db794-107">既定のディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-107">Default directory</span></span>|<span data-ttu-id="db794-108">Recommendations</span><span class="sxs-lookup"><span data-stu-id="db794-108">Recommendations</span></span>|  
+|-----------------|-----------------------|---------------------|  
+|<span data-ttu-id="db794-109">データ ルート ディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-109">Data root directory</span></span>|<span data-ttu-id="db794-110">C:\Program て SQL server の msas12。 \<InstanceID>\OLAP\Data \| \ フォルダーが制限されたアクセス許可で保護されて SQL Server いることを確認します。</span><span class="sxs-lookup"><span data-stu-id="db794-110">C:\Program Files\Microsoft SQL Server\MSAS12.\<InstanceID>\OLAP\Data\|Ensure that the \Program files\Microsoft SQL Server\ folder is protected with limited permissions.</span></span> [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] <span data-ttu-id="db794-111">のパフォーマンスは、多くの構成で、データ ディレクトリが配置されているストレージのパフォーマンスに依存します。</span><span class="sxs-lookup"><span data-stu-id="db794-111">performance depends, in many configurations, on the performance of the storage on which the data directory is located.</span></span> <span data-ttu-id="db794-112">このディレクトリは、システムに割り当てられている中でパフォーマンスが最も高いストレージに配置してください。</span><span class="sxs-lookup"><span data-stu-id="db794-112">Place this directory on the highest performing storage that is attached to the system.</span></span> <span data-ttu-id="db794-113">フェールオーバー クラスターのインストールの場合は、データ ディレクトリが共有ディスク上に配置されるようにしてください。</span><span class="sxs-lookup"><span data-stu-id="db794-113">For failover cluster installations, ensure that data directories are placed on the shared disk.</span></span>|  
+|<span data-ttu-id="db794-114">ログ ファイル ディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-114">Log file directory</span></span>|<span data-ttu-id="db794-115">C:\Program て SQL server の msas12。 \<InstanceID>\OLAP\Log \| これはログファイルのディレクトリで、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] フライトレコーダーログを含みます。</span><span class="sxs-lookup"><span data-stu-id="db794-115">C:\Program Files\Microsoft SQL Server\MSAS12.\<InstanceID>\OLAP\Log\|This is the directory for [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] log files, and it includes the FlightRecorder log.</span></span> <span data-ttu-id="db794-116">フライト レコーダーの時間を増加する場合、ログ ディレクトリに十分な容量があることを確認してください。</span><span class="sxs-lookup"><span data-stu-id="db794-116">If you increase the flight recorder duration, ensure that the log directory has adequate space.</span></span>|  
+|<span data-ttu-id="db794-117">Temp ディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-117">Temp directory</span></span>|<span data-ttu-id="db794-118">C:\Program て SQL server の msas12。 \<InstanceID>\OLAP\Temp \| は、高パフォーマンスのストレージサブシステムに Temp ディレクトリを配置します。</span><span class="sxs-lookup"><span data-stu-id="db794-118">C:\Program Files\Microsoft SQL Server\MSAS12.\<InstanceID>\OLAP\Temp\|Place the Temp directory on the high performance storage subsystem.</span></span>|  
+|<span data-ttu-id="db794-119">バックアップ ディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-119">Backup directory</span></span>|<span data-ttu-id="db794-120">C:\Program て SQL server の msas12。 \<InstanceID>\OLAP\Backup \| これは、既定の [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] バックアップファイルのディレクトリです。</span><span class="sxs-lookup"><span data-stu-id="db794-120">C:\Program Files\Microsoft SQL Server\MSAS12.\<InstanceID>\OLAP\Backup\|This is the directory for [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] default backup files.</span></span> <span data-ttu-id="db794-121">PowerPivot for SharePoint のインストールでは、ここは PowerPivot System サービスが PowerPivot データ ファイルをキャッシュする場所でもあります。</span><span class="sxs-lookup"><span data-stu-id="db794-121">For PowerPivot for SharePoint installations, it also where the PowerPivot System Services caches PowerPivot data files.</span></span><br /><br /> <span data-ttu-id="db794-122">データの損失を防ぐために適切な権限を設定し、バックアップ ディレクトリに書き込むための適切な権限が [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] サービスのユーザー グループに付与されるようにしてください。</span><span class="sxs-lookup"><span data-stu-id="db794-122">Ensure appropriate permissions are set to prevent data loss, and that the user group for the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] service has adequate permissions to write to the backup directory.</span></span> <span data-ttu-id="db794-123">マップされたドライブをバックアップ ディレクトリに使用することはサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="db794-123">Using a mapped drive for backup directories is not supported.</span></span>|  
+  
+## <a name="notes"></a><span data-ttu-id="db794-124">Notes</span><span class="sxs-lookup"><span data-stu-id="db794-124">Notes</span></span>  
+  
+-   <span data-ttu-id="db794-125">SharePoint ファームに配置された [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] インスタンスは、アプリケーション ファイル、データ ファイル、およびコンテンツ データベースのプロパティとサービス アプリケーション データベースのプロパティを格納します。</span><span class="sxs-lookup"><span data-stu-id="db794-125">[!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] instances that are deployed on a SharePoint farm store application files, data files, and properties in content databases and service application databases.</span></span>  
+  
+-   <span data-ttu-id="db794-126">既存のインストールに機能を追加する場合、前にインストールした機能の場所は変更できません。また、新しい機能のインストール場所を指定することもできません。</span><span class="sxs-lookup"><span data-stu-id="db794-126">When you add features to an existing installation, you cannot change the location of a previously installed feature, nor can you specify the location for a new feature.</span></span>  
+  
+-   <span data-ttu-id="db794-127">既定以外のインストール ディレクトリを指定する場合は、インストール フォルダーがこの [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]インスタンスに対して一意であることを確認します。</span><span class="sxs-lookup"><span data-stu-id="db794-127">If you specify non-default installation directories, ensure that the installation folders are unique to this instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="db794-128">このダイアログ ボックスのディレクトリは、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]の他のインスタンスのディレクトリと共有できません。</span><span class="sxs-lookup"><span data-stu-id="db794-128">None of the directories in this dialog box should be shared with directories from other instances of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="db794-129">[!INCLUDE[ssDE](../../includes/ssde-md.md)] のインスタンス内の [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] コンポーネントと [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] コンポーネントは、別のディレクトリにインストールする必要もあります。</span><span class="sxs-lookup"><span data-stu-id="db794-129">The [!INCLUDE[ssDE](../../includes/ssde-md.md)] and [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] components within an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] should also be installed to separate directories.</span></span>  
+  
+-   <span data-ttu-id="db794-130">次の状況では、プログラム ファイルとデータ ファイルをインストールすることができません。</span><span class="sxs-lookup"><span data-stu-id="db794-130">Program files and data files cannot be installed in the following situations:</span></span>  
+  
+    -   <span data-ttu-id="db794-131">リムーバブル ディスク ドライブ</span><span class="sxs-lookup"><span data-stu-id="db794-131">On a removable disk drive</span></span>  
+  
+    -   <span data-ttu-id="db794-132">圧縮を使用したファイル システム</span><span class="sxs-lookup"><span data-stu-id="db794-132">On a file system that uses compression</span></span>  
+  
+    -   <span data-ttu-id="db794-133">システム ファイルが配置されているディレクトリ</span><span class="sxs-lookup"><span data-stu-id="db794-133">To a directory where system files are located</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="db794-134">参照</span><span class="sxs-lookup"><span data-stu-id="db794-134">See Also</span></span>  
+ [<span data-ttu-id="db794-135">SQL Server の既定のインスタンスおよび名前付きインスタンスのファイルの場所</span><span class="sxs-lookup"><span data-stu-id="db794-135">File Locations for Default and Named Instances of SQL Server</span></span>](../../../2014/sql-server/install/file-locations-for-default-and-named-instances-of-sql-server.md)  
+  
+  

@@ -1,0 +1,75 @@
+---
+title: 変更の追跡について (SQL Server) | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: ''
+ms.topic: conceptual
+helpviewer_keywords:
+- data changes [SQL Server]
+- tracking data changes [SQL Server]
+- change tracking [SQL Server], about change tracking
+- change tracking [SQL Server]
+- data [SQL Server], changing
+ms.assetid: 5e0ef05a-8317-4c98-be20-b19d4cd78f12
+author: rothja
+ms.author: jroth
+ms.openlocfilehash: 4e8a817421aeca7906d31e4a70c25a12b6af7c0d
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87642656"
+---
+# <a name="about-change-tracking-sql-server"></a><span data-ttu-id="8c861-102">変更の追跡について (SQL Server)</span><span class="sxs-lookup"><span data-stu-id="8c861-102">About Change Tracking (SQL Server)</span></span>
+  <span data-ttu-id="8c861-103">変更の追跡は、アプリケーションの効率的な変更追跡メカニズムを提供する簡易ソリューションです。</span><span class="sxs-lookup"><span data-stu-id="8c861-103">Change tracking is a lightweight solution that provides an efficient change tracking mechanism for applications.</span></span> <span data-ttu-id="8c861-104">一般に、データベース内のデータに対する変更のクエリをアプリケーションで実行し、その変更に関連する情報にアクセスできるようにするには、アプリケーション開発者がカスタムの変更追跡メカニズムを実装する必要がありました。</span><span class="sxs-lookup"><span data-stu-id="8c861-104">Typically, to enable applications to query for changes to data in a database and access information that is related to the changes, application developers had to implement custom change tracking mechanisms.</span></span> <span data-ttu-id="8c861-105">通常、これらのメカニズムを作成するには多くの作業が関係し、多くの場合、トリガー、 `timestamp` 列、追跡情報を格納する新しいテーブル、およびカスタムクリーンアッププロセスを組み合わせて使用します。</span><span class="sxs-lookup"><span data-stu-id="8c861-105">Creating these mechanisms usually involved a lot of work and frequently involved using a combination of triggers, `timestamp` columns, new tables to store tracking information, and custom cleanup processes.</span></span>  
+  
+ <span data-ttu-id="8c861-106">変更に必要な情報量はアプリケーションの種類ごとに異なります。</span><span class="sxs-lookup"><span data-stu-id="8c861-106">Different types of applications have different requirements for how much information they need about the changes.</span></span> <span data-ttu-id="8c861-107">アプリケーションでは、変更の追跡を使用して、ユーザー テーブルに加えられた変更に関する次の情報を取得することができます。</span><span class="sxs-lookup"><span data-stu-id="8c861-107">Applications can use change tracking to answer the following questions about the changes that have been made to a user table:</span></span>  
+  
+-   <span data-ttu-id="8c861-108">ユーザー テーブルのどの行が変更されたか</span><span class="sxs-lookup"><span data-stu-id="8c861-108">What rows have changed for a user table?</span></span>  
+  
+    -   <span data-ttu-id="8c861-109">行が変更されたという情報のみが必要で、行が変更された回数やその間に行われた変更の値は不要です。</span><span class="sxs-lookup"><span data-stu-id="8c861-109">Only the fact that a row has changed is required, not how many times the row has changed or the values of any intermediate changes.</span></span>  
+  
+    -   <span data-ttu-id="8c861-110">最新のデータは、追跡されているテーブルから直接取得できます。</span><span class="sxs-lookup"><span data-stu-id="8c861-110">The latest data can be obtained directly from the table that is being tracked.</span></span>  
+  
+-   <span data-ttu-id="8c861-111">行が変更されたか</span><span class="sxs-lookup"><span data-stu-id="8c861-111">Has a row changed?</span></span>  
+  
+    -   <span data-ttu-id="8c861-112">同じトランザクションで変更が行われたときに、行が変更されたという情報とその変更に関する情報を取得でき、それらの情報が記録される必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-112">The fact that a row has changed and information about the change must be available and recorded at the time that the change was made in the same transaction.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="8c861-113">行われたすべての変更に関する情報や、変更されたデータの中間値についての情報が必要な場合は、変更の追跡ではなく変更データ キャプチャを使用できます。</span><span class="sxs-lookup"><span data-stu-id="8c861-113">If an application requires information about all the changes that were made and the intermediate values of the changed data, using change data capture, instead of change tracking, might be appropriate.</span></span> <span data-ttu-id="8c861-114">詳細については、「[変更データ キャプチャについて &#40;SQL Server&#41;](../track-changes/about-change-data-capture-sql-server.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8c861-114">For more information, see [About Change Data Capture &#40;SQL Server&#41;](../track-changes/about-change-data-capture-sql-server.md).</span></span>  
+  
+## <a name="one-way-and-two-way-synchronization-applications"></a><span data-ttu-id="8c861-115">一方向および双方向の同期アプリケーション</span><span class="sxs-lookup"><span data-stu-id="8c861-115">One-Way and Two-Way Synchronization Applications</span></span>  
+ <span data-ttu-id="8c861-116">[!INCLUDE[ssDEnoversion](../../includes/ssdenoversion-md.md)] のインスタンスとデータを同期する必要があるアプリケーションでは、変更に対するクエリを実行できる必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-116">Applications that have to synchronize data with an instance of the [!INCLUDE[ssDEnoversion](../../includes/ssdenoversion-md.md)] must be able to query for changes.</span></span> <span data-ttu-id="8c861-117">変更の追跡は、一方向および双方向の両方の同期アプリケーションの基礎として使用できます。</span><span class="sxs-lookup"><span data-stu-id="8c861-117">Change tracking can be used as a foundation for both one-way and two-way synchronization applications.</span></span>  
+  
+### <a name="one-way-synchronization-applications"></a><span data-ttu-id="8c861-118">一方向の同期アプリケーション</span><span class="sxs-lookup"><span data-stu-id="8c861-118">One-Way Synchronization Applications</span></span>  
+ <span data-ttu-id="8c861-119">変更の追跡を使用するクライアントや中間層キャッシュ アプリケーションなどの一方向の同期アプリケーションを構築できます。</span><span class="sxs-lookup"><span data-stu-id="8c861-119">One-way synchronization applications, such as a client or mid-tier caching application, can be built that use change tracking.</span></span> <span data-ttu-id="8c861-120">次の図に示すように、キャッシュ アプリケーションでは、データが [!INCLUDE[ssDE](../../includes/ssde-md.md)] に格納され、他のデータ ストアにキャッシュされる必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-120">As shown in the following illustration, a caching application requires data to be stored in the [!INCLUDE[ssDE](../../includes/ssde-md.md)] and to be cached in other data stores.</span></span> <span data-ttu-id="8c861-121">また、データベース テーブルに加えられた変更を含むように、キャッシュを最新の状態に保つ必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-121">The application must be able to keep the cache up-to-date with any changes that have been made to the database tables.</span></span> <span data-ttu-id="8c861-122">変更は [!INCLUDE[ssDE](../../includes/ssde-md.md)]に返されません。</span><span class="sxs-lookup"><span data-stu-id="8c861-122">There are no changes to pass back to the [!INCLUDE[ssDE](../../includes/ssde-md.md)].</span></span>  
+  
+ <span data-ttu-id="8c861-123">![一方向の同期アプリケーションを表示する](../../database-engine/media/one-waysync.gif "一方向の同期アプリケーションを表示する")</span><span class="sxs-lookup"><span data-stu-id="8c861-123">![Shows one-way synchronization applications](../../database-engine/media/one-waysync.gif "Shows one-way synchronization applications")</span></span>  
+  
+### <a name="two-way-synchronization-applications"></a><span data-ttu-id="8c861-124">双方向の同期アプリケーション</span><span class="sxs-lookup"><span data-stu-id="8c861-124">Two-Way Synchronization Applications</span></span>  
+ <span data-ttu-id="8c861-125">変更の追跡を使用する双方向の同期アプリケーションも構築できます。</span><span class="sxs-lookup"><span data-stu-id="8c861-125">Two-way synchronization applications can also be built that use change tracking.</span></span> <span data-ttu-id="8c861-126">このシナリオでは、 [!INCLUDE[ssDE](../../includes/ssde-md.md)] のインスタンスのデータが 1 つ以上のデータ ストアと同期されます。</span><span class="sxs-lookup"><span data-stu-id="8c861-126">In this scenario, the data in an instance of the [!INCLUDE[ssDE](../../includes/ssde-md.md)] is synchronized with one or more data stores.</span></span> <span data-ttu-id="8c861-127">これらのデータ ストアのデータは更新でき、変更は [!INCLUDE[ssDE](../../includes/ssde-md.md)]に返され、同期される必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-127">The data in those stores can be updated and the changes must be synchronized back to the [!INCLUDE[ssDE](../../includes/ssde-md.md)].</span></span>  
+  
+ <span data-ttu-id="8c861-128">![二方向の同期アプリケーションを表示する](../../database-engine/media/two-waysync.gif "二方向の同期アプリケーションを表示する")</span><span class="sxs-lookup"><span data-stu-id="8c861-128">![Shows two-way synchronization applications](../../database-engine/media/two-waysync.gif "Shows two-way synchronization applications")</span></span>  
+  
+ <span data-ttu-id="8c861-129">双方向の同期アプリケーションの好例として、常時接続でないアプリケーションが挙げられます。</span><span class="sxs-lookup"><span data-stu-id="8c861-129">A good example of two-way synchronization application is an occasionally connected application.</span></span> <span data-ttu-id="8c861-130">この種のアプリケーションでは、クライアント アプリケーションによってローカル ストアに対するクエリおよび更新が行われます。</span><span class="sxs-lookup"><span data-stu-id="8c861-130">In this type of application, a client application queries and updates a local store.</span></span> <span data-ttu-id="8c861-131">クライアントとサーバーの間で接続が確立されると、アプリケーションとサーバーが同期され、変更されたデータが双方向に送信されます。</span><span class="sxs-lookup"><span data-stu-id="8c861-131">When a connection is available between a client and server, the application will synchronize with a server, and changed data flows in both directions.</span></span>  
+  
+ <span data-ttu-id="8c861-132">双方向の同期アプリケーションでは、競合を検出できる必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-132">The two-way synchronization applications must be able to detect conflicts.</span></span> <span data-ttu-id="8c861-133">同期から同期の間に、両方のデータ ストアで同じデータが変更されると、競合が発生します。</span><span class="sxs-lookup"><span data-stu-id="8c861-133">A conflict would occur if the same data was changed in both data stores in the time between synchronizations.</span></span> <span data-ttu-id="8c861-134">競合を検出できると、アプリケーションで変更が失われることがなくなります。</span><span class="sxs-lookup"><span data-stu-id="8c861-134">With the ability to detect conflicts, an application can make sure that changes are not lost.</span></span>  
+  
+## <a name="how-change-tracking-works"></a><span data-ttu-id="8c861-135">変更の追跡のしくみ</span><span class="sxs-lookup"><span data-stu-id="8c861-135">How Change Tracking Works</span></span>  
+ <span data-ttu-id="8c861-136">変更の追跡を構成するには、DDL ステートメントまたは [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)]を使用します。</span><span class="sxs-lookup"><span data-stu-id="8c861-136">To configure change tracking, you can use DDL statements or [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)].</span></span> <span data-ttu-id="8c861-137">詳細については、「 [変更の追跡の有効化と無効化 &#40;SQL Server&#41;](../track-changes/enable-and-disable-change-tracking-sql-server.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8c861-137">For more information, see [Enable and Disable Change Tracking &#40;SQL Server&#41;](../track-changes/enable-and-disable-change-tracking-sql-server.md).</span></span> <span data-ttu-id="8c861-138">変更を追跡するには、まずデータベースの変更の追跡を有効にして、次にそのデータベース内で追跡するテーブルの変更の追跡を有効にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c861-138">To track changes, change tracking must first be enabled for the database and then enabled for the tables that you want to track within that database.</span></span> <span data-ttu-id="8c861-139">テーブルの定義を変更する必要はなく、トリガーは作成されません。</span><span class="sxs-lookup"><span data-stu-id="8c861-139">The table definition does not have to be changed in any way, and no triggers are created.</span></span>  
+  
+ <span data-ttu-id="8c861-140">テーブルの変更の追跡を構成すると、そのテーブルの行に影響する DML ステートメントが実行されるたびに、変更された各行の変更追跡情報が記録されます。</span><span class="sxs-lookup"><span data-stu-id="8c861-140">After change tracking is configured for a table, any DML statement that affects rows in the table will cause change tracking information for each modified row to be recorded.</span></span> <span data-ttu-id="8c861-141">変更された行のクエリや、変更に関する情報の取得を行うには、 [変更追跡関数](/sql/relational-databases/system-functions/change-tracking-functions-transact-sql)を使用します。</span><span class="sxs-lookup"><span data-stu-id="8c861-141">To query for the rows that have changed and to obtain information about the changes, you can use [change tracking functions](/sql/relational-databases/system-functions/change-tracking-functions-transact-sql).</span></span>  
+  
+ <span data-ttu-id="8c861-142">変更情報と共に記録される追跡対象テーブルの情報は、主キー列の値だけです。</span><span class="sxs-lookup"><span data-stu-id="8c861-142">The values of the primary key column is only information from the tracked table that is recorded with the change information.</span></span> <span data-ttu-id="8c861-143">これらの値により、変更された行が識別されます。</span><span class="sxs-lookup"><span data-stu-id="8c861-143">These values identify the rows that have been changed.</span></span> <span data-ttu-id="8c861-144">それらの行の最新のデータを取得するには、アプリケーションでこの主キー列の値を使用して、ソース テーブルを追跡対象テーブルに結合します。</span><span class="sxs-lookup"><span data-stu-id="8c861-144">To obtain the latest data for those rows, an application can use the primary key column values to join the source table with the tracked table.</span></span>  
+  
+ <span data-ttu-id="8c861-145">変更の追跡を使用して、各行に加えられた変更に関する情報を取得することもできます。</span><span class="sxs-lookup"><span data-stu-id="8c861-145">Information about the change that was made to each row can also be obtained by using change tracking.</span></span> <span data-ttu-id="8c861-146">たとえば、変更を行った DML 操作の種類 (挿入、更新、または削除) や、更新操作の一環として変更された列などの情報を取得できます。</span><span class="sxs-lookup"><span data-stu-id="8c861-146">For example, the type of DML operation that caused the change (insert, update, or delete) or the columns that were changed as part of an update operation.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="8c861-147">参照</span><span class="sxs-lookup"><span data-stu-id="8c861-147">See Also</span></span>  
+ <span data-ttu-id="8c861-148">[Change Tracking &#40;SQL Server を有効または無効にする&#41;](../track-changes/enable-and-disable-change-tracking-sql-server.md) </span><span class="sxs-lookup"><span data-stu-id="8c861-148">[Enable and Disable Change Tracking &#40;SQL Server&#41;](../track-changes/enable-and-disable-change-tracking-sql-server.md) </span></span>  
+ <span data-ttu-id="8c861-149">[Change Tracking &#40;SQL Server の操作&#41;](../track-changes/work-with-change-tracking-sql-server.md) </span><span class="sxs-lookup"><span data-stu-id="8c861-149">[Work with Change Tracking &#40;SQL Server&#41;](../track-changes/work-with-change-tracking-sql-server.md) </span></span>  
+ <span data-ttu-id="8c861-150">[Change Tracking &#40;SQL Server の管理&#41;](../track-changes/manage-change-tracking-sql-server.md) </span><span class="sxs-lookup"><span data-stu-id="8c861-150">[Manage Change Tracking &#40;SQL Server&#41;](../track-changes/manage-change-tracking-sql-server.md) </span></span>  
+ [<span data-ttu-id="8c861-151">データ変更の追跡 &#40;SQL Server&#41;</span><span class="sxs-lookup"><span data-stu-id="8c861-151">Track Data Changes &#40;SQL Server&#41;</span></span>](../track-changes/track-data-changes-sql-server.md)  
+  
+  

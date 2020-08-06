@@ -1,0 +1,88 @@
+---
+title: Reporting Services の電子メール配信 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: reporting-services-native
+ms.topic: conceptual
+helpviewer_keywords:
+- subscriptions [Reporting Services], e-mail
+- e-mail [Reporting Services]
+- mail [Reporting Services]
+ms.assetid: fda2f130-97b9-4258-9dbb-e93a70f4d08a
+author: maggiesMSFT
+ms.author: maggies
+manager: kfile
+ms.openlocfilehash: 9780a47b8e11f831f3a390829acdbd8ae935cf2a
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87641428"
+---
+# <a name="e-mail-delivery-in-reporting-services"></a><span data-ttu-id="1cf82-102">Reporting Services の電子メール配信</span><span class="sxs-lookup"><span data-stu-id="1cf82-102">E-Mail Delivery in Reporting Services</span></span>
+  <span data-ttu-id="1cf82-103">SQL Server [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] には、個別のユーザーまたはグループに電子メールでレポートを送信するための電子メール配信拡張機能があります。</span><span class="sxs-lookup"><span data-stu-id="1cf82-103">SQL Server [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] includes an e-mail delivery extension that provides a way to e-mail a report to individual users or groups.</span></span> <span data-ttu-id="1cf82-104">電子メール配信拡張機能を構成するには、Reporting Services 構成マネージャーを使用して [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] 構成ファイルを編集します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-104">The e-mail delivery extension is configured through the Reporting Services Configuration Manager and by editing the [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] configuration files.</span></span>  
+  
+ <span data-ttu-id="1cf82-105">電子メールでレポートを配信または受信するには、標準のサブスクリプションまたはデータ ドリブン サブスクリプションのいずれかを定義します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-105">To distribute or receive a report by e-mail, you define either a standard subscription or a data-driven subscription.</span></span> <span data-ttu-id="1cf82-106">サブスクライブまたは配信は、一度に 1 つのレポートに対してのみ実行できます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-106">You can subscribe to or distribute only one report at a time.</span></span> <span data-ttu-id="1cf82-107">1 通の電子メール メッセージで複数のレポートを配信するサブスクリプションを作成することはできません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-107">You cannot create a subscription that delivers multiple reports in a single e-mail message.</span></span> <span data-ttu-id="1cf82-108">サブスクリプションの詳細については、「[ネイティブモード&#41;での標準サブスクリプション &#40;Reporting Services の作成、変更、および削除](create-and-manage-subscriptions-for-native-mode-report-servers.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1cf82-108">For more information about subscriptions, see [Create, Modify, and Delete Standard Subscriptions &#40;Reporting Services in Native Mode&#41;](create-and-manage-subscriptions-for-native-mode-report-servers.md).</span></span>  
+  
+||  
+|-|  
+|<span data-ttu-id="1cf82-109">**[!INCLUDE[applies](../../includes/applies-md.md)]**  [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)]Sharepoint モード &#124; sharepoint 2010 および SharePoint 2013</span><span class="sxs-lookup"><span data-stu-id="1cf82-109">**[!INCLUDE[applies](../../includes/applies-md.md)]**  [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] SharePoint mode &#124; SharePoint 2010 and SharePoint 2013</span></span><br /><br /> <span data-ttu-id="1cf82-110">**[!INCLUDE[applies](../../includes/applies-md.md)]**  [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] ネイティブ モード</span><span class="sxs-lookup"><span data-stu-id="1cf82-110">**[!INCLUDE[applies](../../includes/applies-md.md)]**  [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] Native mode</span></span>|  
+  
+## <a name="e-mail-delivery-options"></a><span data-ttu-id="1cf82-111">電子メール配信のオプション</span><span class="sxs-lookup"><span data-stu-id="1cf82-111">E-Mail Delivery Options</span></span>  
+ <span data-ttu-id="1cf82-112">レポート サーバーの電子メール配信では、以下の方法でレポートを配信できます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-112">Report server e-mail delivery can deliver reports in the following ways:</span></span>  
+  
+-   <span data-ttu-id="1cf82-113">生成されたレポートに通知およびハイパーリンクを送信します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-113">Send a notification and a hyperlink to the generated report.</span></span>  
+  
+-   <span data-ttu-id="1cf82-114">電子メール メッセージの [件名] 行を使用して通知を送信します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-114">Send a notification in the Subject: line of an e-mail message.</span></span> <span data-ttu-id="1cf82-115">既定では、サブスクリプション定義の [件名] に以下の変数が含まれます。サブスクリプションが処理されると、これらの変数はレポート固有の情報に置き換えられます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-115">By default, the Subject: line in the subscription definition includes the following variables that are replaced by report-specific information when the subscription is processed:</span></span>  
+  
+     <span data-ttu-id="1cf82-116">**@ReportName**レポートの名前を指定します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-116">**@ReportName** specifies the name of the report.</span></span>  
+  
+     <span data-ttu-id="1cf82-117">**@ExecutionTime**レポートがいつ実行されたかを指定します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-117">**@ExecutionTime** specifies when the report was executed.</span></span>  
+  
+     <span data-ttu-id="1cf82-118">これらの変数に静的なテキストを追加したり、各サブスクリプションの [件名] のテキストを変更することができます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-118">You can combine these variables with static text or modify the text in the Subject: line for each subscription.</span></span>  
+  
+-   <span data-ttu-id="1cf82-119">埋め込みレポートまたは添付レポートを送信します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-119">Send an embedded or attached report.</span></span> <span data-ttu-id="1cf82-120">表示形式およびブラウザーによって、レポートが埋め込まれるか添付されるかが決まります。</span><span class="sxs-lookup"><span data-stu-id="1cf82-120">The rendering format and browser determine whether the report is embedded or attached.</span></span>  
+  
+     <span data-ttu-id="1cf82-121">ブラウザーが HTML 4.0 および MHTML をサポートする場合、Web アーカイブ表示形式を選択すると、レポートがメッセージの一部として埋め込まれます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-121">If your browser supports HTML 4.0 and MHTML, and you choose the Web archive rendering format, the report is embedded as part of the message.</span></span> <span data-ttu-id="1cf82-122">その他すべての表示形式 (CSV、PDF など) では、添付ファイルとしてレポートを配信します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-122">All other rendering formats (CSV, PDF, and so on) deliver reports as attachments.</span></span> <span data-ttu-id="1cf82-123">RSReportServer 構成ファイルでこの機能を無効にすることができます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-123">You can disable this functionality in the RSReportServer configuration file.</span></span>  
+  
+     [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] <span data-ttu-id="1cf82-124">では、レポートを送信する前に、添付ファイルまたはメッセージのサイズを確認しません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-124">does not check the size of the attachment or message before sending the report.</span></span> <span data-ttu-id="1cf82-125">添付ファイルまたはメッセージがメール サーバーで許可された最大サイズを超えると、レポートは配信されません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-125">If the attachment or message exceeds the maximum limit allowed by your mail server, the report is not delivered.</span></span> <span data-ttu-id="1cf82-126">レポートが大きい場合は、他の配信オプション (URL や通知など) のいずれかを選択します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-126">Choose one of the other delivery options (such as URL or notification) if for large reports.</span></span>  
+  
+ <span data-ttu-id="1cf82-127">サブスクリプションを作成したときにレポートをどのように配信するかを決定する配信オプションを設定します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-127">You set delivery options that determine how a report is delivered when you create the subscription.</span></span> <span data-ttu-id="1cf82-128">たとえば、サブスクリプションで **[リンクを含める]** を選択すると、電子メール メッセージには、レポートへのハイパーリンクが含まれます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-128">For example, if you select **Include Link** in the subscription, the e-mail message includes a hyperlink to the report.</span></span>  
+  
+## <a name="role-based-e-mail-settings"></a><span data-ttu-id="1cf82-129">ロールベースの電子メール設定</span><span class="sxs-lookup"><span data-stu-id="1cf82-129">Role-based E-Mail Settings</span></span>  
+ <span data-ttu-id="1cf82-130">レポートをサブスクライブする場合、作業に使用する電子メール配信の設定は、ロールに "個別のサブスクリプションを管理" タスクが含まれるか、"すべてのサブスクリプションを管理" タスクが含まれるかによって異なります。</span><span class="sxs-lookup"><span data-stu-id="1cf82-130">When you subscribe to a report, the e-mail delivery settings you work with vary depending on whether your role includes the "Manage individual subscriptions" task or the "Manage all subscriptions" task.</span></span>  
+  
+|<span data-ttu-id="1cf82-131">タスク</span><span class="sxs-lookup"><span data-stu-id="1cf82-131">Task</span></span>|<span data-ttu-id="1cf82-132">使用可能な設定</span><span class="sxs-lookup"><span data-stu-id="1cf82-132">Available settings</span></span>|  
+|----------|------------------------|  
+|<span data-ttu-id="1cf82-133">個別のサブスクリプションを管理</span><span class="sxs-lookup"><span data-stu-id="1cf82-133">Manage individual subscriptions</span></span>|<span data-ttu-id="1cf82-134">ユーザーが自分自身に対するレポートの配信を自動化できるようにするフィールドを示します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-134">Shows fields that enable a user to automate and deliver a report to himself or herself.</span></span> <span data-ttu-id="1cf82-135">このモードでは、電子メールの別名を受け取るフィールドは使用できません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-135">In this mode, fields that accept e-mail aliases are not available.</span></span>|  
+|<span data-ttu-id="1cf82-136">すべてのサブスクリプションを管理</span><span class="sxs-lookup"><span data-stu-id="1cf82-136">Manage all subscriptions</span></span>|<span data-ttu-id="1cf82-137">[宛先] フィールド、[CC] フィールド、[BCC] フィールド、[返信先] フィールドなど、より広範囲な配信をサポートするフィールドを示します。これらのフィールドを使用すると、より多くのサブスクライバーにレポートを送信できます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-137">Shows fields that support wider distribution, including To:, Cc:, Bcc:, and Reply-To: fields, providing more ways to route a report to more subscribers.</span></span> <span data-ttu-id="1cf82-138">電子メールの別名のフィールドの可用性は、RSReportServer 構成ファイルの設定で定義されます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-138">The availability of e-mail alias fields is defined through the RSReportServer configuration file settings.</span></span>|  
+  
+## <a name="specifying-e-mail-addresses-in-a-subscription"></a><span data-ttu-id="1cf82-139">サブスクリプションへの電子メール アドレスの指定</span><span class="sxs-lookup"><span data-stu-id="1cf82-139">Specifying E-Mail Addresses in a Subscription</span></span>  
+ <span data-ttu-id="1cf82-140">イントラネット内部でレポートを配信し、 [!INCLUDE[msCoName](../../includes/msconame-md.md)] Exchange サーバーに SMTP ゲートウェイを使用している場合、同僚に電子メールを送信するときと同様に、電子メールの別名を入力します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-140">If you are distributing reports within an intranet and you are using an SMTP gateway to a [!INCLUDE[msCoName](../../includes/msconame-md.md)] Exchange server, type the e-mail alias (as if you were sending e-mail to a coworker).</span></span> <span data-ttu-id="1cf82-141">配信が外部の電子メール アカウントに対して行われている場合は、完全な電子メール アドレスを入力します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-141">If delivery is to an external e-mail account, type the full e-mail address.</span></span> <span data-ttu-id="1cf82-142">さらに電子メール アドレスを指定して、他のユーザーをサブスクリプションに追加すると、サブスクライバーは、このサブスクリプションから生成されるレポートの正確なコピーを取得します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-142">If you specify more e-mail addresses to add others to your subscription, subscribers get an exact copy of the report that is produced from this subscription.</span></span>  
+  
+ <span data-ttu-id="1cf82-143">レポート サーバーは、電子メール アドレスの検証または電子メール サーバーからの電子メール アドレスの取得を行いません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-143">The report server does not validate e-mail addresses or obtain e-mail addresses from an e-mail server.</span></span> <span data-ttu-id="1cf82-144">使用する電子メール アドレスを事前に把握する必要があります。</span><span class="sxs-lookup"><span data-stu-id="1cf82-144">You must know in advance which e-mail addresses you want to use.</span></span> <span data-ttu-id="1cf82-145">既定では、組織内部または組織外にある有効な電子メール アカウントに電子メールでレポートを送信することができます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-145">By default, you can e-mail reports to any valid e-mail account within or outside of your organization.</span></span> <span data-ttu-id="1cf82-146">ただし、構成設定を使用して、名前で特定されるメール サーバー ホストに電子メールの配信を制限することができます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-146">Configuration settings can be used, however, to restrict e-mail delivery to mail server hosts that you identify by name.</span></span> <span data-ttu-id="1cf82-147">組織のメンバー以外のユーザーへの電子メール配信をサポートする場合、追加のホストを指定することができます。</span><span class="sxs-lookup"><span data-stu-id="1cf82-147">You can specify additional hosts if you want to support e-mail delivery to people that are not members of your organization.</span></span>  
+  
+ <span data-ttu-id="1cf82-148">レポートの配信に使用する電子メール メッセージは、電子メール サーバーで定義される電子メール アカウントから送信する必要があります。</span><span class="sxs-lookup"><span data-stu-id="1cf82-148">The e-mail message used to deliver the report must be sent from an e-mail account that is defined on the e-mail server.</span></span> <span data-ttu-id="1cf82-149">構成設定では、電子メール アカウントを指定します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-149">A configuration setting specifies the e-mail account.</span></span> <span data-ttu-id="1cf82-150">電子メール アカウントは、電子メール配信拡張機能で配信されるすべてのレポートに使用されます。つまり、複数のアカウントを指定したり、レポートごとにアカウントを変更することができません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-150">The e-mail account is used for all reports delivered by the e-mail delivery extension; you cannot specify multiple accounts or vary the account for individual reports.</span></span>  
+  
+## <a name="e-mail-server-configuration"></a><span data-ttu-id="1cf82-151">電子メール サーバーの構成</span><span class="sxs-lookup"><span data-stu-id="1cf82-151">E-Mail Server Configuration</span></span>  
+ <span data-ttu-id="1cf82-152">レポート サーバーは、標準の接続を介して電子メール サーバーに接続します。</span><span class="sxs-lookup"><span data-stu-id="1cf82-152">The report server connects with an e-mail server through a standard connection.</span></span> <span data-ttu-id="1cf82-153">SSL (Secure Sockets Layer) を使用して暗号化された通信は使用しません。</span><span class="sxs-lookup"><span data-stu-id="1cf82-153">It does not use communication that has been encrypted using Secure Sockets Layer (SSL).</span></span> <span data-ttu-id="1cf82-154">電子メール サーバーは、レポート サーバーと同じネットワーク上にあるリモートまたはローカルの簡易メール転送プロトコル (SMTP) サーバーである必要があります。</span><span class="sxs-lookup"><span data-stu-id="1cf82-154">The e-mail server must be a remote or local Simple Mail Transport Protocol (SMTP) server on the same network as the report server.</span></span>  
+  
+ <span data-ttu-id="1cf82-155">ネイティブ モード レポート サーバーの構成方法については、次のトピックを参照してください。</span><span class="sxs-lookup"><span data-stu-id="1cf82-155">For information on how to configure a native mode report server, see the following:</span></span>  
+  
+-   [<span data-ttu-id="1cf82-156">SSRS Configuration Manager &#40;電子メール配信用にレポートサーバーを構成&#41;</span><span class="sxs-lookup"><span data-stu-id="1cf82-156">Configure a Report Server for E-Mail Delivery &#40;SSRS Configuration Manager&#41;</span></span>](../../sql-server/install/configure-a-report-server-for-e-mail-delivery-ssrs-configuration-manager.md)  
+  
+-   [<span data-ttu-id="1cf82-157">電子メールの設定-Configuration Manager &#40;SSRS ネイティブモード&#41;</span><span class="sxs-lookup"><span data-stu-id="1cf82-157">E-mail Settings - Configuration Manager &#40;SSRS Native Mode&#41;</span></span>](../install-windows/e-mail-settings-reporting-services-native-mode-configuration-manager.md)  
+  
+ <span data-ttu-id="1cf82-158">SharePoint モード レポート サーバーの構成方法については、次のトピックを参照してください。</span><span class="sxs-lookup"><span data-stu-id="1cf82-158">For information on how to configure a SharePoint mode report server, see the following:</span></span>  
+  
+-   [<span data-ttu-id="1cf82-159">Reporting Services サービス アプリケーションの電子メールの構成 (SharePoint 2010 および SharePoint 2013)</span><span class="sxs-lookup"><span data-stu-id="1cf82-159">Configure E-mail for a Reporting Services Service Application &#40;SharePoint 2010 and SharePoint 2013&#41;</span></span>](../install-windows/configure-e-mail-for-a-reporting-services-service-application.md)  
+  
+## <a name="see-also"></a><span data-ttu-id="1cf82-160">参照</span><span class="sxs-lookup"><span data-stu-id="1cf82-160">See Also</span></span>  
+ <span data-ttu-id="1cf82-161">[タスクと権限](../security/tasks-and-permissions.md) </span><span class="sxs-lookup"><span data-stu-id="1cf82-161">[Tasks and Permissions](../security/tasks-and-permissions.md) </span></span>  
+ <span data-ttu-id="1cf82-162">[サブスクリプションと配信 &#40;Reporting Services&#41;](subscriptions-and-delivery-reporting-services.md) </span><span class="sxs-lookup"><span data-stu-id="1cf82-162">[Subscriptions and Delivery &#40;Reporting Services&#41;](subscriptions-and-delivery-reporting-services.md) </span></span>  
+ <span data-ttu-id="1cf82-163">[Data-Driven Subscriptions](data-driven-subscriptions.md) </span><span class="sxs-lookup"><span data-stu-id="1cf82-163">[Data-Driven Subscriptions](data-driven-subscriptions.md) </span></span>  
+ [<span data-ttu-id="1cf82-164">ロールの割り当て</span><span class="sxs-lookup"><span data-stu-id="1cf82-164">Role Assignments</span></span>](../security/role-assignments.md)  
+  
+  

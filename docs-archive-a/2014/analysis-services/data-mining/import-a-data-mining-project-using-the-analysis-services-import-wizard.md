@@ -1,0 +1,63 @@
+---
+title: Analysis Services インポートウィザードを使用してデータマイニングプロジェクトをインポートする |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+ms.assetid: 62bc9fc5-c6ff-4517-b598-d92df76743a2
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: 5b39062cc5bc5401a1746f35e98ea643db2d16c3
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87634728"
+---
+# <a name="import-a-data-mining-project-using-the-analysis-services-import-wizard"></a><span data-ttu-id="e7a9d-102">Analysis Services インポート ウィザードを使用したデータ マイニング プロジェクトのインポート</span><span class="sxs-lookup"><span data-stu-id="e7a9d-102">Import a Data Mining Project using the Analysis Services Import Wizard</span></span>
+  <span data-ttu-id="e7a9d-103">このトピックでは、別のサーバーにある既存のデータ マイニング プロジェクトからメタデータをインポートすることによって新しいデータ マイニング プロジェクトを作成する方法を説明します。インポートには、 **の "** サーバーからインポート (多次元およびデータ マイニング) プロジェクト [!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)]" というテンプレートを使用します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-103">This topic describes how to create a new data mining project by importing the metadata from an existing data mining project on another server, using the template, **Import from Server (Multidimensional and Data Mining) Project**, in [!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)].</span></span>  
+  
+## <a name="import-data-sources-mining-structures-and-mining-models-from-an-existing-data-mining-project"></a><span data-ttu-id="e7a9d-104">データ ソース、マイニング構造、およびマイニング モデルを既存のデータ マイニング プロジェクトからインポートする</span><span class="sxs-lookup"><span data-stu-id="e7a9d-104">Import data sources, mining structures, and mining models from an existing data mining project</span></span>  
+ <span data-ttu-id="e7a9d-105">テンプレート **(多次元およびデータマイニング) プロジェクト**を使用すると、に [!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)] よって新しいデータマイニングプロジェクトが作成され、指定されたデータマイニングプロジェクトからメタデータがコピーされます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-105">When you use the template, **Import from Server (Multidimensional and Data Mining) Project**, [!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)] creates a new data mining project, and then copies the metadata from the specified data mining project.</span></span> <span data-ttu-id="e7a9d-106">新しいプロジェクトには、インポート元の ssASnoversion データベースと同じデータ ソース、データ ソース ビュー、マイニング構造、およびマイニング モデルが含まれています。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-106">The new project contains the same data sources, data source views, mining structures, and mining models as the ssASnoversion database that you imported from.</span></span> <span data-ttu-id="e7a9d-107">したがって、インポート プロセスが完了し、オブジェクトが作成された後、マイニング構造と依存モデルのトレーニングによって、それらのオブジェクトに自分でデータを投入する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-107">However, the project cannot be used until you have updated certain properties and processed the objects as described:</span></span>  
+  
+-   <span data-ttu-id="e7a9d-108">データ自体は、移行元サーバーから新しいデータマイニングプロジェクトにコピーされるのではなく、データソースとデータソースビューの定義だけがインポートされます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-108">The data itself is not copied from the source server to the new data mining project-only the definitions of the data sources and data source views are imported.</span></span> <span data-ttu-id="e7a9d-109">したがって、インポート プロセスが完了し、オブジェクトが作成された後、マイニング構造と依存モデルをトレーニングすることによって、それらのオブジェクトに自分でデータを投入する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-109">Therefore, after the import process has completed, and the objects have been created, you must populate the objects with data by training the mining structures and dependent models.</span></span> <span data-ttu-id="e7a9d-110">モデルと構造のトレーニングは、データ マイニング デザイナーの **[すべて処理]** コマンドを使用して実行できます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-110">You can use the command **Process All** in Data Mining Designer to train the models and structures.</span></span>  
+  
+-   <span data-ttu-id="e7a9d-111">インポートするプロジェクトが以前のバージョンの [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)]で作成されたものである場合、データ ソースに使用されているプロバイダーが、プロジェクトのインポート先となるサーバーにはインストールされていない可能性があります。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-111">If you are importing a project that was created in a previous version of [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)], the data source might use providers that are not installed on the server to which you are importing the project.</span></span> <span data-ttu-id="e7a9d-112">インポートしたマイニング構造を処理しているときにエラーが発生した場合、各データ ソースを右クリックし、 **[デザイナーを開く]** を選択して、接続文字列を編集し、プロバイダーのプロパティを確認します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-112">If you encounter errors when processing the imported mining structures, right-click each data source and select **Open Designer** to edit the connection string and review the provider properties.</span></span>  
+  
+     <span data-ttu-id="e7a9d-113">データ マイニング オブジェクトを処理したりデータ マイニング モデルを照会したりする際のアカウントに、データ ソースに対する必要な権限があるかどうかも、場合によってはこの時点で確認する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-113">At this time, you might also need to verify that the account you are using to process the data mining objects or query data mining models has the necessary permissions on the data source.</span></span>  
+  
+-   <span data-ttu-id="e7a9d-114">既定では、プロジェクトをインポートすると、ワークスペース データベースが localhost (または \*\* で \*\*[既定のターゲット サーバー][!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)] として構成されている既定のインスタンス) に設定されます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-114">By default, when you import a project, the workspace database is set to localhost, or whatever default instance is configured as the **Default Target Server** in [!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)].</span></span> <span data-ttu-id="e7a9d-115">このプロパティを設定するには、 **[オプション]** メニューから **[ビジネス インテリジェンス デザイナー]** を選択し、 **[Analysis Services]** を選択して **[全般]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-115">To set this property, from the **Options** menu, select **Business Intelligence Designers**, select **Analysis Services**, and then select **General**.</span></span>  
+  
+     <span data-ttu-id="e7a9d-116">それとは別に、 [!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)]には、 [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] テーブル モデル プロジェクト用の既定の配置サーバーを構成する際に設定できる専用のオプションが存在します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-116">Note that, in [!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)], there is another, separate option that you can set to configure the default deployment server for [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] tabular model projects.</span></span> <span data-ttu-id="e7a9d-117">この設定は **"既定の配置サーバー"** と呼ばれ、テーブル モデル プロジェクト用の既定のワークスペース データベースを指定することができます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-117">The setting, **Default Deployment Server**, determines the default workspace database for tabular model projects.</span></span> <span data-ttu-id="e7a9d-118">データ マイニング プロジェクトのテーブル モデルをサポートするインスタンスは使用できません。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-118">You cannot use instances that support tabular models for data mining projects</span></span>  
+  
+     <span data-ttu-id="e7a9d-119">多次元モードまたはデータ マイニング モードで動作している [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] のインスタンスを使用するように既定の配置データベースを変更できない場合でも、 **[プロジェクトのプロパティ]** ダイアログ ボックスを使用していつでも配置データベースを指定できます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-119">If you cannot change the default deployment database to use an instance of [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] running in multidimensional or data mining mode, you can always specify the deployment database by using the **Project Properties** dialog box.</span></span>  
+  
+#### <a name="to-create-a-new-data-mining-project-by-importing-an-existing-data-mining-project"></a><span data-ttu-id="e7a9d-120">既存のデータ マイニング プロジェクトをインポートして新しいデータ マイニング プロジェクトを作成するには</span><span class="sxs-lookup"><span data-stu-id="e7a9d-120">To create a new data mining project by importing an existing data mining project</span></span>  
+  
+1.  <span data-ttu-id="e7a9d-121">[!INCLUDE[ssBIDevStudio](../../includes/ssbidevstudio-md.md)]の **[ファイル]** メニューの **[新規作成]** をクリックし、 **[プロジェクト]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-121">In [!INCLUDE[ssBIDevStudio](../../includes/ssbidevstudio-md.md)], on the **File** menu, click **New**, and then click **Project**.</span></span>  
+  
+2.  <span data-ttu-id="e7a9d-122">**[新しいプロジェクト]** ダイアログ ボックスの **[インストールされているテンプレート]** で **[ビジネス インテリジェンス]** をクリックし、 **[Analysis Services]** をクリックして、 **[サーバーからインポート (多次元/データ マイニング)]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-122">In the **New Project** dialog box, under **Installed Templates**, click **Business Intelligence**, click **Analysis Services**, and then click **Import from Server (Multidimensional/Data Mining)**.</span></span>  
+  
+3.  <span data-ttu-id="e7a9d-123">**[名前]** でプロジェクトの名前を入力し、場所とソリューション名を指定してから **[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-123">For **Name**, type a name for the project, then specify a location and solution name, and then click **OK**.</span></span>  
+  
+     <span data-ttu-id="e7a9d-124">**Analysis Services データベースのインポート ウィザード** が起動します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-124">The **Import Analysis Services Database wizard** starts.</span></span> <span data-ttu-id="e7a9d-125">[ようこそ] ページで [OK] をクリックして先に進みます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-125">Click OK on the Welcome page to proceed.</span></span>  
+  
+4.  <span data-ttu-id="e7a9d-126">**[ソース データベースの選択]** ページで、インポートするソリューションが存在する **インスタンスを**[サーバー] [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] に指定します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-126">On the page, **Select Source Database**, for **Server**, specify the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] instance that contains the solution you want to import.</span></span>  
+  
+     <span data-ttu-id="e7a9d-127">**[データベース]** については、インポートするデータ マイニング オブジェクトが存在する [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] データベースを選択します。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-127">For **Database**, choose the [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] database that contains the data mining objects you want to import.</span></span>  
+  
+    > [!WARNING]  
+    >  <span data-ttu-id="e7a9d-128">インポートするオブジェクトを指定することはできません。既存の [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] データベースを選択すると、多次元オブジェクトとデータ マイニング オブジェクトがすべてインポートされます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-128">You cannot specify the objects you want to import; when you choose an existing [!INCLUDE[ssASnoversion](../../includes/ssasnoversion-md.md)] database, all multidimensional and data mining objects are imported.</span></span>  
+  
+     <span data-ttu-id="e7a9d-129">**[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-129">Click **Next**.</span></span>  
+  
+5.  <span data-ttu-id="e7a9d-130">**[ウィザードの完了]** ページに、インポート処理の進行状況が表示されます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-130">The page, **Completing the Wizard**, displays the progress of the import operation.</span></span> <span data-ttu-id="e7a9d-131">処理をキャンセルしたり、インポート対象のオブジェクトを変更したりすることはできません。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-131">You cannot cancel the operation or change the objects that are being imported.</span></span> <span data-ttu-id="e7a9d-132">終了したら **[完了]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-132">Click **Finish** when done.</span></span>  
+  
+     <span data-ttu-id="e7a9d-133">[!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)]を使用して、新しいプロジェクトが自動的に表示されます。</span><span class="sxs-lookup"><span data-stu-id="e7a9d-133">The new project is automatically opened using [!INCLUDE[ssBIDevStudioFull](../../includes/ssbidevstudiofull-md.md)].</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="e7a9d-134">参照</span><span class="sxs-lookup"><span data-stu-id="e7a9d-134">See Also</span></span>  
+ [<span data-ttu-id="e7a9d-135">プロジェクトのプロパティ (SSAS テーブル)</span><span class="sxs-lookup"><span data-stu-id="e7a9d-135">Project Properties &#40;SSAS Tabular&#41;</span></span>](../tabular-models/properties-ssas-tabular.md)  
+  
+  

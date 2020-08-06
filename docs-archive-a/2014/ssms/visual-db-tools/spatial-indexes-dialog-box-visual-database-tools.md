@@ -1,0 +1,120 @@
+---
+title: '[空間インデックス] ダイアログ ボックス (Visual Database Tools) | Microsoft Docs'
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: ssms
+ms.topic: conceptual
+f1_keywords:
+- vdt.dlgbox.spatialindexes
+ms.assetid: 4d84239a-68c7-4aa2-8602-2b51dd07260f
+author: stevestein
+ms.author: sstein
+ms.openlocfilehash: e401b7f93a8376b1c6dc0c75ca29cbdc8a39863d
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87640317"
+---
+# <a name="spatial-indexes-dialog-box-visual-database-tools"></a><span data-ttu-id="4402c-102">[空間インデックス] ダイアログ ボックス (Visual Database Tools)</span><span class="sxs-lookup"><span data-stu-id="4402c-102">Spatial Indexes Dialog Box (Visual Database Tools)</span></span>
+  <span data-ttu-id="4402c-103">**[インデックス/キー]** ダイアログ ボックスを使用してインデックスを作成できない **geometry** データ型や **geography** データ型の列 (*空間列*) のインデックスを作成するには、 **[空間インデックス]** を使用します。</span><span class="sxs-lookup"><span data-stu-id="4402c-103">Use the **Spatial Indexes** dialog box to create indexes for columns of the **geometry** or **geography** data type (*spatial columns*), which cannot be indexed using the **Index/Keys** dialog box.</span></span> <span data-ttu-id="4402c-104">各空間列に複数の空間インデックスを作成できますが、空間インデックスは一度に 1 つずつ作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="4402c-104">Each spatial column can have more than one spatial index, but they must be created one at a time.</span></span>  
+  
+ <span data-ttu-id="4402c-105">空間インデックスの作成の制限については、「 [空間インデックスの概要](../../relational-databases/spatial/spatial-indexes-overview.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="4402c-105">For information about restrictions on spatial index creation, see [Spatial Indexes Overview](../../relational-databases/spatial/spatial-indexes-overview.md).</span></span>  
+  
+## <a name="options"></a><span data-ttu-id="4402c-106">オプション</span><span class="sxs-lookup"><span data-stu-id="4402c-106">Options</span></span>  
+ <span data-ttu-id="4402c-107">**[選択された空間インデックス]**</span><span class="sxs-lookup"><span data-stu-id="4402c-107">**Selected Spatial Index**</span></span>  
+ <span data-ttu-id="4402c-108">既存の空間インデックスを一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-108">Lists existing spatial indexes.</span></span> <span data-ttu-id="4402c-109">特定の空間インデックスのプロパティを表示するには、そのインデックスをクリックします。</span><span class="sxs-lookup"><span data-stu-id="4402c-109">Select an index to show its properties.</span></span> <span data-ttu-id="4402c-110">この一覧が空の場合、テーブルには空間インデックスがまったく定義されていません。</span><span class="sxs-lookup"><span data-stu-id="4402c-110">If the list is empty, no spatial indexes have been defined for the table.</span></span>  
+  
+ <span data-ttu-id="4402c-111">**追加**</span><span class="sxs-lookup"><span data-stu-id="4402c-111">**Add**</span></span>  
+ <span data-ttu-id="4402c-112">新しい空間インデックスを作成します。</span><span class="sxs-lookup"><span data-stu-id="4402c-112">Creates a new spatial index.</span></span>  
+  
+ <span data-ttu-id="4402c-113">**削除**</span><span class="sxs-lookup"><span data-stu-id="4402c-113">**Delete**</span></span>  
+ <span data-ttu-id="4402c-114">**[選択された空間インデックス]** ボックスの一覧で選択した空間インデックスを削除します。</span><span class="sxs-lookup"><span data-stu-id="4402c-114">Deletes the spatial index selected in the **Selected Spatial Index** list.</span></span>  
+  
+ <span data-ttu-id="4402c-115">**[オブジェクトごとのセル数]**</span><span class="sxs-lookup"><span data-stu-id="4402c-115">**Cells Per Object**</span></span>  
+ <span data-ttu-id="4402c-116">インデックスの単一の空間オブジェクトに使用できるオブジェクトごとのテセレーション セル数を示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-116">Indicates the number of tessellation cells-per-object that can be used for a single spatial object in the index.</span></span> <span data-ttu-id="4402c-117">1 ～ 8192 の整数を指定できます。</span><span class="sxs-lookup"><span data-stu-id="4402c-117">This number can be any integer between 1 and 8192, inclusive.</span></span> <span data-ttu-id="4402c-118">既定値は 16 です。</span><span class="sxs-lookup"><span data-stu-id="4402c-118">The default is 16.</span></span>  
+  
+ <span data-ttu-id="4402c-119">1 つのオブジェクトが *n*で指定されたセル数よりも多くのセルを使用する場合、インデックス作成では、必要なだけの数のセルが使用され、完全な最上位レベルのテセレーションが提供されます。</span><span class="sxs-lookup"><span data-stu-id="4402c-119">If an object covers more cells than specified by *n*, the indexing uses as many cells as necessary to provide a complete top-level tessellation.</span></span> <span data-ttu-id="4402c-120">その場合、オブジェクトには指定されたセル数よりも多くのセルが割り当てられることがあります。</span><span class="sxs-lookup"><span data-stu-id="4402c-120">In such cases, an object might receive more than the specified number of cells.</span></span> <span data-ttu-id="4402c-121">このとき、最大数は、 **[レベル 1]** の密度に応じて最上位レベルのグリッドで生成されたセルの数となります。</span><span class="sxs-lookup"><span data-stu-id="4402c-121">In this case, the maximum number is the number of cells generated by the top-level grid, which depends on the **Level 1** density.</span></span>  
+  
+ <span data-ttu-id="4402c-122">**[列]**</span><span class="sxs-lookup"><span data-stu-id="4402c-122">**Columns**</span></span>  
+ <span data-ttu-id="4402c-123">列名と並べ替え順序を示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-123">Indicates the column name and sort order.</span></span>  
+  
+ <span data-ttu-id="4402c-124">**[IsSpatialIndex]**</span><span class="sxs-lookup"><span data-stu-id="4402c-124">**IsSpatialIndex**</span></span>  
+ <span data-ttu-id="4402c-125">空間インデックスが選択されていることを示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-125">Indicates that a spatial index is selected.</span></span>  
+  
+ <span data-ttu-id="4402c-126">**Level 1 (レベル 1)**</span><span class="sxs-lookup"><span data-stu-id="4402c-126">**Level 1**</span></span>  
+ <span data-ttu-id="4402c-127">第 1 レベル (最上位) グリッドの密度を示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-127">Indicates the density of the first-level (top) grid.</span></span>  
+  
+ <span data-ttu-id="4402c-128">**Level 2 (レベル 2)**</span><span class="sxs-lookup"><span data-stu-id="4402c-128">**Level 2**</span></span>  
+ <span data-ttu-id="4402c-129">第 2 レベルのグリッドの密度を示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-129">Indicates the density of the second-level grid.</span></span>  
+  
+ <span data-ttu-id="4402c-130">**Level 3 (レベル 3)**</span><span class="sxs-lookup"><span data-stu-id="4402c-130">**Level 3**</span></span>  
+ <span data-ttu-id="4402c-131">第 3 レベルのグリッドの密度を示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-131">Indicates the density of the third-level grid.</span></span>  
+  
+ <span data-ttu-id="4402c-132">**[レベル 4]**</span><span class="sxs-lookup"><span data-stu-id="4402c-132">**Level 4**</span></span>  
+ <span data-ttu-id="4402c-133">第 4 レベルのグリッドの密度を示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-133">Indicates the density of the fourth-level grid.</span></span>  
+  
+ <span data-ttu-id="4402c-134">**[テセレーション スキーム]**</span><span class="sxs-lookup"><span data-stu-id="4402c-134">**Tessellation Scheme**</span></span>  
+ <span data-ttu-id="4402c-135">テセレーション スキームを指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-135">Indicates the tessellation scheme:</span></span>  
+  
+ <span data-ttu-id="4402c-136">**[ジオメトリ]** 列のオプション:</span><span class="sxs-lookup"><span data-stu-id="4402c-136">**Geometry** column options:</span></span>  
+  
+-   <span data-ttu-id="4402c-137">geometry 列の場合は **[ジオメトリ グリッド]** になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-137">**Geometry grid** for a geometry column</span></span>  
+  
+-   <span data-ttu-id="4402c-138">geography 列の場合は **[地理グリッド]** になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-138">**Geography grid** for a geography column</span></span>  
+  
+ <span data-ttu-id="4402c-139">**Type**</span><span class="sxs-lookup"><span data-stu-id="4402c-139">**Type**</span></span>  
+ <span data-ttu-id="4402c-140">空間インデックスが選択されていることを示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-140">Indicates that a spatial index is selected.</span></span>  
+  
+ <span data-ttu-id="4402c-141">**[X の最大値]**</span><span class="sxs-lookup"><span data-stu-id="4402c-141">**X-max**</span></span>  
+ <span data-ttu-id="4402c-142">境界ボックスの右上隅の x 座標を指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-142">Specifies the x-coordinate of the upper-right corner of the bounding box.</span></span> <span data-ttu-id="4402c-143">このプロパティは、 **[テセレーション スキーム]** が **[地理グリッド]** の場合、淡色表示になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-143">This property is dimmed if the **Tessellation Scheme** is **Geography grid**.</span></span>  
+  
+ <span data-ttu-id="4402c-144">**[X の最小値]**</span><span class="sxs-lookup"><span data-stu-id="4402c-144">**X-min**</span></span>  
+ <span data-ttu-id="4402c-145">境界ボックスの左下隅の x 座標を指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-145">Specifies the x-coordinate of the lower-left corner of the bounding box.</span></span> <span data-ttu-id="4402c-146">このプロパティは、 **[テセレーション スキーム]** が **[地理グリッド]** の場合、淡色表示になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-146">This property is dimmed if the **Tessellation Scheme** is **Geography grid**.</span></span>  
+  
+ <span data-ttu-id="4402c-147">**[Y の最大値]**</span><span class="sxs-lookup"><span data-stu-id="4402c-147">**Y-max**</span></span>  
+ <span data-ttu-id="4402c-148">境界ボックスの右上隅の y 座標を指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-148">Specifies the y-coordinate of upper-right corner of the bounding box.</span></span> <span data-ttu-id="4402c-149">このプロパティは、 **[テセレーション スキーム]** が **[地理グリッド]** の場合、淡色表示になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-149">This property is dimmed if the **Tessellation Scheme** is **Geography grid**.</span></span>  
+  
+ <span data-ttu-id="4402c-150">**[Y の最小値]**</span><span class="sxs-lookup"><span data-stu-id="4402c-150">**Y-min**</span></span>  
+ <span data-ttu-id="4402c-151">境界ボックスの左下隅の y 座標を指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-151">Specifies the y-coordinate of the lower-left corner of the bounding box.</span></span> <span data-ttu-id="4402c-152">このプロパティは、 **[テセレーション スキーム]** が **[地理グリッド]** の場合、淡色表示になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-152">This property is dimmed if the **Tessellation Scheme** is **Geography grid**.</span></span>  
+  
+ <span data-ttu-id="4402c-153">**[ID]**</span><span class="sxs-lookup"><span data-stu-id="4402c-153">**Identity**</span></span>  
+ <span data-ttu-id="4402c-154">展開して、 **[オブジェクト名]** プロパティ フィールドと **[説明]** プロパティ フィールドを表示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-154">When expanded, shows the **Name** and **Description** property fields.</span></span>  
+  
+ <span data-ttu-id="4402c-155">**[(名前)]**</span><span class="sxs-lookup"><span data-stu-id="4402c-155">**(Name)**</span></span>  
+ <span data-ttu-id="4402c-156">空間インデックスの名前を表示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-156">Shows the name of the spatial index.</span></span> <span data-ttu-id="4402c-157">新しいインデックスを作成した場合、このプロパティには、テーブル デザイナーのアクティブ ウィンドウのテーブルに基づいて、既定の名前が設定されます。</span><span class="sxs-lookup"><span data-stu-id="4402c-157">When a new index is created, it is given a default name based on the table in the active window in Table Designer.</span></span> <span data-ttu-id="4402c-158">名前はいつでも変更できます。</span><span class="sxs-lookup"><span data-stu-id="4402c-158">You can change the name at any time.</span></span>  
+  
+ <span data-ttu-id="4402c-159">**説明**</span><span class="sxs-lookup"><span data-stu-id="4402c-159">**Description**</span></span>  
+ <span data-ttu-id="4402c-160">インデックスの説明です。</span><span class="sxs-lookup"><span data-stu-id="4402c-160">Describes the index.</span></span> <span data-ttu-id="4402c-161">より詳細な説明を記述する場合は、 **[説明]** をクリックしてから、プロパティ フィールドの右に表示される省略記号ボタン ( **[...]** ) をクリックします。</span><span class="sxs-lookup"><span data-stu-id="4402c-161">To write a more detailed description, click **Description** and then click the ellipsis button (**...**) that appears to the right of the property field.</span></span> <span data-ttu-id="4402c-162">これにより、テキストを書くことができる領域が大きくなります。</span><span class="sxs-lookup"><span data-stu-id="4402c-162">This provides a larger area in which to write text.</span></span>  
+  
+ <span data-ttu-id="4402c-163">**[テーブル デザイナー] カテゴリ**</span><span class="sxs-lookup"><span data-stu-id="4402c-163">**Table Designer Category**</span></span>  
+ <span data-ttu-id="4402c-164">展開してこの空間インデックスのプロパティに関する情報を表示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-164">When expanded, shows information about the properties of this spatial index.</span></span>  
+  
+ <span data-ttu-id="4402c-165">**[FILL の指定]**</span><span class="sxs-lookup"><span data-stu-id="4402c-165">**Fill Specification**</span></span>  
+ <span data-ttu-id="4402c-166">展開して **[FILL FACTOR]** および **[インデックスの埋め込み]** の情報を表示します。</span><span class="sxs-lookup"><span data-stu-id="4402c-166">When expanded, shows information for **Fill Factor** and **Pad Index**.</span></span>  
+  
+ <span data-ttu-id="4402c-167">**[FILL FACTOR]**</span><span class="sxs-lookup"><span data-stu-id="4402c-167">**Fill Factor**</span></span>  
+ <span data-ttu-id="4402c-168">システムが使用できるインデックス ページの割合を指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-168">Specify what percentage of the index page the system can fill.</span></span> <span data-ttu-id="4402c-169">ページがいっぱいになった場合、新しいデータが追加されると、システムはそのページを分割する必要があります。これによりパフォーマンスが低下します。</span><span class="sxs-lookup"><span data-stu-id="4402c-169">When a page is full, if new data is added, the system must split the page, which impairs performance.</span></span>  
+  
+-   <span data-ttu-id="4402c-170">値 100 は、ページがいっぱいになることを示しています。必要な記憶領域は最小限ですが、最も非効率的です。</span><span class="sxs-lookup"><span data-stu-id="4402c-170">A value of 100 means the pages will be full; this requires the least amount of storage space but is the least efficient.</span></span> <span data-ttu-id="4402c-171">この設定は、データに変更がない (たとえば読み取り専用テーブルのデータ) 場合にだけ使用します。</span><span class="sxs-lookup"><span data-stu-id="4402c-171">This setting should be used only when there will be no changes to the data, for example, on a read-only table.</span></span>  
+  
+-   <span data-ttu-id="4402c-172">値が小さいほどデータ ページ上の空き領域が大きくなり、インデックスが増大したときにデータ ページを分割する必要性が小さくなります。</span><span class="sxs-lookup"><span data-stu-id="4402c-172">A lower value leaves more empty space on the data pages, which reduces the need to split data pages as indexes grow.</span></span> <span data-ttu-id="4402c-173">ただし、より大きな記憶領域が必要になります。</span><span class="sxs-lookup"><span data-stu-id="4402c-173">However, it requires more storage space.</span></span> <span data-ttu-id="4402c-174">この設定は、テーブル内のデータに変更が生じることが予想される場合に適しています。</span><span class="sxs-lookup"><span data-stu-id="4402c-174">This setting is more appropriate when there will be changes to the data in the table.</span></span>  
+  
+ <span data-ttu-id="4402c-175">**[インデックスの埋め込み]**</span><span class="sxs-lookup"><span data-stu-id="4402c-175">**Pad Index**</span></span>  
+ <span data-ttu-id="4402c-176">**[FILL FACTOR]** で指定されている空き領域 (埋め込み) の割合と同じ比率で、このインデックスにページを提供します。</span><span class="sxs-lookup"><span data-stu-id="4402c-176">Provides pages in this index the same percentage of empty space (padding) that is specified in **Fill Factor**.</span></span>  
+  
+ <span data-ttu-id="4402c-177">**[ページのロックを許可]**</span><span class="sxs-lookup"><span data-stu-id="4402c-177">**Page Locks Allowed**</span></span>  
+ <span data-ttu-id="4402c-178">該当するインデックスでページレベルのロックを許可するかどうかを指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-178">Specifies whether page-level locking is allowed on this index.</span></span> <span data-ttu-id="4402c-179">ページレベル ロックの許可、非許可はデータベースのパフォーマンスに影響を与えます。</span><span class="sxs-lookup"><span data-stu-id="4402c-179">Allowing or disallowing page-level locking affects database performance.</span></span>  
+  
+ <span data-ttu-id="4402c-180">**統計の再計算**</span><span class="sxs-lookup"><span data-stu-id="4402c-180">**Re-compute  Statistics**</span></span>  
+ <span data-ttu-id="4402c-181">インデックスの作成時に、統計情報を新たに計算するかどうかを指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-181">Specifies whether to compute new statistics when the index is created.</span></span> <span data-ttu-id="4402c-182">統計情報の再計算により、インデックスの構築には前よりも時間がかかりますが、通常はクエリのパフォーマンスが向上します。</span><span class="sxs-lookup"><span data-stu-id="4402c-182">Recomputing statistics slows the building of indexes but usually improves query performance.</span></span>  
+  
+ <span data-ttu-id="4402c-183">**[行のロックを許可]**</span><span class="sxs-lookup"><span data-stu-id="4402c-183">**Row Locks Allowed**</span></span>  
+ <span data-ttu-id="4402c-184">該当するインデックスで行レベルのロックを許可するかどうかを指定します。</span><span class="sxs-lookup"><span data-stu-id="4402c-184">Specifies whether row-level locking is allowed on this index.</span></span> <span data-ttu-id="4402c-185">行レベル ロックの許可、非許可はデータベースのパフォーマンスに影響を与えます。</span><span class="sxs-lookup"><span data-stu-id="4402c-185">Allowing or disallowing row-level locking affects database performance.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="4402c-186">参照</span><span class="sxs-lookup"><span data-stu-id="4402c-186">See Also</span></span>  
+ [<span data-ttu-id="4402c-187">空間インデックスの概要</span><span class="sxs-lookup"><span data-stu-id="4402c-187">Spatial Indexes Overview</span></span>](../../relational-databases/spatial/spatial-indexes-overview.md)  
+  
+  

@@ -1,0 +1,54 @@
+---
+title: '[スクリプト変換エディター] ([スクリプト] ページ) |Microsoft Docs'
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: integration-services
+ms.topic: conceptual
+f1_keywords:
+- sql12.dts.designer.scriptcomponent.script.f1
+helpviewer_keywords:
+- Script Transformation Editor
+ms.assetid: 4c6d1901-ef21-4aa7-9d0a-6bbeb7fadf1c
+author: chugugrace
+ms.author: chugu
+ms.openlocfilehash: df89bddd0a2f12e1d0efe0db74f4e10aadd772eb
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87641044"
+---
+# <a name="script-transformation-editor-script-page"></a><span data-ttu-id="43eb6-102">[スクリプト変換エディター] ([スクリプト] ページ)</span><span class="sxs-lookup"><span data-stu-id="43eb6-102">Script Transformation Editor (Script Page)</span></span>
+  <span data-ttu-id="43eb6-103">**[スクリプト変換エディター]** ダイアログ ボックスの **[スクリプト]** タブを使用すると、スクリプトおよび関連プロパティを指定できます。</span><span class="sxs-lookup"><span data-stu-id="43eb6-103">Use the **Script** tab of the **Script Transformation Editor** dialog box to specify a script and related properties.</span></span>  
+  
+ <span data-ttu-id="43eb6-104">スクリプト コンポーネントの詳細については、「 [Script Component](data-flow/transformations/script-component.md) 」および「 [Configuring the Script Component in the Script Component Editor](extending-packages-scripting/data-flow-script-component/configuring-the-script-component-in-the-script-component-editor.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="43eb6-104">To learn more about the Script component, see [Script Component](data-flow/transformations/script-component.md) and [Configuring the Script Component in the Script Component Editor](extending-packages-scripting/data-flow-script-component/configuring-the-script-component-in-the-script-component-editor.md).</span></span> <span data-ttu-id="43eb6-105">スクリプト コンポーネントのプログラミングの詳細については、「 [スクリプト コンポーネントによるデータ フローの拡張](extending-packages-scripting/data-flow-script-component/extending-the-data-flow-with-the-script-component.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="43eb6-105">To learn about programming the Script component, see [Extending the Data Flow with the Script Component](extending-packages-scripting/data-flow-script-component/extending-the-data-flow-with-the-script-component.md).</span></span>  
+  
+## <a name="options"></a><span data-ttu-id="43eb6-106">オプション</span><span class="sxs-lookup"><span data-stu-id="43eb6-106">Options</span></span>  
+ <span data-ttu-id="43eb6-107">**Properties**</span><span class="sxs-lookup"><span data-stu-id="43eb6-107">**Properties**</span></span>  
+ <span data-ttu-id="43eb6-108">スクリプト変換のプロパティを表示および変更します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-108">View and modify the properties of the Script transformation.</span></span> <span data-ttu-id="43eb6-109">表示されるプロパティの多くは読み取り専用です。</span><span class="sxs-lookup"><span data-stu-id="43eb6-109">Many of the properties displayed are read-only.</span></span> <span data-ttu-id="43eb6-110">以下のプロパティを変更できます。</span><span class="sxs-lookup"><span data-stu-id="43eb6-110">You can modify the following properties:</span></span>  
+  
+|<span data-ttu-id="43eb6-111">値</span><span class="sxs-lookup"><span data-stu-id="43eb6-111">Value</span></span>|<span data-ttu-id="43eb6-112">説明</span><span class="sxs-lookup"><span data-stu-id="43eb6-112">Description</span></span>|  
+|-----------|-----------------|  
+|<span data-ttu-id="43eb6-113">**説明**</span><span class="sxs-lookup"><span data-stu-id="43eb6-113">**Description**</span></span>|<span data-ttu-id="43eb6-114">スクリプト変換の目的を記述します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-114">Describe the script transformation in terms of its purpose.</span></span>|  
+|<span data-ttu-id="43eb6-115">**LocaleID**</span><span class="sxs-lookup"><span data-stu-id="43eb6-115">**LocaleID**</span></span>|<span data-ttu-id="43eb6-116">ロケールを指定して、順序付けおよび日時の変換に関する地域固有の情報を提供します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-116">Specify the locale to provide region-specific information for ordering, and for date and time conversion.</span></span>|  
+|<span data-ttu-id="43eb6-117">**Name**</span><span class="sxs-lookup"><span data-stu-id="43eb6-117">**Name**</span></span>|<span data-ttu-id="43eb6-118">わかりやすいコンポーネント名を入力します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-118">Type a descriptive name for the component.</span></span>|  
+|<span data-ttu-id="43eb6-119">**[ValidateExternalMetadata]**</span><span class="sxs-lookup"><span data-stu-id="43eb6-119">**ValidateExternalMetadata**</span></span>|<span data-ttu-id="43eb6-120">スクリプト変換において、デザイン時に外部データ ソースに対して列のメタデータを検証するかどうかを示します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-120">Indicate whether the Script transformation validates column metadata against external data sources at design time.</span></span> <span data-ttu-id="43eb6-121">値 `false` を設定した場合、検証は実行時まで延期されます。</span><span class="sxs-lookup"><span data-stu-id="43eb6-121">A value of `false` delays validation until the time of execution.</span></span>|  
+|<span data-ttu-id="43eb6-122">**[ReadOnlyVariables]**</span><span class="sxs-lookup"><span data-stu-id="43eb6-122">**ReadOnlyVariables**</span></span>|<span data-ttu-id="43eb6-123">スクリプト変換が読み取り専用でアクセスする変数の、コンマ区切りの一覧を入力します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-123">Type a comma-separated list of variables for read-only access by the Script transformation.</span></span><br /><br /> <span data-ttu-id="43eb6-124">注: 変数名では大文字と小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="43eb6-124">Note: Variable names are case-sensitive.</span></span>|  
+|<span data-ttu-id="43eb6-125">**[ReadWriteVariables]**</span><span class="sxs-lookup"><span data-stu-id="43eb6-125">**ReadWriteVariables**</span></span>|<span data-ttu-id="43eb6-126">スクリプト変換が読み取り/書き込み用にアクセスする変数の、コンマ区切りの一覧を入力します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-126">Type a comma-separated list of variables for read/write access by the Script transformation.</span></span><br /><br /> <span data-ttu-id="43eb6-127">注: 変数名では大文字と小文字が区別されます。</span><span class="sxs-lookup"><span data-stu-id="43eb6-127">Note: Variable names are case-sensitive.</span></span>|  
+|<span data-ttu-id="43eb6-128">**[ScriptLanguage]**</span><span class="sxs-lookup"><span data-stu-id="43eb6-128">**ScriptLanguage**</span></span>|<span data-ttu-id="43eb6-129">スクリプト コンポーネントが使用するスクリプト言語を選択します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-129">Select the script language to be used by the Script component.</span></span><br /><br /> <span data-ttu-id="43eb6-130">スクリプト コンポーネントとスクリプト タスクの既定のスクリプト言語を設定するには、 **[オプション]** ダイアログ ボックスの **[全般]** ページにある **[スクリプト言語]** オプションを使用します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-130">To set the default script language for Script components and Script tasks, use the **Scripting language** option on the **General** page of the **Options** dialog box.</span></span> <span data-ttu-id="43eb6-131">詳細については、「 [General Page](general-page-of-integration-services-designers-options.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="43eb6-131">For more information, see [General Page](general-page-of-integration-services-designers-options.md).</span></span>|  
+|<span data-ttu-id="43eb6-132">**[UserComponentTypeName]**</span><span class="sxs-lookup"><span data-stu-id="43eb6-132">**UserComponentTypeName**</span></span>|<span data-ttu-id="43eb6-133">[!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] インフラストラクチャをサポートする <xref:Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost> クラスおよび `Microsoft.SqlServer.TxScript` アセンブリを指定します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-133">Specifies the <xref:Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost> class and the `Microsoft.SqlServer.TxScript` assembly that support the [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] infrastructure.</span></span>|  
+  
+ <span data-ttu-id="43eb6-134">**[スクリプトの編集]**</span><span class="sxs-lookup"><span data-stu-id="43eb6-134">**Edit Script**</span></span>  
+ <span data-ttu-id="43eb6-135">[!INCLUDE[msCoName](../includes/msconame-md.md)] [!INCLUDE[vsprvs](../includes/vsprvs-md.md)] Tools for Applications (VSTA) を使用して、スクリプトを作成または変更します。</span><span class="sxs-lookup"><span data-stu-id="43eb6-135">Use [!INCLUDE[msCoName](../includes/msconame-md.md)] [!INCLUDE[vsprvs](../includes/vsprvs-md.md)] Tools for Applications (VSTA) to create or modify a script.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="43eb6-136">参照</span><span class="sxs-lookup"><span data-stu-id="43eb6-136">See Also</span></span>  
+ <span data-ttu-id="43eb6-137">[Integration Services のエラーおよびメッセージのリファレンス](../../2014/integration-services/integration-services-error-and-message-reference.md) </span><span class="sxs-lookup"><span data-stu-id="43eb6-137">[Integration Services Error and Message Reference](../../2014/integration-services/integration-services-error-and-message-reference.md) </span></span>  
+ <span data-ttu-id="43eb6-138">[スクリプトコンポーネントの種類を選択](../../2014/integration-services/select-script-component-type.md) </span><span class="sxs-lookup"><span data-stu-id="43eb6-138">[Select Script Component Type](../../2014/integration-services/select-script-component-type.md) </span></span>  
+ <span data-ttu-id="43eb6-139">[[スクリプト変換エディター] &#40;[入力列] ページ&#41;](../../2014/integration-services/script-transformation-editor-input-columns-page.md) </span><span class="sxs-lookup"><span data-stu-id="43eb6-139">[Script Transformation Editor &#40;Input Columns Page&#41;](../../2014/integration-services/script-transformation-editor-input-columns-page.md) </span></span>  
+ <span data-ttu-id="43eb6-140">[[スクリプト変換エディター] の [入力および出力] ページ &#40;&#41;](../../2014/integration-services/script-transformation-editor-inputs-and-outputs-page.md) </span><span class="sxs-lookup"><span data-stu-id="43eb6-140">[Script Transformation Editor &#40;Inputs and Outputs Page&#41;](../../2014/integration-services/script-transformation-editor-inputs-and-outputs-page.md) </span></span>  
+ <span data-ttu-id="43eb6-141">[[スクリプト変換エディター] &#40;[接続マネージャー] ページ&#41;](../../2014/integration-services/script-transformation-editor-connection-managers-page.md) </span><span class="sxs-lookup"><span data-stu-id="43eb6-141">[Script Transformation Editor &#40;Connection Managers Page&#41;](../../2014/integration-services/script-transformation-editor-connection-managers-page.md) </span></span>  
+ [<span data-ttu-id="43eb6-142">その他のスクリプト コンポーネントの例</span><span class="sxs-lookup"><span data-stu-id="43eb6-142">Additional Script Component Examples</span></span>](extending-packages-scripting-data-flow-script-component-examples/additional-script-component-examples.md)  
+  
+  

@@ -1,0 +1,36 @@
+---
+title: キューブ属性のプロパティの定義 |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+helpviewer_keywords:
+- cubes [Analysis Services], defining
+ms.assetid: 579ca818-f33d-4060-906d-c8bfee93bf99
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: c02d57e8d24e625dc0613f25d97765c9ae018803
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87632153"
+---
+# <a name="define-cube-attribute-properties"></a><span data-ttu-id="b9703-102">キューブ属性のプロパティの定義</span><span class="sxs-lookup"><span data-stu-id="b9703-102">Define Cube Attribute Properties</span></span>
+  <span data-ttu-id="b9703-103">キューブ属性のプロパティにより、同じデータベース ディメンションに基づいたキューブ ディメンション内のディメンション属性に一意の設定を指定できます。</span><span class="sxs-lookup"><span data-stu-id="b9703-103">Cube attribute properties enable you to specify unique settings for dimension attributes in cube dimensions based on the same database dimension.</span></span> <span data-ttu-id="b9703-104">次の表では、キューブ属性のプロパティについて説明します。</span><span class="sxs-lookup"><span data-stu-id="b9703-104">The following table describes the properties of a cube attribute.</span></span>  
+  
+|<span data-ttu-id="b9703-105">プロパティ</span><span class="sxs-lookup"><span data-stu-id="b9703-105">Property</span></span>|<span data-ttu-id="b9703-106">説明</span><span class="sxs-lookup"><span data-stu-id="b9703-106">Description</span></span>|  
+|--------------|-----------------|  
+|`AggregationUsage`|<span data-ttu-id="b9703-107">集計デザイン ウィザードによる属性の集計の設計方法を指定します。</span><span class="sxs-lookup"><span data-stu-id="b9703-107">Specifies how the Aggregation Design Wizard will design aggregations for the attribute.</span></span> <span data-ttu-id="b9703-108">このプロパティは、以下の値をとります。</span><span class="sxs-lookup"><span data-stu-id="b9703-108">This property can have the following values:</span></span><br /><br /> <span data-ttu-id="b9703-109">`Default`: 既定値。</span><span class="sxs-lookup"><span data-stu-id="b9703-109">`Default`: Default.</span></span> <span data-ttu-id="b9703-110">集計デザイン ウィザードは、属性の種類に基づいて既定のルール (キーの場合は Full、その他の場合は Unrestricted) を適用します。</span><span class="sxs-lookup"><span data-stu-id="b9703-110">The Aggregation Design Wizard applies a default rule based on the type of attribute (Full for keys, Unrestricted for others).</span></span><br /><br /> <span data-ttu-id="b9703-111">`None`: キューブの集計にはこの属性を含めないでください。</span><span class="sxs-lookup"><span data-stu-id="b9703-111">`None`: No aggregation for the cube should include this attribute.</span></span><br /><br /> <span data-ttu-id="b9703-112">`Unrestricted`: 集計のデザインウィザードに制限は適用されません。</span><span class="sxs-lookup"><span data-stu-id="b9703-112">`Unrestricted`: No restrictions are placed on the Aggregation Design Wizard.</span></span><br /><br /> <span data-ttu-id="b9703-113">`Full`: キューブのすべての集計にこの属性が含まれている必要があります。</span><span class="sxs-lookup"><span data-stu-id="b9703-113">`Full`: Every aggregation for the cube must include this attribute.</span></span>|  
+|`AttributeHierarchyEnabled`|<span data-ttu-id="b9703-114">属性階層をこのキューブ ディメンションで有効にするかどうかを識別します。</span><span class="sxs-lookup"><span data-stu-id="b9703-114">Identifies whether the attribute hierarchy is enables on this cube dimension.</span></span> <span data-ttu-id="b9703-115">これによって属性階層を特定のキューブまたはディメンション ロールに対して無効にすることができます。</span><span class="sxs-lookup"><span data-stu-id="b9703-115">This allows attribute hierarchies to be disabled on specific cubes or dimension roles.</span></span> <span data-ttu-id="b9703-116">この設定は、基になる属性階層が無効になっている場合には影響を受けません。</span><span class="sxs-lookup"><span data-stu-id="b9703-116">This setting has no effect if the underlying attribute hierarchy is disabled.</span></span> <span data-ttu-id="b9703-117">既定値は `True`にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="b9703-117">Default value is `True`.</span></span>|  
+|`OptimizedState`|<span data-ttu-id="b9703-118">属性階層をこのキューブ ディメンションに対して最適化するかどうかを示します。</span><span class="sxs-lookup"><span data-stu-id="b9703-118">Indicates whether the attribute hierarchy is optimized on this cube dimension.</span></span> <span data-ttu-id="b9703-119">これによって属性階層を特定のキューブまたはディメンション ロールに対して最適化できます。</span><span class="sxs-lookup"><span data-stu-id="b9703-119">This allows attribute hierarchies to be optimized on specific cubes or dimension roles.</span></span> <span data-ttu-id="b9703-120">この設定は、基になる属性階層が最適化されていない場合には影響を受けません。</span><span class="sxs-lookup"><span data-stu-id="b9703-120">This setting has no effect if the underlying attribute hierarchy is not optimized.</span></span> <span data-ttu-id="b9703-121">このプロパティは、以下の値をとります。</span><span class="sxs-lookup"><span data-stu-id="b9703-121">This property can have the following values:</span></span><br /><br /> <span data-ttu-id="b9703-122">`FullyOptimized`: 既定値。</span><span class="sxs-lookup"><span data-stu-id="b9703-122">`FullyOptimized`: Default.</span></span> <span data-ttu-id="b9703-123">インスタンスは、階層のインデックスを構築し、クエリ パフォーマンスを改善します。</span><span class="sxs-lookup"><span data-stu-id="b9703-123">The instance builds indexes for the hierarchy to improve query performance.</span></span> <span data-ttu-id="b9703-124">これが既定値です。</span><span class="sxs-lookup"><span data-stu-id="b9703-124">This is the default value.</span></span><br /><br /> <span data-ttu-id="b9703-125">`NotOptimized`: インスタンスは追加のインデックスを構築しません。</span><span class="sxs-lookup"><span data-stu-id="b9703-125">`NotOptimized`: The instance does not build additional indexes.</span></span>|  
+|`AttributeHierarchyVisible`|<span data-ttu-id="b9703-126">属性階層をこのキューブ ディメンションで表示するかどうかを示します。</span><span class="sxs-lookup"><span data-stu-id="b9703-126">Indicates whether the attribute hierarchy is visible on this cube dimension.</span></span> <span data-ttu-id="b9703-127">これによって属性階層を特定のキューブまたはディメンション ロールで表示できます。</span><span class="sxs-lookup"><span data-stu-id="b9703-127">This allows attribute hierarchies to be visible on specific cubes or dimension roles.</span></span> <span data-ttu-id="b9703-128">この設定は、基になる属性階層が表示されていない場合には影響を受けません。</span><span class="sxs-lookup"><span data-stu-id="b9703-128">This setting has no effect if the underlying attribute hierarchy is not visible.</span></span> <span data-ttu-id="b9703-129">既定値は `True` です。</span><span class="sxs-lookup"><span data-stu-id="b9703-129">The default value is `True`.</span></span>|  
+|`AttributeID`|<span data-ttu-id="b9703-130">属性の一意識別子 (ID) を示します。</span><span class="sxs-lookup"><span data-stu-id="b9703-130">Contains the unique identifier (ID) of the attribute.</span></span>|  
+  
+## <a name="see-also"></a><span data-ttu-id="b9703-131">参照</span><span class="sxs-lookup"><span data-stu-id="b9703-131">See Also</span></span>  
+ <span data-ttu-id="b9703-132">[キューブディメンションのプロパティの定義](define-cube-dimension-properties.md) </span><span class="sxs-lookup"><span data-stu-id="b9703-132">[Define Cube Dimension Properties](define-cube-dimension-properties.md) </span></span>  
+ [<span data-ttu-id="b9703-133">キューブ階層のプロパティの定義</span><span class="sxs-lookup"><span data-stu-id="b9703-133">Define Cube Hierarchy Properties</span></span>](define-cube-hierarchy-properties.md)  
+  
+  

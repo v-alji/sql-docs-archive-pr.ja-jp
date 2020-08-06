@@ -1,0 +1,69 @@
+---
+title: シングル ユーザー モードでの SQL Server の起動 | Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: configuration
+ms.topic: conceptual
+helpviewer_keywords:
+- starting SQL Server, single-user mode
+- single-user mode [SQL Server]
+ms.assetid: 72eb4fc1-7af4-4ec6-9e02-11a69e02748e
+author: MikeRayMSFT
+ms.author: mikeray
+ms.openlocfilehash: b2600524da45f9a81f155432397cee2e7e876274
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87632088"
+---
+# <a name="start-sql-server-in-single-user-mode"></a><span data-ttu-id="8a37f-102">シングル ユーザー モードでの SQL Server の起動</span><span class="sxs-lookup"><span data-stu-id="8a37f-102">Start SQL Server in Single-User Mode</span></span>
+  <span data-ttu-id="8a37f-103">特定の状況では、 **startup option -m** を使用して、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスをシングル ユーザー モードで起動する必要が生じる場合があります。</span><span class="sxs-lookup"><span data-stu-id="8a37f-103">Under certain circumstances, you may have to start an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode by using the **startup option -m.**</span></span> <span data-ttu-id="8a37f-104">たとえば、サーバーの構成オプションを変更したり、破損した master データベースや他のシステム データベースを復旧したりすることがあります。</span><span class="sxs-lookup"><span data-stu-id="8a37f-104">For example, you may want to change server configuration options or recover a damaged master database or other system database.</span></span> <span data-ttu-id="8a37f-105">いずれの場合も、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスをシングル ユーザー モードで起動する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8a37f-105">Both actions require starting an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode.</span></span>  
+  
+ <span data-ttu-id="8a37f-106">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] をシングル ユーザー モードで起動すると、コンピューターのローカル Administrators グループのメンバーはすべて、固定サーバー ロール sysadmin のメンバーとして [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスに接続できるようになります。</span><span class="sxs-lookup"><span data-stu-id="8a37f-106">Starting [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode enables any member of the computer's local Administrators group to connect to the instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] as a member of the sysadmin fixed server role.</span></span> <span data-ttu-id="8a37f-107">詳細については、「 [システム管理者がロックアウトされた場合の SQL Server への接続](connect-to-sql-server-when-system-administrators-are-locked-out.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8a37f-107">For more information, see [Connect to SQL Server When System Administrators Are Locked Out](connect-to-sql-server-when-system-administrators-are-locked-out.md).</span></span>  
+  
+ <span data-ttu-id="8a37f-108">シングル ユーザー モードで [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスを起動する場合は、次の点に注意してください。</span><span class="sxs-lookup"><span data-stu-id="8a37f-108">When you start an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode, note the following:</span></span>  
+  
+-   <span data-ttu-id="8a37f-109">1 人のユーザーのみがサーバーに接続できます。</span><span class="sxs-lookup"><span data-stu-id="8a37f-109">Only one user can connect to the server.</span></span>  
+  
+-   <span data-ttu-id="8a37f-110">CHECKPOINT プロセスは実行されません。</span><span class="sxs-lookup"><span data-stu-id="8a37f-110">The CHECKPOINT process is not executed.</span></span> <span data-ttu-id="8a37f-111">既定では、このプロセスは、起動時に自動的に実行されます。</span><span class="sxs-lookup"><span data-stu-id="8a37f-111">By default, it is executed automatically at startup.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="8a37f-112">シングル ユーザー モードの場合、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスに接続する前に [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] エージェント サービスを停止してください。そうしないと、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] エージェント サービスによってその接続が使用されるため、SQL Server のインスタンスがブロックされます。</span><span class="sxs-lookup"><span data-stu-id="8a37f-112">Stop the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Agent service before connecting to an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode; otherwise, the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Agent service uses the connection, thereby blocking it.</span></span>  
+  
+ <span data-ttu-id="8a37f-113">シングル ユーザー モードで [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスを起動すると、 [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)] で [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]に接続できます。</span><span class="sxs-lookup"><span data-stu-id="8a37f-113">When you start an instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode, [!INCLUDE[ssManStudioFull](../../includes/ssmanstudiofull-md.md)] can connect to [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)].</span></span> <span data-ttu-id="8a37f-114">[!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)] のオブジェクト エクスプローラーでは、一部の操作で複数の接続が必要になるため失敗することがあります。</span><span class="sxs-lookup"><span data-stu-id="8a37f-114">Object Explorer in [!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)] might fail because it requires more than one connection for some operations.</span></span> <span data-ttu-id="8a37f-115">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] をシングル ユーザー モードで管理するには、 [!INCLUDE[tsql](../../includes/tsql-md.md)] のクエリ エディターのみを介して接続することにより [!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)]ステートメントを実行するか、 [sqlcmd ユーティリティ](../../tools/sqlcmd-utility.md)を使用します。</span><span class="sxs-lookup"><span data-stu-id="8a37f-115">To manage [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode, execute [!INCLUDE[tsql](../../includes/tsql-md.md)] statements by connecting only through the Query Editor in [!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)], or use the [sqlcmd utility](../../tools/sqlcmd-utility.md).</span></span>  
+  
+ <span data-ttu-id="8a37f-116">**Sqlcmd**またはで **-m**オプションを使用すると [!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)] 、指定したクライアントアプリケーションへの接続を制限できます。</span><span class="sxs-lookup"><span data-stu-id="8a37f-116">When you use the **-m** option with **sqlcmd** or [!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)], you can limit the connections to a specified client application.</span></span> <span data-ttu-id="8a37f-117">たとえば、 **-m "sqlcmd"** は、1つの接続への接続を制限し、その接続が**sqlcmd**クライアントプログラムとして識別する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8a37f-117">For example, **-m"sqlcmd"** limits connections to a single connection and that connection must identify itself as the **sqlcmd** client program.</span></span> <span data-ttu-id="8a37f-118">このオプションは、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] をシングル ユーザー モードで起動するときに、その唯一の接続を不明なクライアント アプリケーションによって使用されていた場合に使用します。</span><span class="sxs-lookup"><span data-stu-id="8a37f-118">Use this option when you are starting [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] in single-user mode and an unknown client application is taking the only available connection.</span></span> <span data-ttu-id="8a37f-119">[!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)]のクエリ エディターを使用して接続するには、 **-m"Microsoft SQL Server Management Studio - Query"** を使用します。</span><span class="sxs-lookup"><span data-stu-id="8a37f-119">To connect through the Query Editor in [!INCLUDE[ssManStudio](../../includes/ssmanstudio-md.md)], use **-m"Microsoft SQL Server Management Studio - Query"**.</span></span>  
+  
+> [!IMPORTANT]  
+>  <span data-ttu-id="8a37f-120">このオプションをセキュリティ機能として使用しないでください。</span><span class="sxs-lookup"><span data-stu-id="8a37f-120">Do not use this option as a security feature.</span></span> <span data-ttu-id="8a37f-121">クライアント アプリケーションの名前はクライアント アプリケーションによって接続文字列の一部として指定されるため、本当の名前が指定されるとは限りません。</span><span class="sxs-lookup"><span data-stu-id="8a37f-121">The client application provides the client application name, and can provide a false name as part of the connection string.</span></span>  
+  
+## <a name="note-for-clustered-installations"></a><span data-ttu-id="8a37f-122">クラスター化インストールに関する注意</span><span class="sxs-lookup"><span data-stu-id="8a37f-122">Note for Clustered installations</span></span>  
+ <span data-ttu-id="8a37f-123">クラスター環境に [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] をインストールした場合、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] をシングル ユーザー モードで起動すると、利用可能な接続がクラスター リソースの dll によって占有され、サーバーに対する他の接続がブロックされます。</span><span class="sxs-lookup"><span data-stu-id="8a37f-123">For [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] installation in a clustered environment, when [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] is started in single user mode, the cluster resource dll uses up the available connection thereby blocking any other connections to the server.</span></span> <span data-ttu-id="8a37f-124">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] がこの状態に陥ると、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] エージェントのリソースをオンラインに戻そうとしたときに、SQL のリソースが別のノードにフェールオーバーされる可能性があります (リソースがそのグループに影響するように構成されていた場合)。</span><span class="sxs-lookup"><span data-stu-id="8a37f-124">When [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] is in this state, if you try to bring [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Agent resource online, it may fail over the SQL resource to a different node if the resource is configured to affect the group.</span></span>  
+  
+ <span data-ttu-id="8a37f-125">この問題を回避するには、次の手順に従います。</span><span class="sxs-lookup"><span data-stu-id="8a37f-125">To get around the problem use the following procedure:</span></span>  
+  
+1.  <span data-ttu-id="8a37f-126">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] の詳細プロパティから起動時のパラメーター –m を削除します。</span><span class="sxs-lookup"><span data-stu-id="8a37f-126">Remove the -m startup parameter from the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] advanced Properties.</span></span>  
+  
+2.  <span data-ttu-id="8a37f-127">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] リソースをオフラインにします。</span><span class="sxs-lookup"><span data-stu-id="8a37f-127">Take the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] resource offline.</span></span>  
+  
+3.  <span data-ttu-id="8a37f-128">このグループの現在の所有者ノードのコマンド プロンプトで、次のコマンドを発行します:</span><span class="sxs-lookup"><span data-stu-id="8a37f-128">From the current owner node of this group, issue the following command from the command prompt:</span></span>  
+    <span data-ttu-id="8a37f-129">net start MSSQLSERVER /m</span><span class="sxs-lookup"><span data-stu-id="8a37f-129">net start MSSQLSERVER /m.</span></span>  
+  
+4.  <span data-ttu-id="8a37f-130">クラスター アドミニストレーターまたはフェールオーバー クラスター管理コンソールから、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] リソースがまだオフライン状態にあるかどうかを確認します。</span><span class="sxs-lookup"><span data-stu-id="8a37f-130">Verify from the cluster administrator or failover cluster management console that the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] resource is still offline.</span></span>  
+  
+5.  <span data-ttu-id="8a37f-131">ここで、次のコマンドを使用して [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] に接続し、必要な操作を行います: SQLCMD -E -S\<servername>。</span><span class="sxs-lookup"><span data-stu-id="8a37f-131">Connect to the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] now using the following command and do the necessary operation: SQLCMD -E -S\<servername>.</span></span>  
+  
+6.  <span data-ttu-id="8a37f-132">操作が完了したら、コマンド プロンプトを閉じ、クラスター アドミニストレーターから SQL および他のリソースをオンラインに戻します。</span><span class="sxs-lookup"><span data-stu-id="8a37f-132">Once the operation is complete, close the command prompt and bring back the SQL and other resources online through cluster administrator.</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="8a37f-133">参照</span><span class="sxs-lookup"><span data-stu-id="8a37f-133">See Also</span></span>  
+ <span data-ttu-id="8a37f-134">[SQL Server エージェント サービスの開始、停止、または一時停止](../../ssms/agent/start-stop-or-pause-the-sql-server-agent-service.md) </span><span class="sxs-lookup"><span data-stu-id="8a37f-134">[Start, Stop, or Pause the SQL Server Agent Service](../../ssms/agent/start-stop-or-pause-the-sql-server-agent-service.md) </span></span>  
+ <span data-ttu-id="8a37f-135">[データベース管理者用の診断接続](diagnostic-connection-for-database-administrators.md) </span><span class="sxs-lookup"><span data-stu-id="8a37f-135">[Diagnostic Connection for Database Administrators](diagnostic-connection-for-database-administrators.md) </span></span>  
+ <span data-ttu-id="8a37f-136">[sqlcmd ユーティリティ](../../tools/sqlcmd-utility.md) </span><span class="sxs-lookup"><span data-stu-id="8a37f-136">[sqlcmd Utility](../../tools/sqlcmd-utility.md) </span></span>  
+ <span data-ttu-id="8a37f-137">[CHECKPOINT &#40;Transact-SQL&#41;](/sql/t-sql/language-elements/checkpoint-transact-sql) </span><span class="sxs-lookup"><span data-stu-id="8a37f-137">[CHECKPOINT &#40;Transact-SQL&#41;](/sql/t-sql/language-elements/checkpoint-transact-sql) </span></span>  
+ <span data-ttu-id="8a37f-138">[sp_configure &#40;Transact-SQL&#41;](/sql/relational-databases/system-stored-procedures/sp-configure-transact-sql) </span><span class="sxs-lookup"><span data-stu-id="8a37f-138">[sp_configure &#40;Transact-SQL&#41;](/sql/relational-databases/system-stored-procedures/sp-configure-transact-sql) </span></span>  
+ [<span data-ttu-id="8a37f-139">データベース エンジン サービスのスタートアップ オプション</span><span class="sxs-lookup"><span data-stu-id="8a37f-139">Database Engine Service Startup Options</span></span>](database-engine-service-startup-options.md)  
+  
+  

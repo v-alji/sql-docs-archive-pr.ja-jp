@@ -1,0 +1,86 @@
+---
+title: マネージバックアップの構成 (SQL Server Management Studio) |Microsoft Docs
+description: '[マネージバックアップ] ダイアログボックスを使用すると、SQL Server Managed Backup to Azure default 設定を構成できます。 考慮する必要があるオプションについて説明します。'
+ms.custom: ''
+ms.date: 08/23/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: backup-restore
+ms.topic: conceptual
+f1_keywords:
+- sql12.swb.managedbackup.configure.f1
+ms.assetid: 79397cf6-0611-450a-b0d8-e784a76e3091
+author: mashamsft
+ms.author: mathoma
+ms.openlocfilehash: e952ef1102ac67bd0ed9f72d0c201d54b320b5ca
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87631248"
+---
+# <a name="configure-managed-backup-sql-server-management-studio"></a><span data-ttu-id="7d4d2-104">マネージド バックアップの構成 (SQL Server Management Studio)</span><span class="sxs-lookup"><span data-stu-id="7d4d2-104">Configure Managed Backup (SQL Server Management Studio)</span></span>
+  <span data-ttu-id="7d4d2-105">[**マネージバックアップ**] ダイアログボックスでは、 [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] インスタンスの既定値を構成できます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-105">The **Managed Backup** dialog allows you to configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] defaults for the instance.</span></span> <span data-ttu-id="7d4d2-106">このトピックでは、インスタンスに使用する [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] の既定の設定をこのダイアログで構成する方法とその際に考慮する必要のあるオプションについて説明します。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-106">This topic describes how to use this dialog to configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] default settings for the instance and options you must consider when doing so.</span></span> <span data-ttu-id="7d4d2-107">インスタンスに対して [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] を構成すると、それ以降に作成された新しいデータベースにその設定が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-107">When [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] is configured for the instance, the settings are applied to any new database created thereafter.</span></span>  
+  
+ <span data-ttu-id="7d4d2-108">[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)]特定のデータベースに対してを構成する場合は、「[データベースの Azure への SQL Server マネージバックアップの有効化と構成](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-retention-and-storage-settings.md#DatabaseConfigure)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-108">If you want to configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] for a specific database, see [Enable and Configure SQL Server Managed Backup to Azure for a Database](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-retention-and-storage-settings.md#DatabaseConfigure).</span></span>  
+ 
+> [!NOTE] 
+> <span data-ttu-id="7d4d2-109">プロキシ サーバーでは SQL Server Managed Backup はサポートされていません。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-109">SQL Server Managed Backup is not supported with proxy servers.</span></span> 
+  
+## <a name="task-list"></a><span data-ttu-id="7d4d2-110">タスク一覧</span><span class="sxs-lookup"><span data-stu-id="7d4d2-110">Task List</span></span>  
+  
+## <a name="ss_smartbackup-functions-using-managed-backup-interface-in-sql-server-management-studio"></a><span data-ttu-id="7d4d2-111">SQL Server Management Studio のマネージド バックアップ インターフェイスを使用する [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] の機能</span><span class="sxs-lookup"><span data-stu-id="7d4d2-111">[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] Functions Using Managed Backup Interface in SQL Server Management Studio</span></span>  
+ <span data-ttu-id="7d4d2-112">このリリースでは、**管理バックアップ**インターフェイスを使用してインスタンスレベルの既定の設定のみを構成できます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-112">In this release, you can only configure instance level default settings using the **Management Backup** interface.</span></span> <span data-ttu-id="7d4d2-113">データベースに対する [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] を構成することはできず、[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] 操作を一時停止 (または再開) したり、電子メール通知を設定したりすることもできません。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-113">You cannot configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] for a database, pause or resume [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] operations, or setup email notifications.</span></span> <span data-ttu-id="7d4d2-114">**マネージバックアップ**インターフェイスで現在サポートされていない操作を実行する方法の詳細については、「 [Azure へのマネージバックアップの SQL Server](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-retention-and-storage-settings.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-114">For information on how to perform operations not currently supported through the **Managed Backup** interface, see [SQL Server Managed Backup to Azure - Retention and Storage Settings](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-retention-and-storage-settings.md).</span></span>  
+  
+## <a name="permissions"></a><span data-ttu-id="7d4d2-115">アクセス許可</span><span class="sxs-lookup"><span data-stu-id="7d4d2-115">Permissions</span></span>  
+ <span data-ttu-id="7d4d2-116">**マネージバックアップノードの表示は SQL Server Management Studio:\*\*\*\*オブジェクトエクスプローラー**で**管理対象のバックアップ**ノードを表示するには、システム管理者であるか、ユーザーアカウントに次のアクセス許可が明示的に付与されている必要があります。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-116">**View Managed Backup Node is SQL Server Management Studio:** To view  **Managed Backup** node in **Object Explorer**, you must either be a System Admin or have the following permissions specifically granted to your user account:</span></span>  
+  
+-   `db_backupoperator`  
+  
+-   `VIEW SERVER STATE`  
+  
+-   `ALTER ANY CREDENTIAL`  
+  
+-   `VIEW ANY DEFINITION`  
+  
+-   <span data-ttu-id="7d4d2-117">`EXECUTE` に対する `smart_admin.fn_is_master_switch_on`。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-117">`EXECUTE` on `smart_admin.fn_is_master_switch_on`.</span></span>  
+  
+-   <span data-ttu-id="7d4d2-118">`SELECT` に対する `smart_admin.fn_backup_instance_config`。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-118">`SELECT` on `smart_admin.fn_backup_instance_config`.</span></span>  
+  
+ <span data-ttu-id="7d4d2-119">**マネージバックアップを構成するには:** SQL Server Management Studio でを構成するに [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] は、システム管理者であるか、次のアクセス許可を持っている必要があります。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-119">**To Configure Managed Backup:** to configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] in SQL Server Management Studio, you must be a System Administrator or have the following permissions:</span></span>  
+  
+ <span data-ttu-id="7d4d2-120">`db_backupoperator` データベース ロールのメンバーシップ、`ALTER ANY CREDENTIAL` 権限、`sp_delete_backuphistory` ストアド プロシージャに対する `EXECUTE` 権限。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-120">Membership in `db_backupoperator` database role, with `ALTER ANY CREDENTIAL` permissions, and `EXECUTE` permissions on `sp_delete_backuphistory` stored procedure.</span></span>  
+  
+ <span data-ttu-id="7d4d2-121">`smart_admin.fn_get_current_xevent_settings` 関数に対する `SELECT` 権限。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-121">`SELECT` permissions on the `smart_admin.fn_get_current_xevent_settings` function.</span></span>  
+  
+ <span data-ttu-id="7d4d2-122">`EXECUTE`ストアドプロシージャに対する権限 `smart_admin.sp_get_backup_diagnostics` 。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-122">`EXECUTE` permissions on the `smart_admin.sp_get_backup_diagnostics` stored procedure.</span></span> <span data-ttu-id="7d4d2-123">さらに、`VIEW SERVER STATE` 権限も必要です (この権限を必要とする他のシステム オブジェクトを内部的に呼び出すため)。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-123">In addition, it requires `VIEW SERVER STATE` permissions as it internally calls other system objects that require this permission.</span></span>  
+  
+ <span data-ttu-id="7d4d2-124">`smart_admin.sp_set_instance_backup` および `smart_admin.sp_backup_master_switch` に対する `EXECUTE` 権限。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-124">`EXECUTE` permissions on `smart_admin.sp_set_instance_backup`, and `smart_admin.sp_backup_master_switch`.</span></span>  
+  
+## <a name="configure-ss_smartbackup-using-sql-server-management-studio"></a><span data-ttu-id="7d4d2-125">[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)]SQL Server Management Studio を使用して構成する</span><span class="sxs-lookup"><span data-stu-id="7d4d2-125">Configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] using SQL Server Management Studio</span></span>  
+ <span data-ttu-id="7d4d2-126">**オブジェクトエクスプローラー**で、[**管理**] ノードを展開し、[**マネージバックアップ**] を右クリックします。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-126">From the **object explorer**, expand the **Management** node, and right click on **Managed Backup**.</span></span> <span data-ttu-id="7d4d2-127">**[構成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-127">Select **Configure**.</span></span> <span data-ttu-id="7d4d2-128">**[マネージド バックアップ]** ダイアログ ボックスが開きます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-128">This opens the **Managed Backup** dialog.</span></span>  
+  
+ <span data-ttu-id="7d4d2-129">[**マネージバックアップを有効にする**] オプションをオンにして、構成値を指定します。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-129">Check **Enable Managed Backup** option and specify the configuration values:</span></span>  
+  
+ <span data-ttu-id="7d4d2-130">**ファイルの保有**期間は日数で指定し、1 ~ 30 の範囲で指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-130">The **File retention** period is specified in days and should be between 1 and 30.</span></span>  
+  
+ <span data-ttu-id="7d4d2-131">選択する**SQL 資格情報**は、ストレージアカウントと一致している必要があります。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-131">The **SQL Credential** you select should match the storage account.</span></span> <span data-ttu-id="7d4d2-132">現在、認証情報を格納する SQL 資格情報がない場合は、[**作成**] をクリックして作成できます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-132">If you currently do not have a SQL Credential that stores the authentication information, you can create one by clicking **Create**.</span></span> <span data-ttu-id="7d4d2-133">Transact-SQL の CREATE CREDENTIAL ステートメントを使用して資格情報を作成することもできます。その場合、Identity パラメーターにはストレージ アカウント名を、SECRET パラメーターにはアクセス キーを指定します。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-133">You can also create credential by using the CREATE CREDENTIAL Transact-SQL statement, and provide the storage account name for Identity and the access key for the SECRET parameters.</span></span> <span data-ttu-id="7d4d2-134">詳細については、「[資格情報を作成する](../relational-databases/backup-restore/sql-server-backup-to-url.md#credential)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-134">For more information, see [Create a Credential](../relational-databases/backup-restore/sql-server-backup-to-url.md#credential).</span></span>  
+  
+ <span data-ttu-id="7d4d2-135">Azure ストレージアカウントの**ストレージ URL** 、ストレージアカウントの認証情報を格納する SQL 資格情報、およびバックアップファイルの保有期間を指定します。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-135">Specify the **Storage URL** for the Azure storage account, the SQL Credential that stores the authentication information for the storage account, and the retention period for the backup files.</span></span>  
+  
+ <span data-ttu-id="7d4d2-136">ストレージ URL の形式は次のとおりです: https:// \<StorageAccount> . blob.core.windows.net/</span><span class="sxs-lookup"><span data-stu-id="7d4d2-136">The storage URL format is: https://\<StorageAccount>.blob.core.windows.net/</span></span>  
+  
+ <span data-ttu-id="7d4d2-137">インスタンスレベルで暗号化設定を設定するには、[**バックアップの暗号化**] オプションをオンにし、暗号化に使用するアルゴリズムと証明書または非対称キーを指定します。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-137">To set the encryption settings at the instance level, check **Encrypt Backup** option, and specify the algorithm and a Certificate or Asymmetric Key to use for the encryption.</span></span>  <span data-ttu-id="7d4d2-138">この設定がインスタンス レベルで設定され、この構成の適用後、新しく作成されたすべてのデータベースに使用されます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-138">This is set at the instance level is used for all the new databases created once this configuration has been applied.</span></span>  
+  
+> [!WARNING]  
+>  <span data-ttu-id="7d4d2-139">このダイアログで、[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] を構成せずに暗号化のオプションを指定することはできません。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-139">This dialog cannot be used to specify the encryption options without configuring [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)].</span></span> <span data-ttu-id="7d4d2-140">ここで指定した暗号化のオプションは、[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] の操作にのみ適用されます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-140">These encryption options only apply to [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] operations.</span></span> <span data-ttu-id="7d4d2-141">他のバックアップ手順で暗号化を使用するには、「[バックアップの暗号化](../relational-databases/backup-restore/backup-encryption.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-141">To use encryption for other backup procedures, see [Backup Encryption](../relational-databases/backup-restore/backup-encryption.md).</span></span>  
+  
+### <a name="considerations"></a><span data-ttu-id="7d4d2-142">考慮事項</span><span class="sxs-lookup"><span data-stu-id="7d4d2-142">Considerations</span></span>  
+ <span data-ttu-id="7d4d2-143">インスタンス レベルで [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] を構成した場合、それ以降に作成された新しいデータベースにその設定が適用されます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-143">If you configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] at the instance level, the settings are applied to any new database created thereafter.</span></span>  <span data-ttu-id="7d4d2-144">ただし既存のデータベースがこれらの設定を自動的に継承することはありません。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-144">However, existing database will not automatically inherit these settings.</span></span> <span data-ttu-id="7d4d2-145">既存のデータベースに対して [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] を構成するには、各データベースを個別に構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-145">To configure [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] on previously existing databases, you must configure each database specifically.</span></span> <span data-ttu-id="7d4d2-146">詳細については、「[データベースの Azure への SQL Server マネージバックアップの有効化と構成](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-retention-and-storage-settings.md#DatabaseConfigure)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-146">For more information, see [Enable and Configure SQL Server Managed Backup to Azure for a Database](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-retention-and-storage-settings.md#DatabaseConfigure).</span></span>  
+  
+ <span data-ttu-id="7d4d2-147">[!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)]がを使用して一時停止されている場合 `smart_admin.sp_backup_master_switch` 、"管理されたバックアップは無効になり、現在の構成は有効になりません..." という警告メッセージが表示されます。構成を完了しようとしたとき。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-147">If [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] has been paused using the `smart_admin.sp_backup_master_switch`, you will see a warning message " Managed Backup is disabled and the current configurations will not take effect..." when you try to complete the configuration.</span></span> <span data-ttu-id="7d4d2-148">格納されているを使用 `smart_admin.sp_backup_master_switch` し、= 1 を設定し @new_state ます。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-148">Use the `smart_admin.sp_backup_master_switch` stored and set the @new_state=1.</span></span> <span data-ttu-id="7d4d2-149">これで [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] サービスが再開され、構成設定が有効になります。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-149">This will resume [!INCLUDE[ss_smartbackup](../includes/ss-smartbackup-md.md)] services and the configuration settings will take into effect.</span></span> <span data-ttu-id="7d4d2-150">ストアドプロシージャの詳細については、「 [smart_admin sp_ backup_master_switch &#40;transact-sql&#41;](/sql/relational-databases/system-stored-procedures/managed-backup-sp-backup-master-switch-transact-sql)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="7d4d2-150">For more information on the stored procedure, see [smart_admin.sp_ backup_master_switch &#40;Transact-SQL&#41;](/sql/relational-databases/system-stored-procedures/managed-backup-sp-backup-master-switch-transact-sql).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="7d4d2-151">参照</span><span class="sxs-lookup"><span data-stu-id="7d4d2-151">See Also</span></span>  
+ [<span data-ttu-id="7d4d2-152">Azure への SQL Server マネージド バックアップ:相互運用性と共存</span><span class="sxs-lookup"><span data-stu-id="7d4d2-152">SQL Server Managed Backup to Azure: Interoperability and Coexistence</span></span>](../../2014/database-engine/sql-server-managed-backup-to-windows-azure-interoperability-and-coexistence.md)  
+  
+  

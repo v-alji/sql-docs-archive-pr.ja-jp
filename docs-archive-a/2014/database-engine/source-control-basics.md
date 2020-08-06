@@ -1,0 +1,58 @@
+---
+title: ソース管理の基本 |Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: ''
+ms.topic: conceptual
+helpviewer_keywords:
+- source controls [SQL Server Management Studio], providers
+- source controls [SQL Server Management Studio]
+- source controls [SQL Server Management Studio], about source controls
+- source controls [SQL Server Management Studio], clients
+ms.assetid: ca35b67a-104a-41fb-ac58-a61be06fe114
+author: mashamsft
+ms.author: mathoma
+ms.openlocfilehash: 1112dcd8cfdec429b27b22ea3853de859553af0b
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87632075"
+---
+# <a name="source-control-basics"></a><span data-ttu-id="679f1-102">ソース管理の基礎</span><span class="sxs-lookup"><span data-stu-id="679f1-102">Source Control Basics</span></span>
+  <span data-ttu-id="679f1-103">ソース管理とは、サーバー ソフトウェアの主要部分がファイルのバージョンを格納および追跡し、ファイルへのアクセスを制御するシステムです。</span><span class="sxs-lookup"><span data-stu-id="679f1-103">Source control refers to a system in which a central piece of server software stores and tracks file versions, and also controls access to files.</span></span> <span data-ttu-id="679f1-104">標準的なソース管理システムは、1 つのソース管理プロバイダー、および 2 つ以上のソース管理クライアントで構成されます。</span><span class="sxs-lookup"><span data-stu-id="679f1-104">A typical source control system includes a source control provider and two or more source control clients.</span></span>  
+  
+## <a name="source-control-benefits"></a><span data-ttu-id="679f1-105">ソース管理の利点</span><span class="sxs-lookup"><span data-stu-id="679f1-105">Source Control Benefits</span></span>  
+ <span data-ttu-id="679f1-106">ファイルをソース管理下に配置することで、</span><span class="sxs-lookup"><span data-stu-id="679f1-106">Placing your files under source control makes it possible to</span></span>  
+  
+-   <span data-ttu-id="679f1-107">1 人の作業者から別の作業者に項目の制御を渡すプロセスを管理します。</span><span class="sxs-lookup"><span data-stu-id="679f1-107">Manage the process by which the control of items passes from one person to another.</span></span> <span data-ttu-id="679f1-108">ソース管理プロバイダーでは、共有ファイル アクセスと排他ファイル アクセスの両方がサポートされています。</span><span class="sxs-lookup"><span data-stu-id="679f1-108">Source control providers support both shared and exclusive file access.</span></span> <span data-ttu-id="679f1-109">プロジェクト ファイルへのアクセスが排他的である場合、ソース管理プロバイダーによってファイルのチェックアウトおよび変更が許可されるユーザーは、一度に 1 人だけです。</span><span class="sxs-lookup"><span data-stu-id="679f1-109">If access to project files is exclusive, the source control provider allows only one user at a time to check files out and modify them.</span></span> <span data-ttu-id="679f1-110">共有アクセスの場合は、複数のユーザーがスクリプト ファイルをチェックアウトできます。ソース管理プロバイダーには、ファイルをチェックインしたときに各バージョンをマージするメカニズムがあります。</span><span class="sxs-lookup"><span data-stu-id="679f1-110">If access is shared, more than one user can check out the script file, and the source control provider provides a mechanism for merging the versions as they are checked in.</span></span>  
+  
+-   <span data-ttu-id="679f1-111">ソース管理の対象である項目の一連のバージョンをアーカイブします。</span><span class="sxs-lookup"><span data-stu-id="679f1-111">Archive successive versions of source-controlled items.</span></span> <span data-ttu-id="679f1-112">ソース管理プロバイダーでは、ソース管理の対象項目の各バージョンを識別するためのデータが格納されます。</span><span class="sxs-lookup"><span data-stu-id="679f1-112">A source control provider stores the data that distinguishes one version of a source-controlled item from another.</span></span> <span data-ttu-id="679f1-113">ソース管理プロバイダーには、バージョン間の差分が格納され、作成された日付、変更された日付、その作業担当者など、バージョンに関する重要な情報も格納されます。</span><span class="sxs-lookup"><span data-stu-id="679f1-113">The provider stores the differences between versions, as well as crucial information about the version: when it was created, when it was modified, and by whom.</span></span> <span data-ttu-id="679f1-114">同じファイルに対して複数の人が作業をする場合、バージョンの比較を正確に行えるように、全員が同じコード ページを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="679f1-114">When several people are working on the same file, they must use the same code page, so that versions can be accurately compared.</span></span> <span data-ttu-id="679f1-115">これにより、ソース管理の対象項目の任意のバージョンを取得することが可能になります。</span><span class="sxs-lookup"><span data-stu-id="679f1-115">Consequently, you can retrieve any version of a source-controlled item.</span></span> <span data-ttu-id="679f1-116">さらに、任意のバージョンを項目の最新バージョンとして指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="679f1-116">You can also designate any version to be the latest version of that item.</span></span>  
+  
+-   <span data-ttu-id="679f1-117">ソース管理の対象項目について、詳細な履歴情報とバージョン情報を管理します。</span><span class="sxs-lookup"><span data-stu-id="679f1-117">Maintain detailed historical and version information on source-controlled items.</span></span> <span data-ttu-id="679f1-118">ソース管理では、項目が作成された日付と時刻、チェックアウトまたはチェックインされた日付と時刻、およびアクションを実行したユーザーの情報が格納されます。</span><span class="sxs-lookup"><span data-stu-id="679f1-118">Source control stores the date and time on which the item was created, when it was checked out or checked in, and the user who performed the action.</span></span>  
+  
+-   <span data-ttu-id="679f1-119">複数のプロジェクトでファイルを共有します。</span><span class="sxs-lookup"><span data-stu-id="679f1-119">Collaborate across projects.</span></span> <span data-ttu-id="679f1-120">ファイルを共有することにより、複数のプロジェクトでソース管理の対象項目を共有できます。</span><span class="sxs-lookup"><span data-stu-id="679f1-120">File sharing makes it possible for multiple projects to share source-controlled items.</span></span> <span data-ttu-id="679f1-121">共有項目に対する変更は、その項目を共有しているすべてのプロジェクトに反映されます。</span><span class="sxs-lookup"><span data-stu-id="679f1-121">Changes to a shared item are reflected in all the projects that share the item.</span></span>  
+  
+-   <span data-ttu-id="679f1-122">頻繁に繰り返されるソース管理の操作を自動化します。</span><span class="sxs-lookup"><span data-stu-id="679f1-122">Automate frequently repeated source control operations.</span></span> <span data-ttu-id="679f1-123">ソース管理プロバイダーでは、ソース管理の主な機能をサポートするインターフェイスをコマンド プロンプトから定義できます。</span><span class="sxs-lookup"><span data-stu-id="679f1-123">A source control provider may define an interface from the command prompt that supports the key features of source control.</span></span> <span data-ttu-id="679f1-124">バッチ ファイルでこのインターフェイスを使用すると、定期的に実行するソース管理タスクを自動化できます。</span><span class="sxs-lookup"><span data-stu-id="679f1-124">You can use this interface in batch files to automate the source control tasks that you perform regularly.</span></span>  
+  
+-   <span data-ttu-id="679f1-125">誤って削除した項目を復元します。</span><span class="sxs-lookup"><span data-stu-id="679f1-125">Recover from accidental deletions.</span></span> <span data-ttu-id="679f1-126">ソース管理にチェックインされている最新のファイル バージョンを復元できます。</span><span class="sxs-lookup"><span data-stu-id="679f1-126">You can restore the latest file version checked into source control.</span></span>  
+  
+-   <span data-ttu-id="679f1-127">ソース管理クライアントとサーバーの両方でディスク容量を節約します。</span><span class="sxs-lookup"><span data-stu-id="679f1-127">Conserve disk space on both the source control client and server.</span></span> <span data-ttu-id="679f1-128">[!INCLUDE[msCoName](../includes/msconame-md.md)] Visual SourceSafe などの一部のソース管理プロバイダーでは、最新バージョンのファイルと各バージョン間の差分を格納することでサーバーのディスク容量を節約できます。</span><span class="sxs-lookup"><span data-stu-id="679f1-128">Some source control providers, such as [!INCLUDE[msCoName](../includes/msconame-md.md)] Visual SourceSafe, support disk space conservation on the server by storing the latest version of a file and the differences between each version and the version that precedes or follows it.</span></span> <span data-ttu-id="679f1-129">Visual SourceSafe の場合は、クライアントでもディスク容量の節約が可能です。</span><span class="sxs-lookup"><span data-stu-id="679f1-129">On the client, Visual SourceSafe supports disk space conservation.</span></span> <span data-ttu-id="679f1-130">フォルダーやファイルを隠して、ローカル ディスクにダウンロードされないように設定できます。</span><span class="sxs-lookup"><span data-stu-id="679f1-130">You can cloak folders and files so that they are not downloaded to your local disk.</span></span>  
+  
+ <span data-ttu-id="679f1-131">ファイルのチェックアウト、チェックインなどのソース管理操作は、実際には [!INCLUDE[ssManStudioFull](../includes/ssmanstudiofull-md.md)] のようなソース管理クライアントを経由して行います。</span><span class="sxs-lookup"><span data-stu-id="679f1-131">File check outs, check ins, and other source control operations are actually accomplished through a source control client, such as [!INCLUDE[ssManStudioFull](../includes/ssmanstudiofull-md.md)].</span></span> <span data-ttu-id="679f1-132">クライアントは、プロバイダーと対話することによって、分散したユーザー グループがプロバイダーの機能を使用できるように設計されています。</span><span class="sxs-lookup"><span data-stu-id="679f1-132">The client is designed to interact with the provider to make the provider's capabilities available to a distributed group of users.</span></span> <span data-ttu-id="679f1-133">ユーザーは、ソース管理クライアントを使用して、ソース管理プロバイダーによって格納されたファイルの参照、ファイルの追加と削除、ファイルのチェックアウトとチェックイン、およびローカル ファイルのコピーの取得ができます。</span><span class="sxs-lookup"><span data-stu-id="679f1-133">Using a source control client, users can browse the files stored by the provider; add and delete files; check files in and out; and retrieve copies of local files.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="679f1-134">この説明は、ソース管理プロバイダーに [!INCLUDE[msCoName](../includes/msconame-md.md)] Visual SourceSafe を使用していることを前提としています。</span><span class="sxs-lookup"><span data-stu-id="679f1-134">This documentation assumes that you are using [!INCLUDE[msCoName](../includes/msconame-md.md)] Visual SourceSafe as your source control provider.</span></span> <span data-ttu-id="679f1-135">別のソース管理プロバイダーを使用している場合は、使用しているソフトウェアの動作がこの説明と異なることがあります。</span><span class="sxs-lookup"><span data-stu-id="679f1-135">If you are using a different source control provider, you might see differences between this documentation and the software you are running.</span></span> <span data-ttu-id="679f1-136">そのような場合は、使用しているソース管理プロバイダーのドキュメントを参照してください。</span><span class="sxs-lookup"><span data-stu-id="679f1-136">If you see differences, consult the documentation for your source control provider.</span></span>  
+  
+## <a name="related-tasks"></a><span data-ttu-id="679f1-137">Related Tasks</span><span class="sxs-lookup"><span data-stu-id="679f1-137">Related Tasks</span></span>  
+  
+|||  
+|-|-|  
+|<span data-ttu-id="679f1-138">**タスク**</span><span class="sxs-lookup"><span data-stu-id="679f1-138">**Task**</span></span>|<span data-ttu-id="679f1-139">**トピック**</span><span class="sxs-lookup"><span data-stu-id="679f1-139">**Topic**</span></span>|  
+|<span data-ttu-id="679f1-140">ソース管理オプションの設定</span><span class="sxs-lookup"><span data-stu-id="679f1-140">Set Source Control options</span></span>|[<span data-ttu-id="679f1-141">ソース管理のオプションの設定</span><span class="sxs-lookup"><span data-stu-id="679f1-141">Set Source Control Options</span></span>](../../2014/database-engine/set-source-control-options.md)|  
+|<span data-ttu-id="679f1-142">ソース管理接続の変更</span><span class="sxs-lookup"><span data-stu-id="679f1-142">Change source control Connections</span></span>|[<span data-ttu-id="679f1-143">ソース管理接続の変更</span><span class="sxs-lookup"><span data-stu-id="679f1-143">Change Source Control Connections</span></span>](../../2014/database-engine/change-source-control-connections.md)|  
+|<span data-ttu-id="679f1-144">ソース管理からファイルを除外する</span><span class="sxs-lookup"><span data-stu-id="679f1-144">Exclude files from source control</span></span>|[<span data-ttu-id="679f1-145">ソース管理からのファイルの除外</span><span class="sxs-lookup"><span data-stu-id="679f1-145">Exclude Files from Source Control</span></span>](../../2014/database-engine/exclude-files-from-source-control.md)|  
+  
+  

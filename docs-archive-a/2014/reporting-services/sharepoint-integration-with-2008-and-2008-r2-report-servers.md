@@ -1,0 +1,42 @@
+---
+title: SharePoint と2008および 2008 R2 レポートサーバーの統合 |Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: reporting-services-native
+ms.topic: conceptual
+ms.assetid: d9f51c37-b071-45d0-baec-f82fa6db366f
+author: maggiesMSFT
+ms.author: maggies
+manager: kfile
+ms.openlocfilehash: 0b12429a520a674f4bc3ec7626bb3885fc33c814
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87712698"
+---
+# <a name="sharepoint-integration-with-2008-and-2008-r2--report-servers"></a><span data-ttu-id="143b3-102">2008 および 2008 R2 レポート サーバーとの SharePoint 統合</span><span class="sxs-lookup"><span data-stu-id="143b3-102">SharePoint Integration with 2008 and 2008 R2  Report Servers</span></span>
+  <span data-ttu-id="143b3-103">[!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] リリースの [!INCLUDE[ssRSnoversion](../includes/ssrsnoversion-md.md)] では、新しいアーキテクチャが導入され、SharePoint モードが SharePoint 共有サービスに基づくようになりました。</span><span class="sxs-lookup"><span data-stu-id="143b3-103">The [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] release of [!INCLUDE[ssRSnoversion](../includes/ssrsnoversion-md.md)] introduced a architecture where SharePoint mode is now based on a SharePoint Shared service.</span></span> <span data-ttu-id="143b3-104">新しい機能の管理は、SharePoint サーバーの全体管理の [**サービス**と**マネージャーサービスアプリケーション**の管理] ページで行います。</span><span class="sxs-lookup"><span data-stu-id="143b3-104">Management of the new functionality is completed in SharePoint Central administration on the **Manage Services** and **Manager Service Applications** pages.</span></span> <span data-ttu-id="143b3-105">Sharepoint [!INCLUDE[ssRSnoversion](../includes/ssrsnoversion-md.md)] 統合の以前のアーキテクチャは、sharepoint 2010 製品用のアドインで引き続きサポートされている [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] [!INCLUDE[ssRSnoversion](../includes/ssrsnoversion-md.md)] ため、sharepoint 2010 を以前のバージョンのレポートサーバーと統合できます。</span><span class="sxs-lookup"><span data-stu-id="143b3-105">The [!INCLUDE[ssRSnoversion](../includes/ssrsnoversion-md.md)] previous architecture for SharePoint Integration is still supported with the [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] [!INCLUDE[ssRSnoversion](../includes/ssrsnoversion-md.md)] add-in for SharePoint 2010 products so you can integrate SharePoint 2010 with previous versions of a report server.</span></span>  
+  
+ <span data-ttu-id="143b3-106">古いアーキテクチャの管理に使用する SharePoint サーバーの全体管理ページへは、次の方法でアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="143b3-106">SharePoint Central Administration pages you would use to administer the older architecture are found in the following:</span></span>  
+  
+1.  <span data-ttu-id="143b3-107">SharePoint サーバーの全体管理で、[**アプリケーションの全般設定**] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="143b3-107">From SharePoint Central Administration click **General Application Settings**.</span></span>  
+  
+2.  <span data-ttu-id="143b3-108">グループ**SQL Server Reporting Services (2008 および 2008 R2)** には、以前のアーキテクチャのリンクと管理ページが含まれています。</span><span class="sxs-lookup"><span data-stu-id="143b3-108">The group **SQL Server Reporting Services (2008 and 2008 R2)** contains the links and management pages for the older architecture</span></span>  
+  
+## <a name="server-integration-architecture"></a><span data-ttu-id="143b3-109">サーバー統合のアーキテクチャ</span><span class="sxs-lookup"><span data-stu-id="143b3-109">Server Integration Architecture</span></span>  
+ <span data-ttu-id="143b3-110">レポート サーバーを SharePoint の製品のインスタンスと統合すると、アイテムとプロパティは SharePoint コンテンツ データベースに格納されます。</span><span class="sxs-lookup"><span data-stu-id="143b3-110">When you integrate a report server with an instance of a SharePoint product, items and properties are stored in the SharePoint content databases.</span></span> <span data-ttu-id="143b3-111">これによって、コンテンツの格納、セキュリティ保護、アクセスの方法を決めるサーバー テクノロジどうしをより深いレベルで統合できます。</span><span class="sxs-lookup"><span data-stu-id="143b3-111">This provides a deeper level of integration between the server technologies that effects how content is stored, secured, and accessed.</span></span>  
+  
+ <span data-ttu-id="143b3-112">SharePoint コンテンツ データベースにレポートのアイテムとプロパティを格納すると、SharePoint ライブラリでレポート サーバー コンテンツの種類を閲覧したり、SharePoint サイトでホストされている他のビジネス ドキュメントへのアクセスを制御する同じ権限レベルや認証プロバイダーを使ってアイテムを保護することができます。また、コラボレーション機能やドキュメント管理機能を使って変更レポートのチェックイン/チェックアウトを行ったり、警告を使ってアイテムの変更を通知することができます。さらに、アプリケーション内のページやサイトでレポート ビューアー Web パーツを組み込んだりカスタマイズすることもできます。</span><span class="sxs-lookup"><span data-stu-id="143b3-112">Storing report items and properties in SharePoint content databases allows you to browse SharePoint libraries for report server content types, secure items using the same permission levels and authentication provider that controls access to other business documents hosted on a SharePoint site, use the collaboration and document management features to check reports in and out for modification, use alerts to find out if an item has changed, and embed or customize the Report Viewer Web part on pages and sites within the application.</span></span> <span data-ttu-id="143b3-113">SharePoint サイト内で十分な権限を持っている場合は、共有データ ソースからレポート モデルを生成し、レポート ビルダーを使用してレポートを作成することもできます。</span><span class="sxs-lookup"><span data-stu-id="143b3-113">If you have sufficient permissions within a SharePoint site, you can also generate report models from shared data sources and use Report Builder to create reports.</span></span>  
+  
+ <span data-ttu-id="143b3-114">レポート サーバーでは引き続き、すべてのデータ処理、表示、配信が行われます。</span><span class="sxs-lookup"><span data-stu-id="143b3-114">The report server continues to provide all data processing, rendering, and delivery.</span></span> <span data-ttu-id="143b3-115">また、スナップショットやレポート履歴に関連するレポート処理のスケジュール機能もすべてサポートされます。</span><span class="sxs-lookup"><span data-stu-id="143b3-115">It also supports all scheduled report processing for snapshots and report history.</span></span> <span data-ttu-id="143b3-116">SharePoint サイトからレポートを開くと、レポート サーバー エンドポイントからレポート サーバーへの接続が行われ、セッションが作成されます。次にレポート処理のための準備が行われ、データが取得された後、レポートがレポート レイアウトにマージされ、レポート ビューアー Web パーツで表示されます。</span><span class="sxs-lookup"><span data-stu-id="143b3-116">When you open a report from a SharePoint site, the Report Server endpoint connects to a report server, creates a session, prepares the report for processing, retrieves data, merges the report into the report layout, and displays it in the Report Viewer Web part.</span></span> <span data-ttu-id="143b3-117">レポートが開かれたら、レポートをさまざまなアプリケーション形式にエクスポートしたり、ドリルダウンや関連レポートへのクリックスルー機能を使ってデータを対話的に操作することができます。</span><span class="sxs-lookup"><span data-stu-id="143b3-117">While the report is open, you can export it to different application formats, or interact with data by drilling into underlying numbers or clicking through to a related report.</span></span> <span data-ttu-id="143b3-118">エクスポートとレポートの対話操作はレポート サーバーで処理されます。</span><span class="sxs-lookup"><span data-stu-id="143b3-118">Export and report interaction operations are performed on the report server.</span></span>  
+  
+ <span data-ttu-id="143b3-119">レポート サーバーでは、SharePoint との間で操作とデータが同期され、処理対象ファイルの情報が追跡されます。</span><span class="sxs-lookup"><span data-stu-id="143b3-119">The report server synchronizes operations and data with SharePoint and tracks information about the files it processes.</span></span> <span data-ttu-id="143b3-120">レポート サーバー アイテムのプロパティまたは設定を変更すると、その変更内容は SharePoint データベースに格納された後、レポート サーバーの内部記憶域であるレポート サーバー データベースにコピーされます。</span><span class="sxs-lookup"><span data-stu-id="143b3-120">When you modify properties or settings for any report server item, the change is stored in a SharePoint database and then copied to a report server database that provides internal storage to a report server.</span></span>  
+  
+## <a name="related-content"></a><span data-ttu-id="143b3-121">関連コンテンツ</span><span class="sxs-lookup"><span data-stu-id="143b3-121">Related Content</span></span>  
+ [<span data-ttu-id="143b3-122">SharePoint でのレポート サーバーと Power View の統合機能のアクティブ化</span><span class="sxs-lookup"><span data-stu-id="143b3-122">Activate the Report Server and Power View Integration Features in SharePoint</span></span>](activate-the-report-server-and-power-view-integration-features-in-sharepoint.md)  
+ <span data-ttu-id="143b3-123">以前のリリースのレポート サーバーとの統合に必要なレポート サーバー機能をアクティブ化する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="143b3-123">Describes how to activate the Report Server feature needed for integration with report servers from previous releases.</span></span>  
+  
+  

@@ -1,0 +1,71 @@
+---
+title: フルテキスト検索のアップグレードオプション |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: database-engine
+ms.topic: conceptual
+f1_keywords:
+- Full-Text Search
+- Upgrade options, Full-Text Search
+ms.assetid: 16c9376b-5fbb-4495-a429-06a2493849c9
+author: rothja
+ms.author: jroth
+ms.openlocfilehash: ade7a05563598440c3fdc79dd4b3584f7f797d4e
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87713733"
+---
+# <a name="full-text-search-upgrade-options"></a><span data-ttu-id="c116f-102">フルテキスト検索アップグレード オプション</span><span class="sxs-lookup"><span data-stu-id="c116f-102">Full-Text Search Upgrade Options</span></span>
+  <span data-ttu-id="c116f-103">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] インストール ウィザードの [フルテキスト検索アップグレード オプション] ページを使用すると、ここでアップグレードするデータベースに対して使用するフルテキスト検索のアップグレード オプションを選択できます。</span><span class="sxs-lookup"><span data-stu-id="c116f-103">Use the Full-Text Search Upgrade Options page of the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Installation Wizard to select the full-text search upgrade option to use for the databases that you are upgrading at this time.</span></span>  
+  
+ <span data-ttu-id="c116f-104">[!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] では、各フルテキスト インデックスは、ファイル グループに属するフルテキスト カタログに存在し、物理パスを持ち、データベース ファイルとして扱われます。</span><span class="sxs-lookup"><span data-stu-id="c116f-104">In [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] each full-text index resides in a full-text catalog that belongs to a filegroup, has a physical path, and is treated as a database file.</span></span> <span data-ttu-id="c116f-105">これで、フルテキストカタログは、フルテキストインデックスのグループを参照する論理概念 (仮想オブジェクト) になりました。</span><span class="sxs-lookup"><span data-stu-id="c116f-105">Now, a full-text catalog is a logical concept-a virtual object-that refers to a group of full-text indexes.</span></span> <span data-ttu-id="c116f-106">したがって、新しいフルテキスト カタログは、物理パスを持つデータベース ファイルとしては扱われません。</span><span class="sxs-lookup"><span data-stu-id="c116f-106">Therefore, a new full-text catalog is not treated as a database file with a physical path.</span></span> <span data-ttu-id="c116f-107">ただし、データ ファイルを含むフルテキスト カタログのアップグレード時に、新しいファイル グループが同じディスク上に作成されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-107">However, during upgrade of any full-text catalog that contains data files, a new filegroup is created on same disk.</span></span> <span data-ttu-id="c116f-108">これにより、アップグレード後も以前のディスク I/O 動作が維持されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-108">This maintains the old disk I/O behavior after upgrade.</span></span> <span data-ttu-id="c116f-109">ルート パスが存在する場合、そのカタログのフルテキスト インデックスは、すべて新しいファイル グループに配置されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-109">Any full-text index from that catalog is placed in the new filegroup if the root path exists.</span></span> <span data-ttu-id="c116f-110">前のフルテキスト カタログのパスが無効の場合、フルテキスト インデックスは、ベース テーブルと同じファイル グループで保持されるか、パーティション テーブルの場合にはプライマリ ファイル グループで保持されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-110">If the old full-text catalog path is invalid, the upgrade keeps the full-text index in the same filegroup as base table or, for a partitioned table, in the primary filegroup.</span></span>  
+  
+## <a name="options"></a><span data-ttu-id="c116f-111">Options</span><span class="sxs-lookup"><span data-stu-id="c116f-111">Options</span></span>  
+ <span data-ttu-id="c116f-112">[!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)]にアップグレードする場合、次のフルテキスト アップグレード オプションのいずれかを選択します。</span><span class="sxs-lookup"><span data-stu-id="c116f-112">When you upgrade to [!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)], choose one of the following full-text upgrade options.</span></span>  
+  
+ <span data-ttu-id="c116f-113">**[インポート]**</span><span class="sxs-lookup"><span data-stu-id="c116f-113">**Import**</span></span>  
+ <span data-ttu-id="c116f-114">フルテキスト カタログがインポートされます。</span><span class="sxs-lookup"><span data-stu-id="c116f-114">Full-text catalogs are imported.</span></span> <span data-ttu-id="c116f-115">通常、インポートの方が再構築よりもかなり高速に処理されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-115">Typically, import is significantly faster than rebuild.</span></span> <span data-ttu-id="c116f-116">たとえば、CPU を 1 つだけ使用している場合、インポートは、再構築の約 10 倍の速さで実行されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-116">For example, when using only one CPU, import runs about 10 times faster than rebuild.</span></span> <span data-ttu-id="c116f-117">ただし、 [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] からインポートされたフルテキスト カタログでは、新しい強化されたワード ブレーカーが使用されません。そのため、最終的にはフルテキスト カタログの再構築が必要になることがあります。</span><span class="sxs-lookup"><span data-stu-id="c116f-117">However, a full-text catalog imported from [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] does not use the new and enhanced word breakers, so you might want to rebuild your full-text catalogs eventually.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="c116f-118">再構築はマルチスレッド モードで実行できます。10 を超える CPU が使用可能な場合に、再構築でそれらの CPU をすべて使用できるようにすると、再構築の方がインポートよりも高速に実行されることがあります。</span><span class="sxs-lookup"><span data-stu-id="c116f-118">Rebuild can run in multi-threaded mode, and if more than 10 CPUs are available, rebuild might run faster than import if you allow rebuild to use all of the CPUs.</span></span>  
+  
+ <span data-ttu-id="c116f-119">フルテキスト カタログが使用できない場合は、関連付けられたフルテキスト インデックスが再構築されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-119">If a full-text catalog is not available, the associated full-text indexes are rebuilt.</span></span> <span data-ttu-id="c116f-120">このオプションは [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] データベースでのみ使用できます。</span><span class="sxs-lookup"><span data-stu-id="c116f-120">This option is available for only [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] databases.</span></span>  
+  
+ <span data-ttu-id="c116f-121">フルテキスト インデックスのインポートによる影響については、後の「フルテキスト アップグレード オプションの選択に関する注意点」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c116f-121">For information about the impact of importing full-text index, see "Considerations for Choosing a Full-Text Upgrade Option," later in this topic.</span></span>  
+  
+ <span data-ttu-id="c116f-122">**リビルド**</span><span class="sxs-lookup"><span data-stu-id="c116f-122">**Rebuild**</span></span>  
+ <span data-ttu-id="c116f-123">フルテキスト カタログは、導入された新しい拡張機能であるワード ブレーカーを使用して再構築されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-123">Full-text catalogs are rebuilt using the new and enhanced word breakers.</span></span> <span data-ttu-id="c116f-124">インデックスの再構築には時間がかかり、アップグレード後に膨大な量の CPU とメモリが必要になる可能性があります。</span><span class="sxs-lookup"><span data-stu-id="c116f-124">Rebuilding indexes can take a lot of time, and a significant amount of CPU and memory might be required after the upgrade.</span></span>  
+  
+ <span data-ttu-id="c116f-125">**リセット**</span><span class="sxs-lookup"><span data-stu-id="c116f-125">**Reset**</span></span>  
+ <span data-ttu-id="c116f-126">フルテキスト カタログがリセットされます。</span><span class="sxs-lookup"><span data-stu-id="c116f-126">Full-text catalogs are reset.</span></span> <span data-ttu-id="c116f-127">[!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)]からのアップグレード時には、フルテキスト カタログ ファイルは削除されますが、フルテキスト カタログのメタデータおよびフルテキスト インデックスは保持されます。</span><span class="sxs-lookup"><span data-stu-id="c116f-127">When upgrading from [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)], full-text catalog files are removed, but the metadata for full-text catalogs and full-text indexes is retained.</span></span> <span data-ttu-id="c116f-128">アップグレード後、すべてのフルテキスト インデックスで変更の追跡は無効化されており、クロールは自動的には開始されません。</span><span class="sxs-lookup"><span data-stu-id="c116f-128">After being upgraded, all full-text indexes are disabled for change tracking and crawls are not started automatically.</span></span> <span data-ttu-id="c116f-129">アップグレードの完了後、手動で完全作成を実行するまで、カタログは空のままになります。</span><span class="sxs-lookup"><span data-stu-id="c116f-129">The catalog will remain empty until you manually issue a full population, after the upgrade completes.</span></span>  
+  
+ <span data-ttu-id="c116f-130">これらのアップグレード オプションすべてにより、アップグレードされたデータベースで、フルテキスト操作のパフォーマンス向上による効果を最大限に活用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="c116f-130">All of these upgrade options ensure that upgraded databases benefit fully from full-text performance enhancements.</span></span>  
+  
+## <a name="considerations-for-choosing-a-full-text-upgrade-option"></a><span data-ttu-id="c116f-131">フルテキスト アップグレード オプションの選択に関する注意点</span><span class="sxs-lookup"><span data-stu-id="c116f-131">Considerations for Choosing a Full-Text Upgrade Option</span></span>  
+ <span data-ttu-id="c116f-132">アップグレードのためにアップグレード オプションを選択する際は、次の点を考慮してください。</span><span class="sxs-lookup"><span data-stu-id="c116f-132">When choosing the upgrade option for your upgrade, consider the following:</span></span>  
+  
+-   <span data-ttu-id="c116f-133">ワード ブレーカーをどのように使用するか。</span><span class="sxs-lookup"><span data-stu-id="c116f-133">How do you use word breakers?</span></span>  
+  
+     <span data-ttu-id="c116f-134">[!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)] のフルテキスト検索サービスには、ワード ブレーカーとステミング機能が含まれています。</span><span class="sxs-lookup"><span data-stu-id="c116f-134">The full-text search service in [!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)] includes word breakers and stemmers.</span></span> <span data-ttu-id="c116f-135">これにより、フルテキスト クエリの結果が、特定のテキストのパターンやシナリオで [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] と変わってくることがあります。</span><span class="sxs-lookup"><span data-stu-id="c116f-135">These might change the results of full-text queries from [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)] for a specific text pattern or scenario.</span></span> <span data-ttu-id="c116f-136">そのため、ワード ブレーカーをどのように使用するかが、適切なアップグレード オプションを選択する際に重要となります。</span><span class="sxs-lookup"><span data-stu-id="c116f-136">Therefore, how you use word breakers is important when choosing a suitable upgrade option:</span></span>  
+  
+    -   <span data-ttu-id="c116f-137">使用するフルテキスト言語のワード ブレーカーが変更されていない場合、または再呼び出しの精度が重要でない場合は、インポートが適切です。</span><span class="sxs-lookup"><span data-stu-id="c116f-137">If the word breakers of the full-text language you use did not change, or if recall accuracy is not critical to you, importing is suitable.</span></span> <span data-ttu-id="c116f-138">後で、再呼び出しに関する問題があった場合には、フルテキスト カタログを再構築するだけで、新しいワード ブレーカーにアップグレードできます。</span><span class="sxs-lookup"><span data-stu-id="c116f-138">Later, if you experience any recall issues, you can upgrade to the new word breakers simply by rebuilding your full-text catalogs.</span></span>  
+  
+    -   <span data-ttu-id="c116f-139">再呼び出しの精度が重要であり、 [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)]以降に追加されたワード ブレーカーのいずれかを使用する場合は、再構築が適切です。</span><span class="sxs-lookup"><span data-stu-id="c116f-139">If you care about recall accuracy and you use one of the word breakers that were added after [!INCLUDE[ssVersion2005](../../includes/ssversion2005-md.md)], rebuilding is suitable.</span></span>  
+  
+-   <span data-ttu-id="c116f-140">整数型のフルテキスト キー列に基づいて構築されているフルテキスト インデックスがあるかどうか。</span><span class="sxs-lookup"><span data-stu-id="c116f-140">Were any full-text indexes built on integer full-text key columns?</span></span>  
+  
+     <span data-ttu-id="c116f-141">再構築では内部最適化処理が実行されます。これにより、アップグレードされたフルテキスト インデックスのクエリ パフォーマンスが向上することがあります。</span><span class="sxs-lookup"><span data-stu-id="c116f-141">Rebuilding performs internal optimizations that improve the query performance of the upgraded full-text index in some cases.</span></span> <span data-ttu-id="c116f-142">具体的には、ベース テーブルのフルテキスト キー列が整数データ型であるフルテキスト インデックスを含むフルテキスト カタログがある場合、再構築によって、アップグレード後のフルテキスト クエリのパフォーマンスが理想的なものになります。</span><span class="sxs-lookup"><span data-stu-id="c116f-142">Specifically, if you have full-text catalogs that contain full-text indexes for which the full-text key column of the base table is an integer data type, rebuilding achieves ideal performance of full-text queries after upgrade.</span></span> <span data-ttu-id="c116f-143">この場合は、 **[再構築]** オプションを使用することを強くお勧めします。</span><span class="sxs-lookup"><span data-stu-id="c116f-143">In this case, we highly recommend you to use the **Rebuild** option.</span></span>  
+  
+    > [!NOTE]  
+    >  <span data-ttu-id="c116f-144">[!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)]のフルテキスト インデックスでは、フルテキスト キーとして機能する列を整数データ型にすることをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="c116f-144">For full-text indexes in [!INCLUDE[ssCurrent](../../includes/sscurrent-md.md)], we recommend that the column serving as the full-text key be an integer data type.</span></span> <span data-ttu-id="c116f-145">詳細については、「 [フルテキスト インデックスのパフォーマンスの向上](../../relational-databases/indexes/indexes.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="c116f-145">For more information, see [Improve the Performance of Full-Text Indexes](../../relational-databases/indexes/indexes.md).</span></span>  
+  
+-   <span data-ttu-id="c116f-146">サーバー インスタンスをオンラインにする場合に何を優先するか。</span><span class="sxs-lookup"><span data-stu-id="c116f-146">What is the priority for getting your server instance online?</span></span>  
+  
+     <span data-ttu-id="c116f-147">アップグレード時のインポートまたは再構築では CPU リソースを大量に消費するので、その他のサーバー インスタンスがアップグレードされてオンラインになるのが遅れます。</span><span class="sxs-lookup"><span data-stu-id="c116f-147">Importing or rebuilding during upgrade takes a lot of CPU resources, which delays getting the rest of the server instance upgraded and online.</span></span> <span data-ttu-id="c116f-148">できるだけ早くサーバー インスタンスをオンラインにすることが重要であり、アップグレード後に手動作成を実行してもよい場合は、 **[リセット]** が最適です。</span><span class="sxs-lookup"><span data-stu-id="c116f-148">If getting the server instance online as soon as possible is important and if you are willing to run a manual population after the upgrade, **Reset** is suitable.</span></span>  
+  
+## <a name="additional-resources"></a><span data-ttu-id="c116f-149">その他の情報</span><span class="sxs-lookup"><span data-stu-id="c116f-149">Additional Resources</span></span>  
+  

@@ -1,0 +1,52 @@
+---
+title: インメモリ OLTP データベースにおける高可用性のサポート | Microsoft Docs
+ms.custom: ''
+ms.date: 10/27/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: in-memory-oltp
+ms.topic: conceptual
+ms.assetid: 2113a916-3b1e-496c-8650-7f495e492510
+author: CarlRabeler
+ms.author: carlrab
+ms.openlocfilehash: 092f2b8158bb35286a09103ea645b2aeb1374fc7
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87738389"
+---
+# <a name="high-availability-support-for-in-memory-oltp-databases"></a><span data-ttu-id="047b5-102">インメモリ OLTP データベースにおける高可用性のサポート</span><span class="sxs-lookup"><span data-stu-id="047b5-102">High Availability Support for In-Memory OLTP databases</span></span>
+  <span data-ttu-id="047b5-103">メモリ最適化テーブルを含んだデータベースは、ネイティブ コンパイル ストアド プロシージャの有無に関係なく、AlwaysOn 可用性グループで完全にサポートされます。</span><span class="sxs-lookup"><span data-stu-id="047b5-103">Databases containing memory-optimized tables, with or without native compiled stored procedures, are fully supported with AlwaysOn Availability Groups.</span></span>  <span data-ttu-id="047b5-104">[!INCLUDE[hek_2](../../includes/hek-2-md.md)] オブジェクトを含んでいる場合とそうでない場合とでデータベースの構成とサポートに違いはありません。</span><span class="sxs-lookup"><span data-stu-id="047b5-104">There is no difference in the configuration and support for databases which contain [!INCLUDE[hek_2](../../includes/hek-2-md.md)] objects as compared to those without,</span></span>  
+  
+## <a name="alwayson-availability-groups-and-in-memory-oltp-databases"></a><span data-ttu-id="047b5-105">AlwaysOn 可用性グループとインメモリ OLTP データベース</span><span class="sxs-lookup"><span data-stu-id="047b5-105">AlwaysOn Availability Groups and In-Memory OLTP Databases</span></span>  
+ <span data-ttu-id="047b5-106">[!INCLUDE[hek_2](../../includes/hek-2-md.md)] のコンポーネントを使ってデータベースを構成する利点を次に示します。</span><span class="sxs-lookup"><span data-stu-id="047b5-106">Configuring databases with [!INCLUDE[hek_2](../../includes/hek-2-md.md)] components provides the following:</span></span>  
+  
+-   <span data-ttu-id="047b5-107">**完全に統合された環境** </span><span class="sxs-lookup"><span data-stu-id="047b5-107">**A fully integrated experience** </span></span>  
+    <span data-ttu-id="047b5-108">メモリ最適化テーブルを含んだデータベースは、同期と非同期のどちらのセカンダリ レプリカに対しても同じウィザードを使用して構成でき、同じサポート レベルが適用されます。</span><span class="sxs-lookup"><span data-stu-id="047b5-108">You can configure your databases containing memory-optimized tables using the same wizard with the same level of support for both synchronous and asynchronous secondary replicas.</span></span> <span data-ttu-id="047b5-109">加えて、使い慣れた SQL Server Management Studio の AlwaysOn ダッシュボードを使用して、正常性の監視を行うことができます。</span><span class="sxs-lookup"><span data-stu-id="047b5-109">Additionally, health monitoring is provided using the familiar AlwaysOn dashboard in SQL Server Management Studio.</span></span>  
+  
+-   <span data-ttu-id="047b5-110">**同等のフェールオーバー時間** </span><span class="sxs-lookup"><span data-stu-id="047b5-110">**Comparable Failover time** </span></span>  
+    <span data-ttu-id="047b5-111">持続性のあるメモリ最適化テーブルのインメモリ状態がセカンダリ レプリカで維持されます。</span><span class="sxs-lookup"><span data-stu-id="047b5-111">Secondary replicas maintain the in-memory state of the durable memory-optimized tables.</span></span> <span data-ttu-id="047b5-112">自動フェールオーバーまたは強制フェールオーバーが発生した場合に復旧の必要がないため、新しいプライマリへのフェールオーバーにかかる時間はディスク ベースのテーブルと変わりありません。</span><span class="sxs-lookup"><span data-stu-id="047b5-112">In the event of automatic or forced failover, the time to failover to the new primary is comparable to disk-bases tables as no recovery is needed.</span></span> <span data-ttu-id="047b5-113">この構成では、SCHEMA_ONLY として作成されたメモリ最適化テーブルがサポートされます。</span><span class="sxs-lookup"><span data-stu-id="047b5-113">Memory-optimized tables created as SCHEMA_ONLY are supported in this configuration.</span></span> <span data-ttu-id="047b5-114">ただしそれらのテーブルに対する変更はログに記録されないため、セカンダリ レプリカ上の該当テーブルにはデータが不在となります。</span><span class="sxs-lookup"><span data-stu-id="047b5-114">However changes to these tables are not logged and therefore no data will exist in these tables on the secondary replica.</span></span>  
+  
+-   <span data-ttu-id="047b5-115">**[読み取り可能セカンダリ]**  </span><span class="sxs-lookup"><span data-stu-id="047b5-115">**Readable Secondary** </span></span>  
+    <span data-ttu-id="047b5-116">セカンダリ レプリカが読み取りアクセス用に構成されている場合、セカンダリ レプリカ上のメモリ最適化テーブルにアクセスしてクエリを実行することができます。</span><span class="sxs-lookup"><span data-stu-id="047b5-116">You can access and query memory-optimized tables on the secondary replica if it has been configured for read access.</span></span> <span data-ttu-id="047b5-117">詳細については、「[アクティブなセカンダリ: 読み取り可能なセカンダリ レプリカ (AlwaysOn 可用性グループ)](../../database-engine/availability-groups/windows/active-secondaries-readable-secondary-replicas-always-on-availability-groups.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="047b5-117">For more information see [Active Secondaries: Readable Secondary Replicas (AlwaysOn Availability Groups)](../../database-engine/availability-groups/windows/active-secondaries-readable-secondary-replicas-always-on-availability-groups.md).</span></span>  
+  
+## <a name="failover-clustering-instance-fci-and-in-memory-oltp-databases"></a><span data-ttu-id="047b5-118">フェールオーバー クラスタリング インスタンス (FCI) とインメモリ OLTP データベース</span><span class="sxs-lookup"><span data-stu-id="047b5-118">Failover Clustering Instance (FCI) and In-Memory OLTP Databases</span></span>  
+ <span data-ttu-id="047b5-119">共有記憶域構成で高可用性を実現するには、メモリ最適化テーブルを含んだデータベースと複数のインスタンスに対してフェールオーバー クラスタリングを設定します。</span><span class="sxs-lookup"><span data-stu-id="047b5-119">To achieve high-availability in a shared-storage configuration, you can setup failover clustering on instances with one or more database with memory-optimized tables.</span></span> <span data-ttu-id="047b5-120">FCI を設定する際、次の要素を考慮する必要があります。</span><span class="sxs-lookup"><span data-stu-id="047b5-120">You need to consider the following factors as part of setting up an FCI.</span></span>  
+  
+-   <span data-ttu-id="047b5-121">**目標復旧時間** </span><span class="sxs-lookup"><span data-stu-id="047b5-121">**Recovery Time Objective** </span></span>  
+    <span data-ttu-id="047b5-122">フェールオーバーの所要時間は長くなる可能性があります。データベースを使用可能な状態にするためには、メモリ最適化テーブルをメモリに読み込む必要があるためです。</span><span class="sxs-lookup"><span data-stu-id="047b5-122">Failover time will likely to be higher as the memory-optimized tables must be loaded into memory before the database is made available.</span></span>  
+  
+-   <span data-ttu-id="047b5-123">**SCHEMA_ONLY テーブル** </span><span class="sxs-lookup"><span data-stu-id="047b5-123">**SCHEMA_ONLY tables** </span></span>  
+    <span data-ttu-id="047b5-124">フェールオーバー後、SCHEMA_ONLY テーブルは、データ行の存在しない空の状態になるので注意してください。</span><span class="sxs-lookup"><span data-stu-id="047b5-124">Be aware that SCHEMA_ONLY tables will be empty with no rows after the failover.</span></span> <span data-ttu-id="047b5-125">これは仕様であり、アプリケーションで定義された動作です。</span><span class="sxs-lookup"><span data-stu-id="047b5-125">This is as designed and defined by the application.</span></span> <span data-ttu-id="047b5-126">1 つ以上の SCHEMA_ONLY テーブルを含む [!INCLUDE[hek_2](../../includes/hek-2-md.md)] データベースを再起動したときもまったく同じ動作となります。</span><span class="sxs-lookup"><span data-stu-id="047b5-126">This is exactly the same behavior when you restart an [!INCLUDE[hek_2](../../includes/hek-2-md.md)] database with one or more SCHEMA_ONLY tables.</span></span>  
+  
+## <a name="support-for-transaction-replication-in-in-memory-oltp"></a><span data-ttu-id="047b5-127">インメモリ OLTP におけるトランザクション レプリケーションのサポート</span><span class="sxs-lookup"><span data-stu-id="047b5-127">Support for transaction replication in In-Memory OLTP</span></span>  
+ <span data-ttu-id="047b5-128">トランザクション レプリケーションのサブスクライバーとして機能するテーブルは、ピア ツー ピア トランザクション レプリケーションを除き、メモリ最適化テーブルとして構成できます。</span><span class="sxs-lookup"><span data-stu-id="047b5-128">Tables acting as transactional replication subscribers, excluding Peer-to-peer transactional replication, can be configured as memory-optimized tables.</span></span> <span data-ttu-id="047b5-129">その他のレプリケーション構成はメモリ最適化テーブルとは互換性がありません。</span><span class="sxs-lookup"><span data-stu-id="047b5-129">Other replication configurations are not compatible with memory-optimized tables.</span></span>  <span data-ttu-id="047b5-130">詳細については、「 [メモリ最適化テーブル サブスクライバーへのレプリケーション](../replication/replication-to-memory-optimized-table-subscribers.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="047b5-130">For more information see [Replication to Memory-Optimized Table Subscribers](../replication/replication-to-memory-optimized-table-subscribers.md).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="047b5-131">参照</span><span class="sxs-lookup"><span data-stu-id="047b5-131">See Also</span></span>  
+ <span data-ttu-id="047b5-132">[AlwaysOn 可用性グループ (SQL Server)](../../database-engine/availability-groups/windows/always-on-availability-groups-sql-server.md) </span><span class="sxs-lookup"><span data-stu-id="047b5-132">[AlwaysOn Availability Groups (SQL Server)](../../database-engine/availability-groups/windows/always-on-availability-groups-sql-server.md) </span></span>  
+ <span data-ttu-id="047b5-133">[AlwaysOn 可用性グループ &#40;SQL Server の概要&#41;](../../database-engine/availability-groups/windows/overview-of-always-on-availability-groups-sql-server.md) </span><span class="sxs-lookup"><span data-stu-id="047b5-133">[Overview of AlwaysOn Availability Groups &#40;SQL Server&#41;](../../database-engine/availability-groups/windows/overview-of-always-on-availability-groups-sql-server.md) </span></span>  
+ <span data-ttu-id="047b5-134">[アクティブなセカンダリ: 読み取り可能なセカンダリレプリカ &#40;AlwaysOn 可用性グループ&#41;](../../database-engine/availability-groups/windows/active-secondaries-readable-secondary-replicas-always-on-availability-groups.md) </span><span class="sxs-lookup"><span data-stu-id="047b5-134">[Active Secondaries: Readable Secondary Replicas &#40;AlwaysOn Availability Groups&#41;](../../database-engine/availability-groups/windows/active-secondaries-readable-secondary-replicas-always-on-availability-groups.md) </span></span>  
+ [<span data-ttu-id="047b5-135">メモリ最適化テーブル サブスクライバーへのレプリケーション</span><span class="sxs-lookup"><span data-stu-id="047b5-135">Replication to Memory-Optimized Table Subscribers</span></span>](../replication/replication-to-memory-optimized-table-subscribers.md)  
+  
+  

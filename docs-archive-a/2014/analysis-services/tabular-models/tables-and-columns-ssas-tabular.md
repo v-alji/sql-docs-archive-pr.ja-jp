@@ -1,0 +1,73 @@
+---
+title: テーブルと列 (SSAS テーブル) |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+ms.assetid: c428d717-05de-436c-b9dc-e8c1925a60ca
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: 3f23b21ce492fd3160df727c1562ee706848fa99
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87738814"
+---
+# <a name="tables-and-columns-ssas-tabular"></a><span data-ttu-id="63ace-102">テーブルと列 (SSAS テーブル)</span><span class="sxs-lookup"><span data-stu-id="63ace-102">Tables and Columns (SSAS Tabular)</span></span>
+  <span data-ttu-id="63ace-103">テーブルのインポート ウィザードを使用してモデルにテーブルとデータを追加したら、新しいデータ列の追加、テーブル間のリレーションシップの作成、データを拡張する計算の定義、テーブルを見やすくするためのデータのフィルター処理と並べ替えなどを行ってテーブルを操作できます。</span><span class="sxs-lookup"><span data-stu-id="63ace-103">After you have added tables and data into a model by using the Table Import Wizard, you can begin working with the tables by adding new columns of data, creating relationships between tables, defining calculations that extend the data, and filtering and sorting data in the tables for easier viewing.</span></span>  
+  
+ <span data-ttu-id="63ace-104">このトピックのセクション:</span><span class="sxs-lookup"><span data-stu-id="63ace-104">Sections in this topic:</span></span>  
+  
+-   [<span data-ttu-id="63ace-105">メリット</span><span class="sxs-lookup"><span data-stu-id="63ace-105">Benefits</span></span>](#bkmk_benefits)  
+  
+-   [<span data-ttu-id="63ace-106">テーブルと列の操作</span><span class="sxs-lookup"><span data-stu-id="63ace-106">Working with tables and columns</span></span>](#bkmk_working)  
+  
+-   [<span data-ttu-id="63ace-107">関連タスク</span><span class="sxs-lookup"><span data-stu-id="63ace-107">Related Tasks</span></span>](#bkmk_related_tasks)  
+  
+##  <a name="benefits"></a><a name="bkmk_benefits"></a> <span data-ttu-id="63ace-108">利点</span><span class="sxs-lookup"><span data-stu-id="63ace-108">Benefits</span></span>  
+ <span data-ttu-id="63ace-109">テーブル モデルのテーブルのフレームワークを使用して、列および他のメタデータを定義できます。</span><span class="sxs-lookup"><span data-stu-id="63ace-109">Tables, in tabular models, provide the framework in which columns and other metadata are defined.</span></span> <span data-ttu-id="63ace-110">テーブルは次の要素で構成されます。</span><span class="sxs-lookup"><span data-stu-id="63ace-110">Tables include:</span></span>  
+  
+ <span data-ttu-id="63ace-111">**テーブル定義**</span><span class="sxs-lookup"><span data-stu-id="63ace-111">**Table Definition**</span></span>  
+ <span data-ttu-id="63ace-112">テーブル定義には列のセットが含まれます。</span><span class="sxs-lookup"><span data-stu-id="63ace-112">The table definition includes the set of columns.</span></span> <span data-ttu-id="63ace-113">列は、計算列と同様に、手動でデータ ソースからインポートしたり、追加することもできます。</span><span class="sxs-lookup"><span data-stu-id="63ace-113">Columns can be imported from a data source or added manually, such as with calculated columns.</span></span>  
+  
+ <span data-ttu-id="63ace-114">**テーブルのメタデータ**</span><span class="sxs-lookup"><span data-stu-id="63ace-114">**Table Metadata**</span></span>  
+ <span data-ttu-id="63ace-115">リレーションシップ、メジャー、ロール、パースペクティブ、および貼り付けられたデータはすべて、テーブルのコンテキスト内のオブジェクトを定義するメタデータです。</span><span class="sxs-lookup"><span data-stu-id="63ace-115">Relationships, measures, roles, perspectives, and pasted data are all metadata the define objects within the context of a table.</span></span>  
+  
+ <span data-ttu-id="63ace-116">**データ**</span><span class="sxs-lookup"><span data-stu-id="63ace-116">**Data**</span></span>  
+ <span data-ttu-id="63ace-117">データは、テーブルのインポート ウィザードを使用するか計算列で新しいデータを作成してテーブルを最初にインポートしたときに、テーブル列に入力されます。</span><span class="sxs-lookup"><span data-stu-id="63ace-117">Data is populated in table columns when you first import tables by using the Table Import Wizard or by creating new data in calculated columns.</span></span> <span data-ttu-id="63ace-118">ソースでデータが変更されるか、モデルがメモリから削除された場合は、テーブルにデータを再入力する処理操作を実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="63ace-118">When data changes at the source, or when a model is removed from memory, you must run a process operation to re-populate the data into the tables.</span></span>  
+  
+##  <a name="working-with-tables-and-columns"></a><a name="bkmk_working"></a><span data-ttu-id="63ace-119">テーブルと列の操作</span><span class="sxs-lookup"><span data-stu-id="63ace-119">Working with tables and columns</span></span>  
+ <span data-ttu-id="63ace-120">モデル デザイナーで直接新しいモデル テーブルを作成することはありません。</span><span class="sxs-lookup"><span data-stu-id="63ace-120">In the model designer, you do not create new model tables directly.</span></span> <span data-ttu-id="63ace-121">別のデータ ソースからデータをインポートまたはコピーしたときに、新しいタブが自動的に作成されます。</span><span class="sxs-lookup"><span data-stu-id="63ace-121">A new tab is created automatically for you whenever data is imported or copied from another data source.</span></span> <span data-ttu-id="63ace-122">モデル デザイナーの各タブには、次のような項目を含むデータのテーブルが 1 つ含まれています。</span><span class="sxs-lookup"><span data-stu-id="63ace-122">Each tab (in the model designer) contains one table of data, which can include the following:</span></span>  
+  
+-   <span data-ttu-id="63ace-123">リレーショナル データベースや、Analysis Services キューブなどのその他の非リレーショナル ソースからの 1 つのテーブルまたはビュー。</span><span class="sxs-lookup"><span data-stu-id="63ace-123">A single table or view from a relational database, or from other non-relational sources, such as an Analysis Services cube.</span></span>  
+  
+-   <span data-ttu-id="63ace-124">フィード ファイルまたはテキスト ファイルからインポートされた表形式のデータセット。</span><span class="sxs-lookup"><span data-stu-id="63ace-124">A tabular set of data imported from a feed or text file.</span></span>  
+  
+-   <span data-ttu-id="63ace-125">テーブルにコピーまたは貼り付けられたリレーショナル データと表形式 (HTML) データの組み合わせ。</span><span class="sxs-lookup"><span data-stu-id="63ace-125">A combination of both relational data and tabular (HTML) data copy and pasted into the table.</span></span>  
+  
+ <span data-ttu-id="63ace-126">データをインポートすると、各テーブルやビュー、シート、データのファイルがテーブルとしてモデル デザイナーに追加されます。</span><span class="sxs-lookup"><span data-stu-id="63ace-126">When you import data, each table or view, sheet, or file of data is added as a table in the model designer.</span></span> <span data-ttu-id="63ace-127">通常はソースごとに別々のタブにデータを追加しますが、 **[貼り付け]** および **[貼り付け追加]** を使用すると 1 つのテーブルにデータを結合することができます。</span><span class="sxs-lookup"><span data-stu-id="63ace-127">You typically add data from various sources onto separate tabs, but you can combine data in a single table by using **Paste** and **Paste Append**.</span></span> <span data-ttu-id="63ace-128">詳細については、「[ &#40;SSAS テーブル&#41;](../copy-and-paste-data-ssas-tabular.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="63ace-128">For more information, see [Copy and Paste Data &#40;SSAS Tabular&#41;](../copy-and-paste-data-ssas-tabular.md).</span></span>  
+  
+ <span data-ttu-id="63ace-129">必要なデータをすべて追加した後で、テーブル、参照、または参照関連値の間の追加のリレーションシップを他のテーブルで作成したり、新しい計算列を追加して派生値を作成したりできます。</span><span class="sxs-lookup"><span data-stu-id="63ace-129">After you have added the data that you need, you can create additional relationships between the tables, look up or reference related values in other tables, or create derived values by adding new calculated columns.</span></span>  
+  
+ <span data-ttu-id="63ace-130">非常に大きなデータ セットを操作する場合は、特定のデータを表示しないように除外できます。</span><span class="sxs-lookup"><span data-stu-id="63ace-130">If you are working very large data sets, you may want to filter out certain data so it is not visible.</span></span> <span data-ttu-id="63ace-131">また、異なる順序でデータを並べ替えることもできます。</span><span class="sxs-lookup"><span data-stu-id="63ace-131">You may also want to sort data in a different order.</span></span> <span data-ttu-id="63ace-132">モデル デザイナーを使用すると、列全体または特定のデータを表示または非表示にするためにフィルター処理、並べ替え、および非表示機能を使用できます。</span><span class="sxs-lookup"><span data-stu-id="63ace-132">By using the model designer, you can use the filter, sort, and hide features to display, or not display, entire columns or certain data.</span></span>  
+  
+##  <a name="related-tasks"></a><a name="bkmk_related_tasks"></a> <span data-ttu-id="63ace-133">関連タスク</span><span class="sxs-lookup"><span data-stu-id="63ace-133">Related Tasks</span></span>  
+  
+|<span data-ttu-id="63ace-134">トピック</span><span class="sxs-lookup"><span data-stu-id="63ace-134">Topic</span></span>|<span data-ttu-id="63ace-135">説明</span><span class="sxs-lookup"><span data-stu-id="63ace-135">Description</span></span>|  
+|-----------|-----------------|  
+|[<span data-ttu-id="63ace-136">列のテーブルへの追加 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-136">Add Columns to a Table &#40;SSAS Tabular&#41;</span></span>](add-columns-to-a-table-ssas-tabular.md)|<span data-ttu-id="63ace-137">テーブル定義にソース列を追加する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-137">Describes how to add a source column to a table definition.</span></span>|  
+|[<span data-ttu-id="63ace-138">列の削除 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-138">Delete a Column &#40;SSAS Tabular&#41;</span></span>](delete-a-column-ssas-tabular.md)|<span data-ttu-id="63ace-139">モデル デザイナー、または [テーブルのプロパティ] ダイアログ ボックスを使用して、モデル テーブルの列を削除する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-139">Describes how to delete a model table column by using the model designer or by using the Table Properties dialog box.</span></span>|  
+|[<span data-ttu-id="63ace-140">テーブル、列、または行のフィルターのマッピングの変更 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-140">Change table, column, or row filter mappings &#40;SSAS Tabular&#41;</span></span>](change-table-column-or-row-filter-mappings-ssas-tabular.md)|<span data-ttu-id="63ace-141">[テーブルのプロパティの編集] ダイアログ ボックスのテーブルのプレビューまたは SQL クエリ エディターを使用して、テーブル、列、または行のフィルターのマッピングを変更する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-141">Describes how to change table, column, or row filter mappings by using the table preview or SQL query editor in the Edit Table Properties dialog box.</span></span>|  
+|<span data-ttu-id="63ace-142">[タイム インテリジェンスで使用する [日付テーブルとしてマーク] の指定 &#40;SSAS テーブル&#41;](specify-mark-as-date-table-for-use-with-time-intelligence-ssas-tabular.md)</span><span class="sxs-lookup"><span data-stu-id="63ace-142">[Specify Mark as Date Table for use with Time Intelligence &#40;SSAS Tabular&#41;](specify-mark-as-date-table-for-use-with-time-intelligence-ssas-tabular.md)</span></span>|<span data-ttu-id="63ace-143">[日付テーブルとしてマーク] ダイアログ ボックスを使用して、日付テーブルと一意識別子列を指定する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-143">Describes how to use the Mark as Date Table dialog box to specify a date table and unique identifier column.</span></span> <span data-ttu-id="63ace-144">DAX 式でタイム インテリジェンス関数を使用する場合は、日付テーブルと一意識別子の指定が必要です。</span><span class="sxs-lookup"><span data-stu-id="63ace-144">Specifying a date table and unique identifier is necessary when using time intelligence functions in DAX formulas.</span></span>|  
+|[<span data-ttu-id="63ace-145">テーブルの追加 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-145">Add a Table &#40;SSAS Tabular&#41;</span></span>](add-a-table-ssas-tabular.md)|<span data-ttu-id="63ace-146">既存のデータ ソース接続を使用して、データ ソースからテーブルを追加する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-146">Describes how to add a table from a data source by using an existing data source connection.</span></span>|  
+|[<span data-ttu-id="63ace-147">テーブルの削除 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-147">Delete a Table &#40;SSAS Tabular&#41;</span></span>](delete-a-table-ssas-tabular.md)|<span data-ttu-id="63ace-148">モデル ワークスペース データベース内の不要なテーブルを削除する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-148">Describes how to delete tables in your model workspace database that you no longer need.</span></span>|  
+|[<span data-ttu-id="63ace-149">テーブルまたは列名の変更 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-149">Rename a Table or Column &#40;SSAS Tabular&#41;</span></span>](rename-a-table-or-column-ssas-tabular.md)|<span data-ttu-id="63ace-150">モデル内で識別できるようにテーブルまたは列の名前を変更する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-150">Describes how to rename a table or column to make it more identifiable in your model.</span></span>|  
+|[<span data-ttu-id="63ace-151">列のデータ型の設定 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-151">Set the Data Type of a Column &#40;SSAS Tabular&#41;</span></span>](set-the-data-type-of-a-column-ssas-tabular.md)|<span data-ttu-id="63ace-152">列のデータ型を変更する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-152">Describes how to change the data type of a column.</span></span> <span data-ttu-id="63ace-153">データ型は、列のデータの格納および表示方法を定義します。</span><span class="sxs-lookup"><span data-stu-id="63ace-153">The data type defines how data in the column is stored and presented.</span></span>|  
+|[<span data-ttu-id="63ace-154">列の非表示または固定 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-154">Hide or Freeze Columns &#40;SSAS Tabular&#41;</span></span>](hide-or-freeze-columns-ssas-tabular.md)|<span data-ttu-id="63ace-155">表示しない列を非表示にする方法と、モデルの別の領域にスクロールするときに、1つの領域で特定の列を固定 (ロック) して、その領域を表示したままにする方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-155">Describes how to hide columns that you don't want to display and how to keep an area of a model visible while you scroll to another area of the model by freezing (locking) specific columns in one area.</span></span>|  
+|[<span data-ttu-id="63ace-156">計算列 &#40;SSAS テーブル&#41;</span><span class="sxs-lookup"><span data-stu-id="63ace-156">Calculated Columns &#40;SSAS Tabular&#41;</span></span>](ssas-calculated-columns.md)|<span data-ttu-id="63ace-157">このセクションのトピックでは、計算列を使用して集計データをモデルに追加する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-157">Topics in this section describe how you can use calculated columns to add aggregated data to your model.</span></span>|  
+|[<span data-ttu-id="63ace-158">データのフィルター処理と並べ替え (SSAS テーブル)</span><span class="sxs-lookup"><span data-stu-id="63ace-158">Filter and Sort Data &#40;SSAS Tabular&#41;</span></span>](../filter-and-sort-data-ssas-tabular.md)|<span data-ttu-id="63ace-159">このセクションのトピックでは、モデル デザイナーのコントロールを使用してデータのフィルター処理または並べ替えを実行する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="63ace-159">Topics in this section describe how you can filter or sort data by using controls in the model designer.</span></span>|  
+  
+  

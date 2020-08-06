@@ -1,0 +1,46 @@
+---
+title: SQLBindCol |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: native-client
+ms.topic: reference
+topic_type:
+- apiref
+helpviewer_keywords:
+- SQLBindCol function
+ms.assetid: fbd7ba20-d917-4ca9-b018-018ac6af9f98
+author: rothja
+ms.author: jroth
+ms.openlocfilehash: 72d0ca1b0fbad144117e409019d8d2247bbf918f
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87742038"
+---
+# <a name="sqlbindcol"></a><span data-ttu-id="9b748-102">SQLBindCol</span><span class="sxs-lookup"><span data-stu-id="9b748-102">SQLBindCol</span></span>
+  <span data-ttu-id="9b748-103">一般的な規則として、 **SQLBindCol**を使用してデータ変換を行う場合の影響について検討します。</span><span class="sxs-lookup"><span data-stu-id="9b748-103">As a general rule, consider the implications of using **SQLBindCol** to cause data conversion.</span></span> <span data-ttu-id="9b748-104">バインドによる変換はクライアント側のプロセスなので、たとえば文字型の列にバインドされた浮動小数点値を取得すると、ドライバーは行をフェッチするときにローカルで浮動小数点型から文字型への変換を行います。</span><span class="sxs-lookup"><span data-stu-id="9b748-104">Binding conversions are client processes, so, for example, retrieving a floating-point value bound to a character column causes the driver to perform the float-to-character conversion locally when a row is fetched.</span></span> <span data-ttu-id="9b748-105">[!INCLUDE[tsql](../../includes/tsql-md.md)] CONVERT 関数を使用すると、データ変換の負荷をサーバーに移すことができます。</span><span class="sxs-lookup"><span data-stu-id="9b748-105">The [!INCLUDE[tsql](../../includes/tsql-md.md)] CONVERT function can be used to place the cost of data conversion on the server.</span></span>  
+  
+ <span data-ttu-id="9b748-106">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] のインスタンスでは、1 回のステートメントの実行に対して複数の結果セット行を返すことができます。</span><span class="sxs-lookup"><span data-stu-id="9b748-106">An instance of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] can return multiple sets of result rows on a single statement execution.</span></span> <span data-ttu-id="9b748-107">各結果セットは個別にバインドされている必要があります。</span><span class="sxs-lookup"><span data-stu-id="9b748-107">Each result set must be bound separately.</span></span> <span data-ttu-id="9b748-108">複数の結果セットのバインドの詳細については、「 [Sqlmoreresults](sqlmoreresults.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="9b748-108">For more information about binding for multiple result sets, see [SQLMoreResults](sqlmoreresults.md).</span></span>  
+  
+ <span data-ttu-id="9b748-109">開発者は、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] *TargetType*値を使用して、列を特定の C データ型にバインドでき `SQL_C_BINARY` ます。</span><span class="sxs-lookup"><span data-stu-id="9b748-109">The developer can bind columns to [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]-specific C data types using the *TargetType* value `SQL_C_BINARY`.</span></span> <span data-ttu-id="9b748-110">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 固有の型にバインドされた列は移植できません。</span><span class="sxs-lookup"><span data-stu-id="9b748-110">Columns bound to [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]-specific types are not portable.</span></span> <span data-ttu-id="9b748-111">また、定義済みの [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] 固有の ODBC C データ型は DB-Library の型定義と一致するので、アプリケーションを移植する DB-Library 開発者はこの特性を利用できます。</span><span class="sxs-lookup"><span data-stu-id="9b748-111">The defined [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]-specific ODBC C data types match the type definitions for DB-Library, and DB-Library developers porting applications may want to take advantage of this feature.</span></span>  
+  
+ <span data-ttu-id="9b748-112">データの切り捨てのレポートは、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Native CLIENT ODBC ドライバーではコストのかかるプロセスです。</span><span class="sxs-lookup"><span data-stu-id="9b748-112">Reporting data truncation is an expensive process for the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Native Client ODBC driver.</span></span> <span data-ttu-id="9b748-113">バインドされるすべてのデータ バッファーのサイズがデータを返すのに十分なサイズであれば、データの切り捨てを回避できます。</span><span class="sxs-lookup"><span data-stu-id="9b748-113">You can avoid truncation by ensuring that all bound data buffers are wide enough to return data.</span></span> <span data-ttu-id="9b748-114">文字データの場合、文字列の終了に既定のドライバーの動作を使用するときは、データ バッファーの大きさに文字列ターミネータの領域も含める必要があります。</span><span class="sxs-lookup"><span data-stu-id="9b748-114">For character data, the width should include space for a string terminator when the default driver behavior for string termination is used.</span></span> <span data-ttu-id="9b748-115">たとえば、 [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] **char (5)** 列を5文字の配列にバインドすると、フェッチされたすべての値が切り捨てられます。</span><span class="sxs-lookup"><span data-stu-id="9b748-115">For example, binding a [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] **char(5)** column to an array of five characters results in truncation for every value fetched.</span></span> <span data-ttu-id="9b748-116">同じ列を 6 文字の配列にバインドすると、NULL ターミネータを格納する文字要素が用意されるため、切り捨てを回避できます。</span><span class="sxs-lookup"><span data-stu-id="9b748-116">Binding the same column to an array of six characters avoids the truncation by providing a character element in which to store the null terminator.</span></span> <span data-ttu-id="9b748-117">[SQLGetData](sqlgetdata.md)を使用すると、長い文字とバイナリデータを切り捨てずに効率的に取得できます。</span><span class="sxs-lookup"><span data-stu-id="9b748-117">[SQLGetData](sqlgetdata.md) can be used to efficiently retrieve long character and binary data without truncation.</span></span>  
+  
+ <span data-ttu-id="9b748-118">大きな値のデータ型の場合、ユーザーが指定したバッファーのサイズが列の値全体を保持するのに十分ではない場合、 `SQL_SUCCESS_WITH_INFO` が返され、"string data;"右切り捨て" 警告が発行されます。</span><span class="sxs-lookup"><span data-stu-id="9b748-118">For large value data types, if the user supplied buffer isn't large enough to hold the entire value of the column, `SQL_SUCCESS_WITH_INFO` is returned and the "string data; right truncation" warning is issued.</span></span> <span data-ttu-id="9b748-119">`StrLen_or_IndPtr` 引数には、バッファー内に格納されている文字数とバイト数が含まれます。</span><span class="sxs-lookup"><span data-stu-id="9b748-119">The `StrLen_or_IndPtr` argument will contain the number of chars/bytes stored in the buffer.</span></span>  
+  
+## <a name="sqlbindcol-support-for-enhanced-date-and-time-features"></a><span data-ttu-id="9b748-120">SQLBindCol による機能強化された日付と時刻のサポート</span><span class="sxs-lookup"><span data-stu-id="9b748-120">SQLBindCol Support for Enhanced Date and Time Features</span></span>  
+ <span data-ttu-id="9b748-121">Date 型または time 型の結果列の値は、「 [SQL から C への変換](../native-client-odbc-date-time/datetime-data-type-conversions-from-sql-to-c.md)」で説明されているように変換されます。Time 列と datetimeoffset 列を対応する構造 (および SQL_SS_TIMESTAMPOFFSET_STRUCT) として取得するに `SQL_SS_TIME2_STRUCT` は、 *TargetType*を**SQL_SS_TIMESTAMPOFFSET_STRUCT** `SQL_C_DEFAULT` またはとして指定する必要があることに注意してください `SQL_C_BINARY` 。</span><span class="sxs-lookup"><span data-stu-id="9b748-121">Result column values of date/time types are converted as described in [Conversions from SQL to C](../native-client-odbc-date-time/datetime-data-type-conversions-from-sql-to-c.md). Note that to retrieve time and datetimeoffset columns as their corresponding structures (`SQL_SS_TIME2_STRUCT` and **SQL_SS_TIMESTAMPOFFSET_STRUCT**), *TargetType* must be specified as `SQL_C_DEFAULT` or `SQL_C_BINARY`.</span></span>  
+  
+ <span data-ttu-id="9b748-122">詳細については、「[日付と時刻の機能強化 &#40;ODBC&#41;](../native-client-odbc-date-time/date-and-time-improvements-odbc.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="9b748-122">For more information, see [Date and Time Improvements &#40;ODBC&#41;](../native-client-odbc-date-time/date-and-time-improvements-odbc.md).</span></span>  
+  
+## <a name="sqlbindcol-support-for-large-clr-udts"></a><span data-ttu-id="9b748-123">SQLBindCol による大きな CLR UDT のサポート</span><span class="sxs-lookup"><span data-stu-id="9b748-123">SQLBindCol Support for Large CLR UDTs</span></span>  
+ <span data-ttu-id="9b748-124">**SQLBindCol**は、大きな CLR ユーザー定義型 (udt) をサポートしています。</span><span class="sxs-lookup"><span data-stu-id="9b748-124">**SQLBindCol** supports large CLR user-defined types (UDTs).</span></span> <span data-ttu-id="9b748-125">詳細については、「[大容量の CLR ユーザー定義型 &#40;ODBC&#41;](../native-client/odbc/large-clr-user-defined-types-odbc.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="9b748-125">For more information, see [Large CLR User-Defined Types &#40;ODBC&#41;](../native-client/odbc/large-clr-user-defined-types-odbc.md).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="9b748-126">参照</span><span class="sxs-lookup"><span data-stu-id="9b748-126">See Also</span></span>  
+ <span data-ttu-id="9b748-127">[SQLBindCol 関数](https://go.microsoft.com/fwlink/?LinkId=59327) </span><span class="sxs-lookup"><span data-stu-id="9b748-127">[SQLBindCol Function](https://go.microsoft.com/fwlink/?LinkId=59327) </span></span>  
+ [<span data-ttu-id="9b748-128">ODBC API 実装の詳細</span><span class="sxs-lookup"><span data-stu-id="9b748-128">ODBC API Implementation Details</span></span>](odbc-api-implementation-details.md)  
+  
+  

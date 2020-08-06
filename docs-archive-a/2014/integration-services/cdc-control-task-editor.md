@@ -1,0 +1,94 @@
+---
+title: CDC 制御タスクエディター |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: integration-services
+ms.topic: conceptual
+f1_keywords:
+- sql12.ssis.designer.cdccontroltask.config.f1
+ms.assetid: 4f09d040-9ec8-4aaa-b684-f632d571f0a8
+author: chugugrace
+ms.author: chugu
+ms.openlocfilehash: 6b60f2a9126dbbda934124b39f36ccd90b4e6cc6
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87644594"
+---
+# <a name="cdc-control-task-editor"></a><span data-ttu-id="6a107-102">CDC 制御タスク エディター</span><span class="sxs-lookup"><span data-stu-id="6a107-102">CDC Control Task Editor</span></span>
+  <span data-ttu-id="6a107-103">**[CDC 制御タスク エディター]** ダイアログ ボックスを使用すると、CDC 制御タスクを構成できます。</span><span class="sxs-lookup"><span data-stu-id="6a107-103">Use the **CDC Control Task Editor** dialog box to configure the CDC Control task.</span></span> <span data-ttu-id="6a107-104">CDC 制御タスクの構成では、CDC データベースへの接続、CDC タスクの操作、状態管理情報の定義などを行います。</span><span class="sxs-lookup"><span data-stu-id="6a107-104">The CDC Control task configuration includes defining a connection to the CDC database, the CDC task operation and the state management information.</span></span>  
+  
+ <span data-ttu-id="6a107-105">CDC 制御タスクの詳細については、「 [CDC Control Task](control-flow/cdc-control-task.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="6a107-105">To learn more about the CDC Control task, see [CDC Control Task](control-flow/cdc-control-task.md).</span></span>  
+  
+ <span data-ttu-id="6a107-106">**CDC 制御タスク エディターを開くには**</span><span class="sxs-lookup"><span data-stu-id="6a107-106">**To open the CDC Control Task Editor**</span></span>  
+  
+1.  <span data-ttu-id="6a107-107">[!INCLUDE[ssBIDevStudio](../includes/ssbidevstudio-md.md)]で、CDC 制御タスクの含まれる [!INCLUDE[ssISCurrent](../includes/ssiscurrent-md.md)] パッケージを開きます。</span><span class="sxs-lookup"><span data-stu-id="6a107-107">In [!INCLUDE[ssBIDevStudio](../includes/ssbidevstudio-md.md)], open the [!INCLUDE[ssISCurrent](../includes/ssiscurrent-md.md)] package that has the CDC Control task.</span></span>  
+  
+2.  <span data-ttu-id="6a107-108">**[制御フロー]** タブで、CDC 制御タスクをダブルクリックします。</span><span class="sxs-lookup"><span data-stu-id="6a107-108">On the **Control Flow** tab, double-click the CDC Control task.</span></span>  
+  
+## <a name="options"></a><span data-ttu-id="6a107-109">Options</span><span class="sxs-lookup"><span data-stu-id="6a107-109">Options</span></span>  
+ <span data-ttu-id="6a107-110">**[SQL Server CDC データベースの ADO.NET 接続マネージャー]**</span><span class="sxs-lookup"><span data-stu-id="6a107-110">**SQL Server CDC database ADO.NET connection manager**</span></span>  
+ <span data-ttu-id="6a107-111">既存の接続マネージャーを一覧から選択するか、 **[新規作成]** をクリックして新しい接続を作成します。</span><span class="sxs-lookup"><span data-stu-id="6a107-111">Select an existing connection manager from the list, or click **New** to create a new connection.</span></span> <span data-ttu-id="6a107-112">選択した変更テーブルが存在する、CDC に対応した [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] データベースへの接続である必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-112">The connection must be to a [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] database that is enabled for CDC and where the selected change table is located.</span></span>  
+  
+ <span data-ttu-id="6a107-113">**[CDC 制御操作]**</span><span class="sxs-lookup"><span data-stu-id="6a107-113">**CDC Control Operation**</span></span>  
+ <span data-ttu-id="6a107-114">このタスクに対して実行する操作を選択します。</span><span class="sxs-lookup"><span data-stu-id="6a107-114">Select the operation to run for this task.</span></span> <span data-ttu-id="6a107-115">どの操作でも、状態変数を使用します。この変数は、状態を格納してパッケージ内のコンポーネント間で受け渡しする SSIS パッケージ変数に格納されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-115">All operations use the state variable that is stored in an SSIS package variable that stores the state and passes it between the different components in the package.</span></span>  
+  
+-   <span data-ttu-id="6a107-116">**[初期読み込みの開始をマーク]**: この操作は、スナップショットのないアクティブ データベースから初期読み込みを実行するときに使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-116">**Mark initial load start**: This operation is used when executing an initial load from an active database without a snapshot.</span></span> <span data-ttu-id="6a107-117">初期読み込みパッケージの開始時に呼び出され、ソース データベースで現在の LSN を記録します。その後、初期読み込みパッケージがソース テーブルの読み取りを開始します。</span><span class="sxs-lookup"><span data-stu-id="6a107-117">It is invoked at the beginning of an initial-load package to record the current LSN in the source database before the initial-load package starts reading the source tables.</span></span> <span data-ttu-id="6a107-118">この操作には、ソース データベースへの接続が必要です。</span><span class="sxs-lookup"><span data-stu-id="6a107-118">This requires a connection to the source database.</span></span>  
+  
+     <span data-ttu-id="6a107-119">(Oracle ではなく) **CDC での作業時に** [初期読み込みの開始をマーク] [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] を選択した場合、接続マネージャーで指定されたユーザーは、  **db_owner** か **sysadmin**である必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-119">If you select **Mark Initial Load Start** when working on [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] CDC (that is, not Oracle) the user specified in the connection manager must be either  **db_owner** or **sysadmin**.</span></span>  
+  
+-   <span data-ttu-id="6a107-120">**[初期読み込みの終了をマーク]**: この操作は、スナップショットのないアクティブ データベースから初期読み込みを実行するときに使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-120">**Mark initial load end**: This operation is used when executing an initial load from an active database without a snapshot.</span></span> <span data-ttu-id="6a107-121">初期読み込みパッケージの終了時に呼び出され、初期読み込みパッケージがソース テーブルの読み取りを終了した後で、ソース データベースで現在の LSN を記録します。</span><span class="sxs-lookup"><span data-stu-id="6a107-121">It is invoked at the end of an initial-load package to record the current LSN in the source database after the initial-load package finished reading the source tables.</span></span> <span data-ttu-id="6a107-122">この LSN を特定するために、この操作が発生したときの時刻が記録され、CDC データベース内の `cdc.lsn_time_`マッピング テーブルに対するクエリにより、その時刻より後に行われた変更が検索されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-122">This LSN is determined by recording nthe current time when this operation occurred and then querying the `cdc.lsn_time_`mapping table in the CDC database looking for a change that occurred after that time</span></span>  
+  
+     <span data-ttu-id="6a107-123">(Oracle ではなく) **CDC での作業時に** [初期読み込みの終了をマーク] [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] を選択した場合、接続マネージャーで指定されたユーザーは、  **db_owner** か **sysadmin**である必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-123">If you select **Mark Initial Load End** when working on [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] CDC (that is, not Oracle) the user specified in the connection manager must be either  **db_owner** or **sysadmin**.</span></span>  
+  
+-   <span data-ttu-id="6a107-124">**[CDC の開始をマーク]**: この操作は、初期読み込みがスナップショット データベースまたは休止データベースから行われるときに使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-124">**Mark CDC start**: This operation is used when then the initial load is made from a snapshot database or from a quiescence database.</span></span> <span data-ttu-id="6a107-125">初期読み込みパッケージ内の任意のポイントで呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-125">It is invoked at any point within the initial load package.</span></span> <span data-ttu-id="6a107-126">この操作は、スナップショット LSN またはスナップショット データベースの名前 (これからスナップショット LSN が動的に派生) が設定されるパラメーターを受け取ります。ただし、このパラメーターは空のままにすることもでき、その場合は、現在のデータベース LSN が変更処理パッケージの開始 LSN として使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-126">The operation accepts a parameter that can be a snapshot LSN, a name of a snapshot database (from which the snapshot LSN will be derived automatically) or it can be left empty, in which case the current database LSN is used as the start LSN for the change processing package.</span></span>  
+  
+     <span data-ttu-id="6a107-127">この操作は、[初期読み込みの開始をマーク] または [初期読み込みの終了をマーク] 操作の代わりに使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-127">This operation is used instead of the Mark Initial Load Start/End operations.</span></span>  
+  
+     <span data-ttu-id="6a107-128">(Oracle ではなく) **CDC での作業時に** [CDC の開始をマーク] [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] を選択した場合、接続マネージャーで指定されたユーザーは、  **db_owner** か **sysadmin**である必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-128">If you select **Mark CDC Start** when working on [!INCLUDE[ssCurrent](../includes/sscurrent-md.md)] CDC (that is, not Oracle) the user specified in the connection manager must be either  **db_owner** or **sysadmin**.</span></span>  
+  
+-   <span data-ttu-id="6a107-129">**[処理範囲の取得]**: この操作は、CDC ソース データ フローを使用するデータ フローを呼び出す前に、変更処理パッケージで使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-129">**Get processing range**: This operation is used in a change processing package before invoking the data flow that uses the CDC Source data flow.</span></span> <span data-ttu-id="6a107-130">この操作は、呼び出し時に CDC ソース データ フローが読み取る LSN の範囲を設定します。</span><span class="sxs-lookup"><span data-stu-id="6a107-130">It establishes a range of LSNs that the CDC Source data flow reads when invoked.</span></span> <span data-ttu-id="6a107-131">範囲は、データ フローの処理中に CDC ソースによって使用される SSIS パッケージ変数に格納されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-131">The range is stored in an SSIS package variable that is used by the CDC Source during data-flow processing.</span></span>  
+  
+     <span data-ttu-id="6a107-132">格納されるすべての種類の CDC 状態の詳細については、「 [状態変数の定義](data-flow/define-a-state-variable.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="6a107-132">For more information about the possible CDC states that are stored, see [Define a State Variable](data-flow/define-a-state-variable.md).</span></span>  
+  
+-   <span data-ttu-id="6a107-133">**[処理済みの範囲をマーク]**: この操作は、(CDC データ フローが正常に完了した後) CDC 実行の終了時に変更処理パッケージで使用され、CDC 実行で完全に処理された最後の LSN を記録します。</span><span class="sxs-lookup"><span data-stu-id="6a107-133">**Mark processed range**: This operation is used in a change processing package at the end of a  CDC run (after the CDC data flow is completed successfully) to record the last LSN that was fully processed in the CDC run.</span></span> <span data-ttu-id="6a107-134">`GetProcessingRange` を次に実行する際、この位置によって次の処理範囲の開始位置が決まります。</span><span class="sxs-lookup"><span data-stu-id="6a107-134">The next time `GetProcessingRange` is executed, this position determines the start of the next processing range.</span></span>  
+  
+-   <span data-ttu-id="6a107-135">**[CDC の状態をリセット]**: この操作は、現在の CDC コンテキストに関連付けられた、永続的な CDC の状態をリセットするために使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-135">**Reset CDC state**: This operation is used to reset the persistent CDC state associated with the current CDC context.</span></span> <span data-ttu-id="6a107-136">この操作の実行後に、LSN-timestamp `sys.fn_cdc_get_max_lsn` テーブルの現在の最大 LSN が次の処理範囲の開始位置になります。</span><span class="sxs-lookup"><span data-stu-id="6a107-136">After this operation is run, the current maximum LSN from the LSN-timestamp `sys.fn_cdc_get_max_lsn` table becomes the start of the range for the next processing range.</span></span> <span data-ttu-id="6a107-137">この操作には、ソース データベースへの接続が必要です。</span><span class="sxs-lookup"><span data-stu-id="6a107-137">This operation requires a connection to the source database.</span></span>  
+  
+     <span data-ttu-id="6a107-138">この操作は、新たに作成された変更レコードのみを処理し、古い変更レコードをすべて無視する場合などに使用します。</span><span class="sxs-lookup"><span data-stu-id="6a107-138">An example of when this operation is used is when you want to process only the newly created change records and ignore all old change records.</span></span>  
+  
+ <span data-ttu-id="6a107-139">**[CDC 状態を含む変数]**</span><span class="sxs-lookup"><span data-stu-id="6a107-139">**Variable containing the CDC state**</span></span>  
+ <span data-ttu-id="6a107-140">タスク操作の状態情報を格納する SSIS パッケージ変数を選択します。</span><span class="sxs-lookup"><span data-stu-id="6a107-140">Select the SSIS package variable that stores the state information for the task operation.</span></span> <span data-ttu-id="6a107-141">始める前に、変数を定義する必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-141">You should define a variable before you begin.</span></span> <span data-ttu-id="6a107-142">**[状態の自動保持]** を選択した場合、状態変数は自動的に読み込まれ、保存されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-142">If you select **Automatic state persistence**, the state variable is loaded and saved automatically.</span></span>  
+  
+ <span data-ttu-id="6a107-143">状態変数の定義の詳細については、「 [状態変数の定義](data-flow/define-a-state-variable.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="6a107-143">For more information about defining the state variable, see [Define a State Variable](data-flow/define-a-state-variable.md).</span></span>  
+  
+ <span data-ttu-id="6a107-144">**[CDC/スナップショット名を開始する SQL Server LSN]:**</span><span class="sxs-lookup"><span data-stu-id="6a107-144">**SQL Server LSN to start the CDC/Snapshot name:**</span></span>  
+ <span data-ttu-id="6a107-145">初期読み込みの実行開始位置となる、現在のソース データベース LSN またはスナップショット データベースの名前を入力し、CDC の開始位置を決定します。</span><span class="sxs-lookup"><span data-stu-id="6a107-145">Type the current source database LSN or the name of the snapshot database from which the initial load is performed to determine where the CDC starts.</span></span> <span data-ttu-id="6a107-146">**[CDC 制御操作]** が **[CDC の開始をマーク]** に設定されている場合にのみ、使用できます。</span><span class="sxs-lookup"><span data-stu-id="6a107-146">This is available only if the **CDC Control Operation** is set to **Mark CDC Start**.</span></span>  
+  
+ <span data-ttu-id="6a107-147">これらの操作の詳細については、「 [CDC Control Task](control-flow/cdc-control-task.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="6a107-147">For more information about these operations, see [CDC Control Task](control-flow/cdc-control-task.md)</span></span>  
+  
+ <span data-ttu-id="6a107-148">**[状態をデータベース テーブルに自動的に格納する]**</span><span class="sxs-lookup"><span data-stu-id="6a107-148">**Automatically store state in a database table**</span></span>  
+ <span data-ttu-id="6a107-149">このチェック ボックスをオンにすると、指定されたデータベースに含まれる状態テーブルへの CDC 状態の読み込みと格納が CDC 制御タスクで自動的に処理されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-149">Select this check box for the CDC Control task to automatically handle loading and storing the CDC state in a state table contained in the specified database.</span></span> <span data-ttu-id="6a107-150">オフにした場合、開発者は、パッケージの開始時に CDC 状態を読み込み、変更された CDC 状態を保存する必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-150">When not selected, the developer must load the CDC State when the package starts and save it whenever the CDC State changes.</span></span>  
+  
+ <span data-ttu-id="6a107-151">**[状態が格納されるデータベースの接続マネージャー]**</span><span class="sxs-lookup"><span data-stu-id="6a107-151">**Connection manager for the database where the state is stored**</span></span>  
+ <span data-ttu-id="6a107-152">既存の ADO.NET 接続マネージャーを一覧から選択するか、[新規作成] をクリックして新しい接続を作成します。</span><span class="sxs-lookup"><span data-stu-id="6a107-152">Select an existing ADO.NET connection manager from the list, or click New to create a new connection.</span></span> <span data-ttu-id="6a107-153">これは、状態テーブルが含まれる [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] データベースへの接続です。</span><span class="sxs-lookup"><span data-stu-id="6a107-153">This connection is to a [!INCLUDE[ssNoVersion](../includes/ssnoversion-md.md)] database that contains the State table.</span></span> <span data-ttu-id="6a107-154">状態テーブルには状態情報が含まれています。</span><span class="sxs-lookup"><span data-stu-id="6a107-154">The State table contains the State information.</span></span>  
+  
+ <span data-ttu-id="6a107-155">**[状態の自動保持]** が選択されている場合にのみ使用できます。これは必須パラメーターです。</span><span class="sxs-lookup"><span data-stu-id="6a107-155">This is available only if **Automatic state persistence** is selected and it is a required parameter.</span></span>  
+  
+ <span data-ttu-id="6a107-156">**[状態の格納に使用するテーブル]**</span><span class="sxs-lookup"><span data-stu-id="6a107-156">**Table to use for storing state**</span></span>  
+ <span data-ttu-id="6a107-157">CDC 状態の格納に使用する状態テーブルの名前を入力します。</span><span class="sxs-lookup"><span data-stu-id="6a107-157">Type the name of the state table to be used for storing the CDC state.</span></span> <span data-ttu-id="6a107-158">指定するテーブルには、 **name** と **state** の 2 列が必要で、両方ともデータ型が **varchar (256)** である必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-158">The table specified must have two columns called **name** and **state** and both columns must be of the data type **varchar (256)**.</span></span>  
+  
+ <span data-ttu-id="6a107-159">**[新規作成]** を選択して、必要な列を備えた新しい状態テーブルを構築する SQL スクリプトを入手することもできます。</span><span class="sxs-lookup"><span data-stu-id="6a107-159">You can optionally select **New** to get an SQL script that builds a new State table with the required columns.</span></span> <span data-ttu-id="6a107-160">**[状態の自動保持]** が選択されている場合、開発者は前の要件に従って状態テーブルを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-160">When **Automatic state persistence** is selected, the developer must create a state table according to the requirements listed above.</span></span>  
+  
+ <span data-ttu-id="6a107-161">**[状態の自動保持]** が選択されている場合にのみ使用できます。これは必須パラメーターです。</span><span class="sxs-lookup"><span data-stu-id="6a107-161">This is available only if **Automatic state persistence** is selected and it is a required parameter.</span></span>  
+  
+ <span data-ttu-id="6a107-162">**状態名**</span><span class="sxs-lookup"><span data-stu-id="6a107-162">**State name**</span></span>  
+ <span data-ttu-id="6a107-163">永続的な CDC 状態に関連付ける名前を入力します。</span><span class="sxs-lookup"><span data-stu-id="6a107-163">Type a name to associate with the persistent CDC state.</span></span> <span data-ttu-id="6a107-164">同じ CDC コンテキストを使用する完全読み込みパッケージと CDC パッケージでは、共通の状態名を指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="6a107-164">The full load and CDC packages that work with the same CDC context will specify a common state name.</span></span> <span data-ttu-id="6a107-165">この名前は、状態テーブルで状態行を検索するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="6a107-165">This name is used for looking up the state row in the state table</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="6a107-166">参照</span><span class="sxs-lookup"><span data-stu-id="6a107-166">See Also</span></span>  
+ [<span data-ttu-id="6a107-167">CDC 制御タスクのカスタム プロパティ</span><span class="sxs-lookup"><span data-stu-id="6a107-167">CDC Control Task Custom Properties</span></span>](control-flow/cdc-control-task-custom-properties.md)  
+  
+  

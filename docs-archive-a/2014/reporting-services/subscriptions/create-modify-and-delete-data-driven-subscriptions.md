@@ -1,0 +1,119 @@
+---
+title: データドリブンサブスクリプションを作成、変更、および削除する |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: reporting-services-native
+ms.topic: conceptual
+helpviewer_keywords:
+- query-based subscriptions [Reporting Services]
+- queries [Reporting Services], data-driven subscriptions
+- subscriptions [Reporting Services], data-driven
+- data-driven subscriptions
+ms.assetid: 0ba2093e-9393-4eb6-af06-9da10988cfaf
+author: maggiesMSFT
+ms.author: maggies
+manager: kfile
+ms.openlocfilehash: 0ec7fad729e5a7bd0f75d7a524ba315b4511a7a5
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87643693"
+---
+# <a name="create-modify-and-delete-a-data-driven-subscription"></a><span data-ttu-id="1a14b-102">データ ドリブン サブスクリプションを作成、変更、および削除する</span><span class="sxs-lookup"><span data-stu-id="1a14b-102">Create, Modify, and Delete a Data-Driven Subscription</span></span>
+  <span data-ttu-id="1a14b-103">データ ドリブン サブスクリプションは、サブスクリプションの処理に使用するデータ値を実行時に取得するためのクエリ ベースのサブスクリプションです。</span><span class="sxs-lookup"><span data-stu-id="1a14b-103">A data-driven subscription is a query-based subscription that gets the data values used for processing the subscription at run time.</span></span> <span data-ttu-id="1a14b-104">データ ドリブン サブスクリプションが開始されると、クエリが実行され、受信者、レポート配信オプション、表示形式、およびパラメーター設定に関する最新情報が取得されます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-104">When the subscription is triggered, a query is processed to get up-to-date information about recipients, report delivery options, rendering formats, and parameter settings.</span></span> <span data-ttu-id="1a14b-105">このクエリ結果がサブスクリプション定義に組み込まれ、既存のデータを使用する動的サブスクリプションが作成されます。この動的サブスクリプションは、従業員データベース、顧客データベースなど、サブスクライバーのデータ ソースとして利用可能なすべてのデータベースのデータを使用します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-105">The query results are combined with the subscription definition to create a dynamic subscription that uses data you already maintain in an employee database, a customer database, or any other database that contains information that can be used as subscriber data.</span></span>  
+  
+||  
+|-|  
+|<span data-ttu-id="1a14b-106">**[!INCLUDE[applies](../../includes/applies-md.md)]** [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] ネイティブ モード &#124; SharePoint モード</span><span class="sxs-lookup"><span data-stu-id="1a14b-106">**[!INCLUDE[applies](../../includes/applies-md.md)]**  [!INCLUDE[ssRSnoversion](../../includes/ssrsnoversion-md.md)] Native mode &#124; SharePoint mode</span></span>|  
+  
+ <span data-ttu-id="1a14b-107">**このトピックの内容:**</span><span class="sxs-lookup"><span data-stu-id="1a14b-107">**In this topic:**</span></span>  
+  
+-   [<span data-ttu-id="1a14b-108">データ ドリブン サブスクリプションの作成および変更</span><span class="sxs-lookup"><span data-stu-id="1a14b-108">Create and Modify a Data-Driven Subscription</span></span>](#bkmk_create_and_modify)  
+  
+-   [<span data-ttu-id="1a14b-109">サブスクリプションの情報を取得するクエリの定義</span><span class="sxs-lookup"><span data-stu-id="1a14b-109">Define a query that retrieves subscription information</span></span>](#bkmk_define_query)  
+  
+-   [<span data-ttu-id="1a14b-110">サブスクリプションの実行</span><span class="sxs-lookup"><span data-stu-id="1a14b-110">Run a subscription</span></span>](#bkmk_run_subscription)  
+  
+-   [<span data-ttu-id="1a14b-111">データ ドリブン サブスクリプションの管理および削除</span><span class="sxs-lookup"><span data-stu-id="1a14b-111">Manage and delete a data-driven subscription</span></span>](#bkmk_manage_and_delete)  
+  
+##  <a name="create-and-modify-a-data-driven-subscription"></a><a name="bkmk_create_and_modify"></a><span data-ttu-id="1a14b-112">データドリブンサブスクリプションを作成および変更する</span><span class="sxs-lookup"><span data-stu-id="1a14b-112">Create and Modify a Data-Driven Subscription</span></span>  
+ <span data-ttu-id="1a14b-113">データ ドリブン サブスクリプションの作成や、既存のサブスクリプションの変更を行うには、レポート マネージャーの [データ ドリブン サブスクリプションの作成] ページを使用します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-113">To create a new data-driven subscription or modify an existing subscription, use the Create Data-Driven Subscription pages in Report Manager.</span></span> <span data-ttu-id="1a14b-114">これらのページでは、サブスクリプションの作成または変更の各手順を進めていきます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-114">These pages walk you through each step of creating or modifying a subscription.</span></span> <span data-ttu-id="1a14b-115">作成したサブスクリプションにアクセスするには、[個人用サブスクリプション] ページおよびレポートの [サブスクリプション] の一覧を使用します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-115">To access a subscription after it is created, use the My Subscriptions page and the Subscriptions list of a report.</span></span> <span data-ttu-id="1a14b-116">データ ドリブン サブスクリプションを作成する方法については、「[データ ドリブン サブスクリプションの作成 (SSRS チュートリアル)](../create-a-data-driven-subscription-ssrs-tutorial.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-116">To learn how to create a data-driven subscription, see [Create a Data-Driven Subscription &#40;SSRS Tutorial&#41;](../create-a-data-driven-subscription-ssrs-tutorial.md).</span></span>  
+  
+ <span data-ttu-id="1a14b-117">データ ドリブン サブスクリプションを作成するには、保存された資格情報を使用するレポートか、資格情報を使用しないレポートを選択します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-117">To create a data-driven subscription, select a report that uses stored credentials or no credentials.</span></span> <span data-ttu-id="1a14b-118">データ ドリブン サブスクリプションを作成するときは、標準サブスクリプションをデータ ドリブン サブスクリプションから簡単に区別できるように、説明フィールドの名前付け規則の使用を検討してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-118">When you create the data-driven subscription, consider using a naming convention for the description field so you can easily differentiate standard subscriptions from data-driven subscriptions.</span></span>  
+  
+#### <a name="to-create-a-data-driven-subscription-native-mode"></a><span data-ttu-id="1a14b-119">データ ドリブン サブスクリプションを作成するには (ネイティブ モード)</span><span class="sxs-lookup"><span data-stu-id="1a14b-119">To create a data-driven subscription (Native Mode)</span></span>  
+  
+1.  <span data-ttu-id="1a14b-120">レポートマネージャーレポートが格納されているフォルダーに移動し、レポートの上にマウスポインターを移動し、[オプション] メニューを開いて [管理] をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="1a14b-120">In Report Manager navigate to the folder containing the report, hover over the report, open the options menu and Click the **Manage.**</span></span>  
+  
+2.  <span data-ttu-id="1a14b-121">**[サブスクリプション]** タブをクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-121">Click the **Subscriptions** tab.</span></span>  
+  
+3.  <span data-ttu-id="1a14b-122">**[新しいデータ ドリブン サブスクリプション]** ボタンをクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-122">Click the **New Data-Driven Subscription** button.</span></span>  
+  
+#### <a name="to-create-a-data-driven-subscription-sharepoint-mode"></a><span data-ttu-id="1a14b-123">データ ドリブン サブスクリプションを作成するには (SharePoint モード)</span><span class="sxs-lookup"><span data-stu-id="1a14b-123">To create a data-driven subscription (SharePoint Mode)</span></span>  
+  
+1.  <span data-ttu-id="1a14b-124">SharePoint ドキュメント ライブラリで、レポートの上にマウス ポインターを移動し、オプション メニュー開いて、 **[サブスクリプションの管理]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-124">In the SharePoint document library, hover over the report, open the options menu and Click **Manage Subscriptions**.</span></span>  
+  
+2.  <span data-ttu-id="1a14b-125">**[データ ドリブン サブスクリプションの追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-125">Click **Add Data-Driven Subscription**.</span></span>  
+  
+#### <a name="to-modify-an-existing-data-driven-subscription-native-mode"></a><span data-ttu-id="1a14b-126">既存のデータ ドリブン サブスクリプションを変更するには (ネイティブ モード)</span><span class="sxs-lookup"><span data-stu-id="1a14b-126">To modify an existing data-driven subscription (Native Mode)</span></span>  
+  
+1.  <span data-ttu-id="1a14b-127">レポート マネージャーで、レポートのあるフォルダーに移動し、レポートの上にマウス ポインターを移動し、オプション メニュー開いて、 **[管理]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-127">In Report Manager navigate to the folder containing the report, hover over the report, open the options menu and Click the **Manage**.</span></span>  
+  
+2.  <span data-ttu-id="1a14b-128">[**サブスクリプション**] タブをクリックします。または、レポートマネージャーの上部にある [**個人用サブスクリプション**] リンクをクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-128">Click the **Subscriptions** tab. Alternatively click the **My Subscriptions** link on at the tope of report manager</span></span>  
+  
+3.  <span data-ttu-id="1a14b-129">変更するサブスクリプションを選択します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-129">Select the subscription you want to modify.</span></span> <span data-ttu-id="1a14b-130">次のアイコンは、データドリブンサブスクリプションを示しています:![データドリブンサブスクリプションアイコン](../media/hlp-16subscriptiondd.gif "データ ドリブン サブスクリプション アイコン")</span><span class="sxs-lookup"><span data-stu-id="1a14b-130">The following icon indicates a data-driven subscription: ![Data-driven subscription icon](../media/hlp-16subscriptiondd.gif "Data-driven subscription icon")</span></span>  
+  
+#### <a name="to-modify-an-existing-data-driven-subscription-sharepoint-mode"></a><span data-ttu-id="1a14b-131">既存のデータ ドリブン サブスクリプションを変更するには (SharePoint モード)</span><span class="sxs-lookup"><span data-stu-id="1a14b-131">To modify an existing data-driven subscription (SharePoint Mode)</span></span>  
+  
+1.  <span data-ttu-id="1a14b-132">SharePoint ドキュメント ライブラリで、レポートの上にマウス ポインターを移動し、オプション メニュー開いて、 **[サブスクリプションの管理]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-132">In the SharePoint document library, hover over the report, open the options menu and Click **Manage Subscriptions**.</span></span>  
+  
+2.  <span data-ttu-id="1a14b-133">変更するサブスクリプションを選択します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-133">Select the subscription you want to modify.</span></span>  
+  
+> [!NOTE]  
+>  <span data-ttu-id="1a14b-134">既に指定されている値は変更できます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-134">You can modify any value that is already specified.</span></span> <span data-ttu-id="1a14b-135">すべての値は、サブスクライバー データ ストアへのアクセスに使用するパスワードを除いて、最初に作成したとおりに表示されます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-135">All values are presented as they were first created, except for the password that is used to access the subscriber data store.</span></span> <span data-ttu-id="1a14b-136">2 ページ目以降のページで値を変更するたびに、パスワードを再入力する必要があります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-136">You must retype the password every time you modify values on the second page or any subsequent page.</span></span>  
+  
+ <span data-ttu-id="1a14b-137">データ ドリブン サブスクリプションを作成する前に、以下の必要条件を満たしていることを確認してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-137">Before you can create a data-driven subscription, ensure that you satisfy the following requirements:</span></span>  
+  
+-   <span data-ttu-id="1a14b-138">**レポートの必要条件**。</span><span class="sxs-lookup"><span data-stu-id="1a14b-138">**Report requirements**.</span></span> <span data-ttu-id="1a14b-139">実行時にデータを取得するには、保存された資格情報を使用するレポート、または資格情報を使用しないレポートが必要です。</span><span class="sxs-lookup"><span data-stu-id="1a14b-139">The report must use stored credentials or no credentials to retrieve data at run time.</span></span> <span data-ttu-id="1a14b-140">権限を借用した資格情報や委任された資格情報を使用して外部データ ソースに接続するレポートをサブスクライブすることはできません。サブスクリプションの処理時には、サブスクリプションを作成または所有するユーザーの資格情報を使用できないためです。</span><span class="sxs-lookup"><span data-stu-id="1a14b-140">You cannot subscribe to a report that uses impersonated or delegated credentials to connect to an external data source; the credentials of the user who creates or owns the subscription will not be available when the subscription is processed.</span></span> <span data-ttu-id="1a14b-141">保存された資格情報は、Windows アカウントまたはデータベース ユーザー アカウントのいずれかです。</span><span class="sxs-lookup"><span data-stu-id="1a14b-141">The stored credentials can be a Windows account or a database user account.</span></span> <span data-ttu-id="1a14b-142">詳細については、「 [レポート データ ソースに関する資格情報と接続情報を指定する](../report-data/specify-credential-and-connection-information-for-report-data-sources.md)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-142">For more information, see [Specify Credential and Connection Information for Report Data Sources](../report-data/specify-credential-and-connection-information-for-report-data-sources.md).</span></span>  
+  
+     <span data-ttu-id="1a14b-143">モデルにモデル アイテム セキュリティ設定が含まれている場合、データ ソースとしてモデルを使用するレポート ビルダーのレポートをサブスクライブすることはできません。</span><span class="sxs-lookup"><span data-stu-id="1a14b-143">You cannot subscribe to a Report Builder report that uses a model as a data source and the model contains model item security settings.</span></span> <span data-ttu-id="1a14b-144">この制限は、モデル アイテム セキュリティを使用するレポートのみが対象となります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-144">Only reports that use model item security are included in this restriction.</span></span>  
+  
+     <span data-ttu-id="1a14b-145">`User!UserID` 式を含んでいるレポートでは、データ ドリブン サブスクリプションを作成できません。</span><span class="sxs-lookup"><span data-stu-id="1a14b-145">You cannot create a data-driven subscription on a report that contains the `User!UserID` expression.</span></span>  
+  
+-   <span data-ttu-id="1a14b-146">**データの必要条件**。</span><span class="sxs-lookup"><span data-stu-id="1a14b-146">**Data requirements**.</span></span> <span data-ttu-id="1a14b-147">サブスクライバー データが格納されている外部データ ソースへのアクセス権が必要になります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-147">You must have an accessible external data source that contains subscriber data.</span></span>  
+  
+-   <span data-ttu-id="1a14b-148">**ユーザーの必要条件**。</span><span class="sxs-lookup"><span data-stu-id="1a14b-148">**User requirements**.</span></span> <span data-ttu-id="1a14b-149">サブスクリプションの作成者には、"レポートの管理" および "すべてのサブスクリプションを管理" の実行権限が必要です。</span><span class="sxs-lookup"><span data-stu-id="1a14b-149">The author of the subscription must have permission to "Manage reports" and "Manage all subscriptions."</span></span> <span data-ttu-id="1a14b-150">アイテムレベルのタスク権限の詳細については、「 [タスクと権限](../security/tasks-and-permissions.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-150">For more information about item-level task permissions, see [Tasks and Permissions](../security/tasks-and-permissions.md).</span></span> <span data-ttu-id="1a14b-151">また、作成者には、サブスクライバー データが格納されている外部データ ソースにアクセスするための資格情報も必要です。</span><span class="sxs-lookup"><span data-stu-id="1a14b-151">The author must also have the necessary credentials to access the external data source that contains subscriber data.</span></span>  
+  
+##  <a name="define-a-query-that-retrieves-subscription-information"></a><a name="bkmk_define_query"></a><span data-ttu-id="1a14b-152">サブスクリプション情報を取得するクエリの定義</span><span class="sxs-lookup"><span data-stu-id="1a14b-152">Define a query that retrieves subscription information</span></span>  
+ <span data-ttu-id="1a14b-153">データ ドリブン サブスクリプションでは、サブスクライバー データを取得するクエリまたはコマンドを指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-153">A data-driven subscription must specify a query or command that retrieves subscriber data.</span></span> <span data-ttu-id="1a14b-154">クエリは、サブスクライバーごとに 1 行生成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-154">The query should produce one row for each subscriber.</span></span> <span data-ttu-id="1a14b-155">電子メール配信拡張機能を使用している場合、クエリは、各サブスクライバーの有効な電子メール エイリアスを返す必要があります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-155">If you are using the e-mail delivery extension, the query should return a valid e-mail alias for each subscriber.</span></span> <span data-ttu-id="1a14b-156">配信される回数は、クエリが返す行数に基づいています。</span><span class="sxs-lookup"><span data-stu-id="1a14b-156">The number of deliveries that are made is based on the number of rows returned by the query.</span></span> <span data-ttu-id="1a14b-157">行セットが 10,000 行で構成されている場合、サブスクリプションは 10,000 のレポートを配信します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-157">If the row set consists of 10,000 rows, the subscription delivers 10,000 reports.</span></span>  
+  
+ <span data-ttu-id="1a14b-158">クエリの実行に時間のかかる場合は、タイムアウト値を大きくして、追加の処理を調整できます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-158">If executing the query is time-consuming, you can increase the time-out value to accommodate additional processing.</span></span>  
+  
+ <span data-ttu-id="1a14b-159">この手順では、クエリを検証してから続行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="1a14b-159">For this step, the query must be validated before you continue.</span></span> <span data-ttu-id="1a14b-160">検証では、クエリは処理されませんが、これ以降の選択項目の列を参照できるように行セット内のすべての列の一覧が返されます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-160">Validation does not process the query, but it does return a list of all columns that are in the row set so that you can reference the columns in subsequent selections.</span></span> <span data-ttu-id="1a14b-161">クエリが検証に失敗すると、手順を続行できません。</span><span class="sxs-lookup"><span data-stu-id="1a14b-161">If the query fails to validate, you cannot continue.</span></span> <span data-ttu-id="1a14b-162">クエリ構文が間違っている場合、またはデータ ソースへの接続が無効な場合、クエリは検証に失敗します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-162">A query fails to validate if the query syntax is incorrect or if the connection to the data source is not valid.</span></span> <span data-ttu-id="1a14b-163">データ ソースを訂正するには、 **[戻る]** ボタンを使用します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-163">Use the **Back** button to make corrections to the data source.</span></span>  
+  
+##  <a name="run-a-subscription"></a><a name="bkmk_run_subscription"></a><span data-ttu-id="1a14b-164">サブスクリプションを実行する</span><span class="sxs-lookup"><span data-stu-id="1a14b-164">Run a subscription</span></span>  
+ <span data-ttu-id="1a14b-165">サブスクリプションを処理するための条件を設定します。</span><span class="sxs-lookup"><span data-stu-id="1a14b-165">You configure the conditions for subscription processing.</span></span> <span data-ttu-id="1a14b-166">スケジュールを構成するか、レポート実行スナップショットの更新と同時にサブスクリプションを開始することができます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-166">You can configure a schedule, or you can trigger the subscription to coincide with updates to a report execution snapshot.</span></span>  
+  
+ <span data-ttu-id="1a14b-167">![メモ](../media/rs-fyinote.png "注意")ユーザーインターフェイスには、サブスクリプションをすぐに実行するために使用できる機能はありませんが、簡単な Windows PowerShell スクリプトを使用して、サブスクリプションの実行をトリガーすることができます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-167">![note](../media/rs-fyinote.png "note") While there is no feature in the user interface that you can use to immediately run a subscription, you can use a simple Windows PowerShell script to trigger a subscription to run.</span></span> <span data-ttu-id="1a14b-168">詳細については、「 [PowerShell を使用して Reporting Services サブスクリプションの所有者を変更および一覧表示してサブスクリプションを実行する](manage-subscription-owners-and-run-subscription-powershell.md)」の「スクリプト: 単一のサブスクリプションの実行 (起動)」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-168">For more information, see the "Script: Run (fire) a single subscription" section of [Use PowerShell to Change and List Reporting Services Subscription Owners and Run a Subscription](manage-subscription-owners-and-run-subscription-powershell.md).</span></span>  
+  
+ <span data-ttu-id="1a14b-169">データ ドリブン サブスクリプションを実行するためのスケジュールと条件は、標準のサブスクリプションの処理と同じです。</span><span class="sxs-lookup"><span data-stu-id="1a14b-169">Schedule and conditions for running a data-driven subscriptions is the same as processing for standard subscriptions.</span></span>  
+  
+##  <a name="manage-and-delete-a-data-driven-subscription"></a><a name="bkmk_manage_and_delete"></a><span data-ttu-id="1a14b-170">データドリブンサブスクリプションの管理および削除</span><span class="sxs-lookup"><span data-stu-id="1a14b-170">Manage and delete a data-driven subscription</span></span>  
+ <span data-ttu-id="1a14b-171">実行中のデータ ドリブン サブスクリプションは、レポート マネージャーの [ジョブの管理] ページで停止または削除できません。</span><span class="sxs-lookup"><span data-stu-id="1a14b-171">A data-driven subscription that is in progress cannot be stopped or deleted through the Manage Jobs page of Report Manager.</span></span> <span data-ttu-id="1a14b-172">そのため、共有スケジュールを使用してデータ ドリブン サブスクリプションを開始すると便利です。</span><span class="sxs-lookup"><span data-stu-id="1a14b-172">For this reason, it is advantageous to use a shared schedule to trigger data-driven subscription.</span></span> <span data-ttu-id="1a14b-173">一時的にサブスクリプションを処理しないようにする場合は、サブスクリプションを開始するスケジュールを一時停止できます。</span><span class="sxs-lookup"><span data-stu-id="1a14b-173">That way, if you want to temporarily prevent a subscription from processing, you can pause the schedule that triggers the subscription.</span></span> <span data-ttu-id="1a14b-174">詳細については、「 [ネイティブ モード レポート サーバーのサブスクリプションの作成と管理](../create-manage-subscriptions-native-mode-report-servers.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-174">For more information, see [Create and Manage Subscriptions for Native Mode Report Servers](../create-manage-subscriptions-native-mode-report-servers.md).</span></span>  
+  
+ <span data-ttu-id="1a14b-175">データ ドリブン サブスクリプションを削除するには、[個人用サブスクリプション] ページまたはレポートの [サブスクリプション] ページでサブスクリプションを選択して、 **[削除]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="1a14b-175">To delete a data-driven subscription, select it from the My Subscriptions page or the Subscriptions page of a report and then click **Delete**.</span></span>  
+  
+ <span data-ttu-id="1a14b-176">データ ドリブン サブスクリプションを取り消す方法については、「 [実行中の処理を管理する](manage-a-running-process.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="1a14b-176">For instructions on how to cancel a data-driven subscription, see [Manage a Running Process](manage-a-running-process.md).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="1a14b-177">参照</span><span class="sxs-lookup"><span data-stu-id="1a14b-177">See Also</span></span>  
+ <span data-ttu-id="1a14b-178">[ネイティブモードで Reporting Services &#40;標準のサブスクリプションを作成、変更、および削除&#41;](create-and-manage-subscriptions-for-native-mode-report-servers.md) </span><span class="sxs-lookup"><span data-stu-id="1a14b-178">[Create, Modify, and Delete Standard Subscriptions &#40;Reporting Services in Native Mode&#41;](create-and-manage-subscriptions-for-native-mode-report-servers.md) </span></span>  
+ <span data-ttu-id="1a14b-179">[サブスクリプションと配信 &#40;Reporting Services&#41;](subscriptions-and-delivery-reporting-services.md) </span><span class="sxs-lookup"><span data-stu-id="1a14b-179">[Subscriptions and Delivery &#40;Reporting Services&#41;](subscriptions-and-delivery-reporting-services.md) </span></span>  
+ <span data-ttu-id="1a14b-180">[レポート マネージャー &#40;SSRS ネイティブ モード&#41;](../report-manager-ssrs-native-mode.md) </span><span class="sxs-lookup"><span data-stu-id="1a14b-180">[Report Manager  &#40;SSRS Native Mode&#41;](../report-manager-ssrs-native-mode.md) </span></span>  
+ <span data-ttu-id="1a14b-181">[ネイティブ モード レポート サーバーのサブスクリプションの作成と管理](../create-manage-subscriptions-native-mode-report-servers.md) </span><span class="sxs-lookup"><span data-stu-id="1a14b-181">[Create and Manage Subscriptions for Native Mode Report Servers](../create-manage-subscriptions-native-mode-report-servers.md) </span></span>  
+ <span data-ttu-id="1a14b-182">[[サブスクリプション] ページ &#40;レポートマネージャー&#41;](../subscriptions-page-report-manager.md) </span><span class="sxs-lookup"><span data-stu-id="1a14b-182">[Subscriptions Page &#40;Report Manager&#41;](../subscriptions-page-report-manager.md) </span></span>  
+ <span data-ttu-id="1a14b-183">[[個人用サブスクリプション] ページ (レポート マネージャー)](../my-subscriptions-page-report-manager.md)</span><span class="sxs-lookup"><span data-stu-id="1a14b-183">[My Subscriptions Page &#40;Report Manager&#41;](../my-subscriptions-page-report-manager.md)</span></span>  
+  
+  

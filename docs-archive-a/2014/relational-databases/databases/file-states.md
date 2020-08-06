@@ -1,0 +1,65 @@
+---
+title: ファイルの状態 | Microsoft Docs
+ms.custom: ''
+ms.date: 03/06/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: ''
+ms.topic: conceptual
+helpviewer_keywords:
+- restoring file state [SQL Server]
+- verifying file states
+- current file states
+- verifying filegroup states
+- file states [SQL Server]
+- online file state
+- offline file state [SQL Server]
+- viewing filegroup states
+- viewing file states
+- suspect file state
+- recovering file state [SQL Server]
+- current filegroup state
+- recovery pending file state [SQL Server]
+- displaying file states
+- states [SQL Server], files
+- displaying filegroup states
+- defunct file state
+ms.assetid: b426474d-8954-4df0-b78b-887becfbe8d6
+author: stevestein
+ms.author: sstein
+ms.openlocfilehash: b7cad94527d9191609a6920b5dfa200a98cd8bbd
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87643948"
+---
+# <a name="file-states"></a><span data-ttu-id="d7dcf-102">ファイルの状態</span><span class="sxs-lookup"><span data-stu-id="d7dcf-102">File States</span></span>
+  <span data-ttu-id="d7dcf-103">[!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]では、データベース ファイルの状態はデータベースの状態とは別に管理されます。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-103">In [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)], the state of a database file is maintained independently from the state of the database.</span></span> <span data-ttu-id="d7dcf-104">ファイルは常に、ONLINE または OFFLINE などの特定の状態にあります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-104">A file is always in one specific state, such as ONLINE or OFFLINE.</span></span> <span data-ttu-id="d7dcf-105">ファイルの現在の状態を表示するには、 [sys.master_files](/sql/relational-databases/system-catalog-views/sys-master-files-transact-sql) カタログ ビューまたは [sys.database_files](/sql/relational-databases/system-catalog-views/sys-database-files-transact-sql) カタログ ビューを使用します。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-105">To view the current state of a file, use the [sys.master_files](/sql/relational-databases/system-catalog-views/sys-master-files-transact-sql) or [sys.database_files](/sql/relational-databases/system-catalog-views/sys-database-files-transact-sql) catalog view.</span></span> <span data-ttu-id="d7dcf-106">データベースがオフラインになっている場合、 [sys.master_files](/sql/relational-databases/system-catalog-views/sys-master-files-transact-sql) カタログ ビューからファイルの状態を表示できます。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-106">If the database is offline, the state of the files can be viewed from the [sys.master_files](/sql/relational-databases/system-catalog-views/sys-master-files-transact-sql) catalog view.</span></span>  
+  
+ <span data-ttu-id="d7dcf-107">ファイル グループ内のファイルの状態により、ファイル グループ全体の可用性が決まります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-107">The state of the files in a filegroup determines the availability of the whole filegroup.</span></span> <span data-ttu-id="d7dcf-108">ファイル グループを使用可能にするには、ファイル グループ内のすべてのファイルがオンラインである必要があります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-108">For a filegroup to be available, all files within the filegroup must be online.</span></span> <span data-ttu-id="d7dcf-109">ファイル グループの現在の状態を表示するには、 [sys.filegroups](/sql/relational-databases/system-catalog-views/sys-filegroups-transact-sql) カタログ ビューを使用します。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-109">To view the current state of a filegroup, use the [sys.filegroups](/sql/relational-databases/system-catalog-views/sys-filegroups-transact-sql) catalog view.</span></span> <span data-ttu-id="d7dcf-110">ファイル グループがオフラインのときに、 [!INCLUDE[tsql](../../includes/tsql-md.md)] ステートメントを使用してファイル グループにアクセスしようとすると、エラーが発生して失敗します。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-110">If a filegroup is offline and you try to access the filegroup by a [!INCLUDE[tsql](../../includes/tsql-md.md)] statement, it will fail with an error.</span></span> <span data-ttu-id="d7dcf-111">クエリ オプティマイザーで SELECT ステートメントのクエリ プランを作成すると、オフライン ファイル グループに存在する非クラスター化インデックスおよびインデックス付きビューが無視され、これらのステートメントが成功します。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-111">When the query optimizer builds query plans for SELECT statements, it avoids nonclustered indexes and indexed views that reside in offline filegroups, letting these statements to succeed.</span></span> <span data-ttu-id="d7dcf-112">ただし、オフラインのファイル グループに、対象テーブルのヒープやクラスター化インデックスが含まれている場合には、SELECT ステートメントは失敗します。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-112">However, if the offline filegroup contains the heap or clustered index of the target table, the SELECT statements fail.</span></span> <span data-ttu-id="d7dcf-113">また、オフラインのファイル グループ内にあるインデックス付きのテーブルを変更する INSERT、UPDATE、または DELETE ステートメントは失敗します。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-113">Additionally, any INSERT, UPDATE, or DELETE statement that modifies a table with any index in an offline filegroup will fail.</span></span>  
+  
+## <a name="file-state-definitions"></a><span data-ttu-id="d7dcf-114">ファイルの状態の定義</span><span class="sxs-lookup"><span data-stu-id="d7dcf-114">File State Definitions</span></span>  
+ <span data-ttu-id="d7dcf-115">次の表では、ファイルの状態を定義しています。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-115">The following table defines the file states.</span></span>  
+  
+|<span data-ttu-id="d7dcf-116">State</span><span class="sxs-lookup"><span data-stu-id="d7dcf-116">State</span></span>|<span data-ttu-id="d7dcf-117">定義</span><span class="sxs-lookup"><span data-stu-id="d7dcf-117">Definition</span></span>|  
+|-----------|----------------|  
+|<span data-ttu-id="d7dcf-118">ONLINE</span><span class="sxs-lookup"><span data-stu-id="d7dcf-118">ONLINE</span></span>|<span data-ttu-id="d7dcf-119">すべての操作でファイルを使用できます。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-119">The file is available for all operations.</span></span> <span data-ttu-id="d7dcf-120">データベース自体がオンラインである場合、プライマリ ファイル グループ内のファイルは常にオンラインです。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-120">Files in the primary filegroup are always online if the database itself is online.</span></span> <span data-ttu-id="d7dcf-121">プライマリ ファイル グループ内のファイルがオンラインでない場合、データベースはオンラインにならないので、セカンダリ ファイルの状態は未定義となります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-121">If a file in the primary filegroup is not online, the database is not online and the states of the secondary files are undefined.</span></span>|  
+|<span data-ttu-id="d7dcf-122">OFFLINE</span><span class="sxs-lookup"><span data-stu-id="d7dcf-122">OFFLINE</span></span>|<span data-ttu-id="d7dcf-123">ファイルにアクセスできません。また、ファイルがディスク上に存在しない可能性があります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-123">The file is not available for access and may not be present on the disk.</span></span> <span data-ttu-id="d7dcf-124">ファイルは、ユーザーの明示的な操作によってオフラインになり、ユーザーが追加操作を行うまではオフラインのままになります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-124">Files become offline by explicit user action and remain offline until additional user action is taken.</span></span><br /><br /> <span data-ttu-id="d7dcf-125">注意ファイルは、ファイルが破損している場合にのみオフラインに設定する必要がありますが、復元できます。 \*\* \* \* \* \* \*\*</span><span class="sxs-lookup"><span data-stu-id="d7dcf-125">**\*\* Caution \*\*** A file should only be set offline when the file is corrupted, but it can be restored.</span></span> <span data-ttu-id="d7dcf-126">オフラインに設定されたファイルをオンラインに設定する唯一の方法は、バックアップからファイルを復元することです。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-126">A file set to offline can only be set online by restoring the file from backup.</span></span> <span data-ttu-id="d7dcf-127">単一ファイルの復元の詳細については、「[RESTORE &#40;Transact-SQL&#41;](/sql/t-sql/statements/restore-statements-transact-sql)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-127">For more information about restoring a single file, see [RESTORE &#40;Transact-SQL&#41;](/sql/t-sql/statements/restore-statements-transact-sql).</span></span>|  
+|<span data-ttu-id="d7dcf-128">RESTORING</span><span class="sxs-lookup"><span data-stu-id="d7dcf-128">RESTORING</span></span>|<span data-ttu-id="d7dcf-129">ファイルは復元中です。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-129">The file is being restored.</span></span> <span data-ttu-id="d7dcf-130">復元コマンドはページの復元だけでなくファイル全体に影響するため、ファイルが復元状態になります。復元が完了してファイルが復旧されるまではこの状態のままになります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-130">Files enter the restoring state because of a restore command affecting the whole file, not just a page restore, and remain in this state until the restore is completed and the file is recovered.</span></span>|  
+|<span data-ttu-id="d7dcf-131">RECOVERY PENDING</span><span class="sxs-lookup"><span data-stu-id="d7dcf-131">RECOVERY PENDING</span></span>|<span data-ttu-id="d7dcf-132">ファイルの復旧が延期されました。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-132">The recovery of the file has been postponed.</span></span> <span data-ttu-id="d7dcf-133">ファイルが復元および復旧されず、復元処理が断片的な状態になると、ファイルは自動的にこの状態になります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-133">A file enters this state automatically because of a piecemeal restore process in which the file is not restored and recovered.</span></span> <span data-ttu-id="d7dcf-134">エラーを解決して復旧処理を完了できるようにするには、ユーザーによる追加操作が必要です。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-134">Additional action by the user is required to resolve the error and allow for the recovery process to be completed.</span></span> <span data-ttu-id="d7dcf-135">詳細については、「[段階的な部分復元 &#40;SQL Server&#41;](../backup-restore/piecemeal-restores-sql-server.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-135">For more information, see [Piecemeal Restores &#40;SQL Server&#41;](../backup-restore/piecemeal-restores-sql-server.md).</span></span>|  
+|<span data-ttu-id="d7dcf-136">SUSPECT</span><span class="sxs-lookup"><span data-stu-id="d7dcf-136">SUSPECT</span></span>|<span data-ttu-id="d7dcf-137">オンラインの復元処理中にファイルの復旧に失敗しました。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-137">Recovery of the file failed during an online restore process.</span></span> <span data-ttu-id="d7dcf-138">ファイルがプライマリ ファイル グループにある場合、データベースも問題ありとしてマークされます。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-138">If the file is in the primary filegroup, the database is also marked as suspect.</span></span> <span data-ttu-id="d7dcf-139">それ以外の場合、ファイルのみが問題ありの状態になり、データベースはオンラインのままになります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-139">Otherwise, only the file is suspect and the database is still online.</span></span><br /><br /> <span data-ttu-id="d7dcf-140">次の方法のいずれかによってファイルが使用可能になるまで、ファイルは問題ありの状態のままになります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-140">The file will remain in the suspect state until it is made available by one of the following methods:</span></span><br /><br /> <span data-ttu-id="d7dcf-141">復元および復旧</span><span class="sxs-lookup"><span data-stu-id="d7dcf-141">Restore and recovery</span></span><br /><br /> <span data-ttu-id="d7dcf-142">REPAIR_ALLOW_DATA_LOSS を指定した DBCC CHECKDB</span><span class="sxs-lookup"><span data-stu-id="d7dcf-142">DBCC CHECKDB with REPAIR_ALLOW_DATA_LOSS</span></span>|  
+|<span data-ttu-id="d7dcf-143">DEFUNCT</span><span class="sxs-lookup"><span data-stu-id="d7dcf-143">DEFUNCT</span></span>|<span data-ttu-id="d7dcf-144">ファイルがオンラインでないときに削除されました。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-144">The file was dropped when it was not online.</span></span> <span data-ttu-id="d7dcf-145">オフラインのファイル グループが削除されると、ファイル グループ内のすべてのファイルが機能しなくなります。</span><span class="sxs-lookup"><span data-stu-id="d7dcf-145">All files in a filegroup become defunct when an offline filegroup is removed.</span></span>|  
+  
+## <a name="related-content"></a><span data-ttu-id="d7dcf-146">関連コンテンツ</span><span class="sxs-lookup"><span data-stu-id="d7dcf-146">Related Content</span></span>  
+ [<span data-ttu-id="d7dcf-147">ALTER DATABASE &#40;Transact-SQL&#41;</span><span class="sxs-lookup"><span data-stu-id="d7dcf-147">ALTER DATABASE &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/statements/alter-database-transact-sql)  
+  
+ [<span data-ttu-id="d7dcf-148">データベースの状態</span><span class="sxs-lookup"><span data-stu-id="d7dcf-148">Database States</span></span>](database-states.md)  
+  
+ [<span data-ttu-id="d7dcf-149">ミラーリング状態 &#40;SQL Server&#41;</span><span class="sxs-lookup"><span data-stu-id="d7dcf-149">Mirroring States &#40;SQL Server&#41;</span></span>](../../database-engine/database-mirroring/mirroring-states-sql-server.md)  
+  
+ [<span data-ttu-id="d7dcf-150">DBCC CHECKDB &#40;Transact-SQL&#41;</span><span class="sxs-lookup"><span data-stu-id="d7dcf-150">DBCC CHECKDB &#40;Transact-SQL&#41;</span></span>](/sql/t-sql/database-console-commands/dbcc-checkdb-transact-sql)  
+  
+ [<span data-ttu-id="d7dcf-151">データベース ファイルとファイル グループ</span><span class="sxs-lookup"><span data-stu-id="d7dcf-151">Database Files and Filegroups</span></span>](database-files-and-filegroups.md)  
+  
+  

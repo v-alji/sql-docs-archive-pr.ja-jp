@@ -1,0 +1,80 @@
+---
+title: SQLProcedureColumns |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: native-client
+ms.topic: reference
+topic_type:
+- apiref
+helpviewer_keywords:
+- SQLProcedureColumns function
+ms.assetid: 6671e180-0072-4de5-90f5-314306d2ba9c
+author: rothja
+ms.author: jroth
+ms.openlocfilehash: 66814c4d79108b2bb2c829a5e522d45d7eeaed22
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87645024"
+---
+# <a name="sqlprocedurecolumns"></a><span data-ttu-id="94fcf-102">SQLProcedureColumns</span><span class="sxs-lookup"><span data-stu-id="94fcf-102">SQLProcedureColumns</span></span>
+  <span data-ttu-id="94fcf-103">`SQLProcedureColumns`すべてのストアドプロシージャの戻り値の属性を報告する1行を返し [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] ます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-103">`SQLProcedureColumns` returns one row reporting the return value attributes of all [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] stored procedures.</span></span>  
+  
+ <span data-ttu-id="94fcf-104">`SQLProcedureColumns`*CatalogName*、 *SchemaName*、 *ProcName*、または*ColumnName*パラメーターの値が存在するかどうか SQL_SUCCESS を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-104">`SQLProcedureColumns` returns SQL_SUCCESS whether or not values exist for *CatalogName*, *SchemaName*, *ProcName*, or *ColumnName* parameters.</span></span> <span data-ttu-id="94fcf-105">これらのパラメーターで無効な値が使用されている場合、 **Sqlfetch**は SQL_NO_DATA を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-105">**SQLFetch** returns SQL_NO_DATA when invalid values are used in these parameters.</span></span>  
+  
+ <span data-ttu-id="94fcf-106">`SQLProcedureColumns` は静的サーバー カーソルで実行できます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-106">`SQLProcedureColumns` can be executed on a static server cursor.</span></span> <span data-ttu-id="94fcf-107">更新可能なカーソル (動的カーソルまたはキーセット カーソル) で `SQLProcedureColumns` を実行しようとすると、カーソルの種類が変更されていることを示す SQL_SUCCESS_WITH_INFO が返されます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-107">An attempt to execute `SQLProcedureColumns` on an updatable (dynamic or keyset) cursor will return SQL_SUCCESS_WITH_INFO indicating that the cursor type has been changed.</span></span>  
+  
+ <span data-ttu-id="94fcf-108">次の表に、結果セットによって返される列と、Native Client ODBC ドライバーを使用して**udt**および**xml**データ型を処理するように拡張された列を示し [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] ます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-108">The following table lists the columns returned by the result set and how they have been extended to handle the **udt** and **xml** data types through the [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] Native Client ODBC driver:</span></span>  
+  
+|<span data-ttu-id="94fcf-109">列名</span><span class="sxs-lookup"><span data-stu-id="94fcf-109">Column name</span></span>|<span data-ttu-id="94fcf-110">説明</span><span class="sxs-lookup"><span data-stu-id="94fcf-110">Description</span></span>|  
+|-----------------|-----------------|  
+|<span data-ttu-id="94fcf-111">SS_UDT_CATALOG_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-111">SS_UDT_CATALOG_NAME</span></span>|<span data-ttu-id="94fcf-112">UDT (ユーザー定義型) を含むカタログの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-112">Returns the name of the catalog containing the UDT (user-defined type).</span></span>|  
+|<span data-ttu-id="94fcf-113">SS_UDT_SCHEMA_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-113">SS_UDT_SCHEMA_NAME</span></span>|<span data-ttu-id="94fcf-114">UDT を含むスキーマの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-114">Returns the name of the schema containing the UDT.</span></span>|  
+|<span data-ttu-id="94fcf-115">SS_UDT_ASSEMBLY_TYPE_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-115">SS_UDT_ASSEMBLY_TYPE_NAME</span></span>|<span data-ttu-id="94fcf-116">UDT のアセンブリ修飾名を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-116">Returns the assembly-qualified name of the UDT.</span></span>|  
+|<span data-ttu-id="94fcf-117">SS_XML_SCHEMACOLLECTION_CATALOG_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-117">SS_XML_SCHEMACOLLECTION_CATALOG_NAME</span></span>|<span data-ttu-id="94fcf-118">XML スキーマ コレクション名が定義されているカタログの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-118">Returns the name of the catalog where an XML schema collection name is defined.</span></span> <span data-ttu-id="94fcf-119">カタログ名が見つからない場合は、この変数に空文字列が含まれます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-119">If the catalog name cannot be found, then this variable contains an empty string.</span></span>|  
+|<span data-ttu-id="94fcf-120">SS_XML_SCHEMACOLLECTION_SCHEMA_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-120">SS_XML_SCHEMACOLLECTION_SCHEMA_NAME</span></span>|<span data-ttu-id="94fcf-121">XML スキーマ コレクション名が定義されているスキーマの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-121">Returns the name of the schema where an XML schema collection name is defined.</span></span> <span data-ttu-id="94fcf-122">スキーマ名が見つからない場合は、この変数に空文字列が含まれます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-122">If the schema name cannot be found, then this variable contains an empty string.</span></span>|  
+|<span data-ttu-id="94fcf-123">SS_XML_SCHEMACOLLECTION_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-123">SS_XML_SCHEMACOLLECTION_NAME</span></span>|<span data-ttu-id="94fcf-124">XML スキーマ コレクションの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-124">Returns the name of an XML schema collection.</span></span> <span data-ttu-id="94fcf-125">名前が見つからない場合は、この変数に空文字列が含まれます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-125">If the name cannot be found, then this variable contains an empty string.</span></span>|  
+  
+## <a name="sqlprocedurecolumns-and-table-valued-parameters"></a><span data-ttu-id="94fcf-126">SQLProcedureColumns とテーブル値パラメーター</span><span class="sxs-lookup"><span data-stu-id="94fcf-126">SQLProcedureColumns and Table-Valued Parameters</span></span>  
+ <span data-ttu-id="94fcf-127">SQLProcedureColumns は、CLR ユーザー定義型と同様の方法でテーブル値パラメーターを処理します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-127">SQLProcedureColumns handles table-valued parameters in a manner similar to CLR user-defined types.</span></span> <span data-ttu-id="94fcf-128">テーブル値パラメーターに対して返される行では、列に次の値が設定されます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-128">In rows returned for table-valued parameters, columns have the following values:</span></span>  
+  
+|<span data-ttu-id="94fcf-129">列名</span><span class="sxs-lookup"><span data-stu-id="94fcf-129">Column name</span></span>|<span data-ttu-id="94fcf-130">説明/値</span><span class="sxs-lookup"><span data-stu-id="94fcf-130">Description/value</span></span>|  
+|-----------------|------------------------|  
+|<span data-ttu-id="94fcf-131">DATA_TYPE</span><span class="sxs-lookup"><span data-stu-id="94fcf-131">DATA_TYPE</span></span>|<span data-ttu-id="94fcf-132">SQL_SS_TABLE</span><span class="sxs-lookup"><span data-stu-id="94fcf-132">SQL_SS_TABLE</span></span>|  
+|<span data-ttu-id="94fcf-133">TYPE_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-133">TYPE_NAME</span></span>|<span data-ttu-id="94fcf-134">テーブル値パラメーターのテーブル型の名前。</span><span class="sxs-lookup"><span data-stu-id="94fcf-134">The name of the table type for the table-valued parameter.</span></span>|  
+|<span data-ttu-id="94fcf-135">COLUMN_SIZE</span><span class="sxs-lookup"><span data-stu-id="94fcf-135">COLUMN_SIZE</span></span>|<span data-ttu-id="94fcf-136">NULL</span><span class="sxs-lookup"><span data-stu-id="94fcf-136">NULL</span></span>|  
+|<span data-ttu-id="94fcf-137">BUFFER_LENGTH</span><span class="sxs-lookup"><span data-stu-id="94fcf-137">BUFFER_LENGTH</span></span>|<span data-ttu-id="94fcf-138">0</span><span class="sxs-lookup"><span data-stu-id="94fcf-138">0</span></span>|  
+|<span data-ttu-id="94fcf-139">DECIMAL_DIGITS</span><span class="sxs-lookup"><span data-stu-id="94fcf-139">DECIMAL_DIGITS</span></span>|<span data-ttu-id="94fcf-140">テーブル値パラメーターの列数。</span><span class="sxs-lookup"><span data-stu-id="94fcf-140">The number of columns in the table-valued parameter.</span></span>|  
+|<span data-ttu-id="94fcf-141">NUM_PREC_RADIX</span><span class="sxs-lookup"><span data-stu-id="94fcf-141">NUM_PREC_RADIX</span></span>|<span data-ttu-id="94fcf-142">NULL</span><span class="sxs-lookup"><span data-stu-id="94fcf-142">NULL</span></span>|  
+|<span data-ttu-id="94fcf-143">NULLABLE</span><span class="sxs-lookup"><span data-stu-id="94fcf-143">NULLABLE</span></span>|<span data-ttu-id="94fcf-144">SQL_NULLABLE</span><span class="sxs-lookup"><span data-stu-id="94fcf-144">SQL_NULLABLE</span></span>|  
+|<span data-ttu-id="94fcf-145">REMARKS</span><span class="sxs-lookup"><span data-stu-id="94fcf-145">REMARKS</span></span>|<span data-ttu-id="94fcf-146">NULL</span><span class="sxs-lookup"><span data-stu-id="94fcf-146">NULL</span></span>|  
+|<span data-ttu-id="94fcf-147">COLUMN_DEF</span><span class="sxs-lookup"><span data-stu-id="94fcf-147">COLUMN_DEF</span></span>|<span data-ttu-id="94fcf-148">NULL。</span><span class="sxs-lookup"><span data-stu-id="94fcf-148">NULL.</span></span> <span data-ttu-id="94fcf-149">テーブル型には既定値がない場合があります。</span><span class="sxs-lookup"><span data-stu-id="94fcf-149">Table types might not have default values.</span></span>|  
+|<span data-ttu-id="94fcf-150">SQL_DATA_TYPE</span><span class="sxs-lookup"><span data-stu-id="94fcf-150">SQL_DATA_TYPE</span></span>|<span data-ttu-id="94fcf-151">SQL_SS_TABLE</span><span class="sxs-lookup"><span data-stu-id="94fcf-151">SQL_SS_TABLE</span></span>|  
+|<span data-ttu-id="94fcf-152">SQL_DATEIME_SUB</span><span class="sxs-lookup"><span data-stu-id="94fcf-152">SQL_DATEIME_SUB</span></span>|<span data-ttu-id="94fcf-153">NULL</span><span class="sxs-lookup"><span data-stu-id="94fcf-153">NULL</span></span>|  
+|<span data-ttu-id="94fcf-154">CHAR_OCTET_LENGTH</span><span class="sxs-lookup"><span data-stu-id="94fcf-154">CHAR_OCTET_LENGTH</span></span>|<span data-ttu-id="94fcf-155">NULL</span><span class="sxs-lookup"><span data-stu-id="94fcf-155">NULL</span></span>|  
+|<span data-ttu-id="94fcf-156">IS_NULLABLE</span><span class="sxs-lookup"><span data-stu-id="94fcf-156">IS_NULLABLE</span></span>|<span data-ttu-id="94fcf-157">"YES"</span><span class="sxs-lookup"><span data-stu-id="94fcf-157">"YES"</span></span>|  
+|<span data-ttu-id="94fcf-158">SS_TYPE_CATALOG_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-158">SS_TYPE_CATALOG_NAME</span></span>|<span data-ttu-id="94fcf-159">テーブル型または CLR ユーザー定義型を含むカタログの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-159">Returns the name of the catalog that contains the table or CLR user-defined type.</span></span>|  
+|<span data-ttu-id="94fcf-160">SS_TYPE_SCHEMA_NAME</span><span class="sxs-lookup"><span data-stu-id="94fcf-160">SS_TYPE_SCHEMA_NAME</span></span>|<span data-ttu-id="94fcf-161">テーブル型または CLR ユーザー定義型を含むスキーマの名前を返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-161">Returns the name of the schema that contains the table or CLR user-defined type.</span></span>|  
+  
+ <span data-ttu-id="94fcf-162">SS_TYPE_CATALOG_NAME 列および SS_TYPE_SCHEMA_NAME 列は [!INCLUDE[ssKatmai](../../includes/sskatmai-md.md)] 以降のバージョンで利用可能であり、これらの列はそれぞれ、テーブル値パラメーターのカタログとスキーマを返します。</span><span class="sxs-lookup"><span data-stu-id="94fcf-162">The SS_TYPE_CATALOG_NAME and SS_TYPE_SCHEMA_NAME columns are available in [!INCLUDE[ssKatmai](../../includes/sskatmai-md.md)] and later versions to return the catalog and schema, respectively, for table-valued parameters.</span></span> <span data-ttu-id="94fcf-163">テーブル値パラメーターに加え CLR ユーザー定義型パラメーターに対しても、これらの列が作成されます </span><span class="sxs-lookup"><span data-stu-id="94fcf-163">These columns are populated for table-valued parameters, and also for CLR user-defined type parameters.</span></span> <span data-ttu-id="94fcf-164">(CLR ユーザー定義型パラメーターの既存のスキーマ列とカタログ列は、この追加機能の影響を受けません。</span><span class="sxs-lookup"><span data-stu-id="94fcf-164">(Existing schema and catalog columns for CLR user-defined type parameters are not affected by this additional functionality.</span></span> <span data-ttu-id="94fcf-165">これらの列は、旧バージョンとの互換性を維持するためにも作成されます)。</span><span class="sxs-lookup"><span data-stu-id="94fcf-165">They are also populated to maintain backward compatibility).</span></span>  
+  
+ <span data-ttu-id="94fcf-166">SS_TYPE_CATALOG_NAME および SS_TYPE_SCHEMA_NAME は、ODBC 仕様に準拠して、以前のバージョンの [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] で追加されたドライバー固有のすべての列の前、かつ ODBC 自体によって指定されるすべての列の後に作成されます。</span><span class="sxs-lookup"><span data-stu-id="94fcf-166">In conformance with the ODBC specification, SS_TYPE_CATALOG_NAME and SS_TYPE_SCHEMA_NAME appear before all driver-specific columns added in previous versions of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)], and after all columns mandated by ODBC itself.</span></span>  
+  
+ <span data-ttu-id="94fcf-167">テーブル値パラメーターの詳細については、「[テーブル値パラメーター &#40;ODBC&#41;](../native-client-odbc-table-valued-parameters/table-valued-parameters-odbc.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="94fcf-167">For more information about table-valued parameters, see [Table-Valued Parameters &#40;ODBC&#41;](../native-client-odbc-table-valued-parameters/table-valued-parameters-odbc.md).</span></span>  
+  
+## <a name="sqlprocedurecolumns-support-for-enhanced-date-and-time-features"></a><span data-ttu-id="94fcf-168">SQLProcedureColumns による機能強化された日付と時刻のサポート</span><span class="sxs-lookup"><span data-stu-id="94fcf-168">SQLProcedureColumns Support for Enhanced Date and Time Features</span></span>  
+ <span data-ttu-id="94fcf-169">日付型または時刻型に対して返される値については、「[カタログメタデータ](../native-client-odbc-date-time/metadata-catalog.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="94fcf-169">For the values returned for date/time types, see [Catalog Metadata](../native-client-odbc-date-time/metadata-catalog.md).</span></span>  
+  
+ <span data-ttu-id="94fcf-170">一般的な情報については、「[日付と時刻の機能強化 &#40;ODBC&#41;](../native-client-odbc-date-time/date-and-time-improvements-odbc.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="94fcf-170">For more general information, see [Date and Time Improvements &#40;ODBC&#41;](../native-client-odbc-date-time/date-and-time-improvements-odbc.md).</span></span>  
+  
+## <a name="sqlprocedurecolumns-support-for-large-clr-udts"></a><span data-ttu-id="94fcf-171">SQLProcedureColumns による大きな CLR UDT のサポート</span><span class="sxs-lookup"><span data-stu-id="94fcf-171">SQLProcedureColumns Support for Large CLR UDTs</span></span>  
+ <span data-ttu-id="94fcf-172">`SQLProcedureColumns` は、大きな CLR ユーザー定義型 (UDT) をサポートしています。</span><span class="sxs-lookup"><span data-stu-id="94fcf-172">`SQLProcedureColumns` supports large CLR user-defined types (UDTs).</span></span> <span data-ttu-id="94fcf-173">詳細については、「[大容量の CLR ユーザー定義型 &#40;ODBC&#41;](../native-client/odbc/large-clr-user-defined-types-odbc.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="94fcf-173">For more information, see [Large CLR User-Defined Types &#40;ODBC&#41;](../native-client/odbc/large-clr-user-defined-types-odbc.md).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="94fcf-174">参照</span><span class="sxs-lookup"><span data-stu-id="94fcf-174">See Also</span></span>  
+ <span data-ttu-id="94fcf-175">[SQLProcedureColumns 関数](https://go.microsoft.com/fwlink/?LinkId=59363) </span><span class="sxs-lookup"><span data-stu-id="94fcf-175">[SQLProcedureColumns Function](https://go.microsoft.com/fwlink/?LinkId=59363) </span></span>  
+ [<span data-ttu-id="94fcf-176">ODBC API 実装の詳細</span><span class="sxs-lookup"><span data-stu-id="94fcf-176">ODBC API Implementation Details</span></span>](odbc-api-implementation-details.md)  
+  
+  

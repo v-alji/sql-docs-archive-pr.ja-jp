@@ -1,0 +1,54 @@
+---
+title: アクション (キューブデザイナー) (Analysis Services-多次元データ) |Microsoft Docs
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: analysis-services
+ms.topic: conceptual
+f1_keywords:
+- sql12.asvs.cubeeditor.actionsview.f1
+ms.assetid: 50e3afbc-7789-46b1-bcd3-50497f5b493f
+author: minewiskan
+ms.author: owend
+ms.openlocfilehash: ae52223c3daa429388b72ce1a6a9b82199fb9e0c
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87632802"
+---
+# <a name="actions-cube-designer-analysis-services---multidimensional-data"></a><span data-ttu-id="62fef-102">[アクション] (キューブ デザイナー) (Analysis Services - 多次元データ)</span><span class="sxs-lookup"><span data-stu-id="62fef-102">Actions (Cube Designer) (Analysis Services - Multidimensional Data)</span></span>
+  <span data-ttu-id="62fef-103">キューブ デザイナーの **[アクション]** タブを使用すると、選択されているキューブの、ドリルスルー アクションやレポート アクションなどのアクションを表示したり編集したりできます。</span><span class="sxs-lookup"><span data-stu-id="62fef-103">Use the **Actions** tab in Cube Designer to view and edit actions, including drillthrough actions and report actions, for the selected cube.</span></span>  
+  
+## <a name="panes"></a><span data-ttu-id="62fef-104">ペイン</span><span class="sxs-lookup"><span data-stu-id="62fef-104">Panes</span></span>  
+ <span data-ttu-id="62fef-105">**ツール バー**</span><span class="sxs-lookup"><span data-stu-id="62fef-105">**Toolbar**</span></span>  
+ <span data-ttu-id="62fef-106">ツールバーを使用して、このタブで一般的な操作を実行します。このペインの詳細については、「[ツールバー &#40;の [操作] タブ」、「キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](toolbar-actions-tab-cube-designer-analysis-services-multidimensional-data.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="62fef-106">Use the toolbar to perform common actions on this tab. For more information about this pane, see [Toolbar &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](toolbar-actions-tab-cube-designer-analysis-services-multidimensional-data.md).</span></span>  
+  
+ <span data-ttu-id="62fef-107">**[アクション オーガナイザー]**</span><span class="sxs-lookup"><span data-stu-id="62fef-107">**Action Organizer**</span></span>  
+ <span data-ttu-id="62fef-108">フォーム ビューの **[アクション オーガナイザー]** ペインでは、キューブに含まれるアクションを一定の順に並べ替えて表示できます。</span><span class="sxs-lookup"><span data-stu-id="62fef-108">Use the **Action Organizer** pane in form view to display the actions contained by the cube in an ordered format.</span></span> <span data-ttu-id="62fef-109">このペインの詳細については、「 [[アクションオーガナイザー &#40;アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](action-organizer-cube-designer-analysis-services-multidimensional-data.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="62fef-109">For more information about this pane, see [Action Organizer &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](action-organizer-cube-designer-analysis-services-multidimensional-data.md).</span></span>  
+  
+ <span data-ttu-id="62fef-110">**[計算ツール]**</span><span class="sxs-lookup"><span data-stu-id="62fef-110">**Calculation Tools**</span></span>  
+ <span data-ttu-id="62fef-111">フォーム ビューの **[計算ツール]** ペインには、キューブで使用できるメタデータ、関数、およびツールが表示されます。</span><span class="sxs-lookup"><span data-stu-id="62fef-111">Use the **Calculation Tools** pane in form view to display metadata, functions, and tools available to the cube.</span></span> <span data-ttu-id="62fef-112">このペインの詳細については、「[計算ツール &#40;アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](calculation-tools-actions-cube-designer-analysis-services-multidimensional-data.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="62fef-112">For more information about this pane, see [Calculation Tools &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](calculation-tools-actions-cube-designer-analysis-services-multidimensional-data.md).</span></span>  
+  
+ <span data-ttu-id="62fef-113">**アクション フォーム エディター**</span><span class="sxs-lookup"><span data-stu-id="62fef-113">**Action Form Editor**</span></span>  
+ <span data-ttu-id="62fef-114">フォーム ビューの **アクション フォーム エディター** ペインでは、キューブに含まれる標準アクションを編集できます。</span><span class="sxs-lookup"><span data-stu-id="62fef-114">Use the **Action Form Editor** pane in form view to edit standard actions contained by the cube.</span></span> <span data-ttu-id="62fef-115">このペインの詳細については、「[アクションフォームエディター &#40;アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](action-form-editor-cube-designer-analysis-services-multidimensional-data.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="62fef-115">For more information about this pane, see [Action Form Editor &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](action-form-editor-cube-designer-analysis-services-multidimensional-data.md).</span></span>  
+  
+ <span data-ttu-id="62fef-116">**ドリルスルー アクション フォーム エディター**</span><span class="sxs-lookup"><span data-stu-id="62fef-116">**Drillthrough Action Form Editor**</span></span>  
+ <span data-ttu-id="62fef-117">**ドリルスルー アクション フォーム エディター** ペインでは、キューブに含まれるドリルスルー アクションを編集できます。</span><span class="sxs-lookup"><span data-stu-id="62fef-117">Use the **Drillthrough Action Form Editor** pane to edit drillthrough actions contained by the cube.</span></span> <span data-ttu-id="62fef-118">このペインの詳細については、「[ドリルスルーアクションフォームエディター &#40;アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](drillthrough-action-form-editor-cube-designer-analysis-services-multidimensional-data.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="62fef-118">For more information about this pane, see [Drillthrough Action Form Editor &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](drillthrough-action-form-editor-cube-designer-analysis-services-multidimensional-data.md).</span></span>  
+  
+ <span data-ttu-id="62fef-119">**レポート アクション フォーム エディター**</span><span class="sxs-lookup"><span data-stu-id="62fef-119">**Report Action Form Editor**</span></span>  
+ <span data-ttu-id="62fef-120">**レポート アクション フォーム エディター** ペインでは、キューブに含まれるレポート アクションを編集できます。</span><span class="sxs-lookup"><span data-stu-id="62fef-120">Use the **Report Action Form Editor** pane to edit report actions contained by the cube.</span></span> <span data-ttu-id="62fef-121">このペインの詳細については、「[レポートアクションフォームエディター &#40;操作] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](report-action-form-editor-cube-designer-analysis-services-multidimensional-data.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="62fef-121">For more information about this pane, see [Report Action Form Editor &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](report-action-form-editor-cube-designer-analysis-services-multidimensional-data.md).</span></span>  
+  
+## <a name="see-also"></a><span data-ttu-id="62fef-122">参照</span><span class="sxs-lookup"><span data-stu-id="62fef-122">See Also</span></span>  
+ <span data-ttu-id="62fef-123">[アクション &#40;Analysis Services-多次元データ&#41;](multidimensional-models/actions-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-123">[Actions &#40;Analysis Services - Multidimensional Data&#41;](multidimensional-models/actions-analysis-services-multidimensional-data.md) </span></span>  
+ <span data-ttu-id="62fef-124">[MDX スクリプティングの基礎 &#40;Analysis Services&#41;](multidimensional-models/mdx/mdx-scripting-fundamentals-analysis-services.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-124">[MDX Scripting Fundamentals &#40;Analysis Services&#41;](multidimensional-models/mdx/mdx-scripting-fundamentals-analysis-services.md) </span></span>  
+ <span data-ttu-id="62fef-125">[ツールバーの [&#40;の操作] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](toolbar-actions-tab-cube-designer-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-125">[Toolbar &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](toolbar-actions-tab-cube-designer-analysis-services-multidimensional-data.md) </span></span>  
+ <span data-ttu-id="62fef-126">[アクション &#40;オーガナイザーの [アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](action-organizer-cube-designer-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-126">[Action Organizer &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](action-organizer-cube-designer-analysis-services-multidimensional-data.md) </span></span>  
+ <span data-ttu-id="62fef-127">[[計算ツール] &#40;[アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](calculation-tools-actions-cube-designer-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-127">[Calculation Tools &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](calculation-tools-actions-cube-designer-analysis-services-multidimensional-data.md) </span></span>  
+ <span data-ttu-id="62fef-128">[アクションフォームエディター &#40;[アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](action-form-editor-cube-designer-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-128">[Action Form Editor &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](action-form-editor-cube-designer-analysis-services-multidimensional-data.md) </span></span>  
+ <span data-ttu-id="62fef-129">[ドリルスルーアクションフォームエディター &#40;[アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](drillthrough-action-form-editor-cube-designer-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-129">[Drillthrough Action Form Editor &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](drillthrough-action-form-editor-cube-designer-analysis-services-multidimensional-data.md) </span></span>  
+ <span data-ttu-id="62fef-130">[レポートアクションフォームエディター &#40;[アクション] タブ、キューブデザイナー&#41; &#40;Analysis Services-多次元データ&#41;](report-action-form-editor-cube-designer-analysis-services-multidimensional-data.md) </span><span class="sxs-lookup"><span data-stu-id="62fef-130">[Report Action Form Editor &#40;Actions Tab, Cube Designer&#41; &#40;Analysis Services - Multidimensional Data&#41;](report-action-form-editor-cube-designer-analysis-services-multidimensional-data.md) </span></span>  
+ [<span data-ttu-id="62fef-131">キューブデザイナー &#40;Analysis Services-多次元データ&#41;</span><span class="sxs-lookup"><span data-stu-id="62fef-131">Cube Designer &#40;Analysis Services - Multidimensional Data&#41;</span></span>](cube-designer-analysis-services-multidimensional-data.md)  
+  
+  

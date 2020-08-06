@@ -1,0 +1,44 @@
+---
+title: '[新しい条件の作成] または [条件を開く] ダイアログ ボックスの [説明] ページ | Microsoft Docs'
+ms.custom: ''
+ms.date: 06/13/2017
+ms.prod: sql-server-2014
+ms.reviewer: ''
+ms.technology: security
+ms.topic: conceptual
+f1_keywords:
+- sql12.swb.dmf.policy.description.f1
+- sql12.swb.dmf.condition.description.f1
+ms.assetid: 2ef0a556-9566-4af8-849e-ab038b9279cc
+author: MikeRayMSFT
+ms.author: mikeray
+ms.openlocfilehash: 7202d69e3c93e5dde475bd3eca881a325d2b28fb
+ms.sourcegitcommit: ad4d92dce894592a259721a1571b1d8736abacdb
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "87641631"
+---
+# <a name="create-new-condition-or-open-condition-dialog-box-description-page"></a>[新しい条件の作成] または [条件を開く] ダイアログ ボックスの [説明] ページ
+  このダイアログ ボックスを使用すると、ポリシー ベースの管理条件に説明を追加できます。  
+  
+## <a name="options"></a>オプション  
+ **説明**  
+ 条件の説明を入力します。  
+  
+ **作成日**  
+ 条件が作成された日付。  
+  
+ **作成者**  
+ 条件を作成したログイン。  
+  
+ **[更新日]**  
+ 条件が最後に変更された日付。  
+  
+ **[変更者]**  
+ 条件を最後に変更したログイン。  
+  
+## <a name="see-also"></a>参照  
+ [ポリシー ベースの管理を使用したサーバーの管理](administer-servers-by-using-policy-based-management.md)  
+  
+  

@@ -6,4 +6,4 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 08/04/2020
 ms.locfileid: "87630770"
 ---
-<span data-ttu-id="bdc19-101">.NET Framework</span><span class="sxs-lookup"><span data-stu-id="bdc19-101">.NET Framework</span></span>
+<span data-ttu-id="a1ecb-101">.NET Framework</span><span class="sxs-lookup"><span data-stu-id="a1ecb-101">.NET Framework</span></span>
